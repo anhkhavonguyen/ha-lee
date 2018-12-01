@@ -1,0 +1,45 @@
+<div class="container">
+  <img src="{{ loginLogoUrl }}" alt="Login Logo" class="logo">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h2 class="text-center">{{'APP.LOGIN_COMPONENT.LOGIN' | translate}}</h2>
+      <hr>
+      <form [formGroup]="loginForm">
+        <div class="form-group">
+          <label for="exampleInputEmail1">{{'APP.COMMON.EMAIL_ADDRESS' | translate}}</label>
+          <input [attr.disabled]="isLoading ? '' : null" [(ngModel)]="user.email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="Enter email" type="email" formControlName="emailControl" [ngClass]="{'is-invalid':(loginForm.get('emailControl')?.touched ||
+            loginForm.get('emailControl')?.dirty)&&
+                                         !loginForm.get('emailControl')?.valid}" required>
+          <span class="error invalid" *ngIf="(loginForm.get('emailControl')?.touched ||
+          loginForm.get('emailControl')?.dirty) &&
+          loginForm.get('emailControl')?.errors">
+            <span *ngIf="loginForm.get('emailControl')?.errors.required">
+                {{'APP.LOGIN_COMPONENT.REQUIRED_EMAIL_MESSAGE' | translate}}
+            </span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">{{'APP.LOGIN_COMPONENT.PASSWORD' | translate}}</label>
+          <input [attr.disabled]="isLoading ? '' : null" [(ngModel)]="user.password" name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+            formControlName="passwordControl" type="password" [ngClass]="{'is-invalid':(loginForm.get('passwordControl')?.touched ||
+            loginForm.get('passwordControl')?.dirty)&&
+                                    !loginForm.get('passwordControl')?.valid}" required>
+          <span class="error invalid-feedback" *ngIf="(loginForm.get('passwordControl')?.touched ||
+          loginForm.get('passwordControl')?.dirty) &&
+          loginForm.get('passwordControl')?.errors">
+            <span *ngIf="loginForm.get('passwordControl')?.errors.required">
+                {{'APP.LOGIN_COMPONENT.REQUIRED_PASSWORD_MESSAGE' | translate}}
+            </span>
+          </span>
+        </div>
+        <div class="invalid" *ngIf="isLoginFail">
+            {{error}}
+        </div>
+        <div>&nbsp;</div>
+        <button [disabled]="isLoading" (click)="login()" type="submit" class="btn btn-signin text-center">{{'APP.LOGIN_COMPONENT.SIGNIN' | translate}}</button>
+        <span *ngIf="isLoading" class="loading"> <app-loading-indicator></app-loading-indicator></span>
+      </form>
+    </div>
+  </div>
+</div>

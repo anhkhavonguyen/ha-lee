@@ -1,0 +1,10 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{header}}</h5>
+  </div>
+  <div class="modal-body">
+      <textarea readonly
+      class="content border-top-0 border-bottom-0 border-left-0 w-100">{{content}}</textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" (click)="onDismiss('Cross click')">{{'APP.HOMEPAGE_COMPONENT.CLOSE' | translate}}</button>
+  </div>

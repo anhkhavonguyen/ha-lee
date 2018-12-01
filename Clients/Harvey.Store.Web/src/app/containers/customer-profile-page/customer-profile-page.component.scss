@@ -1,0 +1,462 @@
+.serving-title {
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    &__staff-avatar {
+        width: 40px;
+        height: 40px;  
+    }
+
+    &__title {
+        font-size: 1.25rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        color: inherit;
+    }
+}
+
+.button-group-loading {
+
+    &__done-button {
+        cursor: pointer;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        border-radius: 0.3rem;
+        background-color: #e42c00;
+        width: 100px;
+
+        &:hover {
+            
+            font-size: 1.25rem;
+            line-height: 1.5;
+            border-radius: 0.3rem;
+            background-color: #ff4518;
+        }
+    }
+
+    &__retry-button {
+        cursor: pointer;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        border-radius: 0.3rem;
+        width: 100px;
+    }
+}
+
+.customer-info {
+
+    &__avatar {
+        width: 85px;
+        height: 85px;
+    }
+
+    &__customer-name {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        word-break: break-all;
+    }
+
+    &__phone {
+        font-size: 1.25rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        color: inherit;
+        word-break: break-all;
+
+        &--big {
+            font-size: 1.5rem;
+        }
+    }
+
+    &__customer-code {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    &__resend-sign-up {
+        cursor: pointer;
+    }
+
+    &__reset-password {
+        cursor: pointer;
+    }
+
+    &__total-transaction {
+        margin-right: 3rem;
+    }
+
+    &__email {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        word-break: break-all;
+    }
+
+    &__birthday {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    &__last-used {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    &__total-transaction {
+        float: right;
+    }
+}
+
+.outlet-avatar {
+    height: 75px;
+}
+
+.main-content {
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+}
+
+.header-profile {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    font-size: 24px;
+
+    &__membershiptype {
+        width: 60%;
+        
+        .membershipTypeName {
+            cursor: pointer;
+
+            &:hover {
+                color: #ff4518;
+            }
+        }
+    }
+
+    &__edit-membership {
+        width: 40%;
+    }
+}
+
+.balance-card {
+    height: 175px;
+}
+
+
+.normal-member {
+    background-color: #eeeef0;
+}
+
+.premium-plus-member {
+    font-weight: bold !important;
+}
+
+.member-basic {
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+
+.member-expiry {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+
+.edit-button {
+    cursor: pointer;
+
+    &:hover {
+        color: #ff4518;
+    }
+}
+
+.hidden {
+    display: none;
+} 
+
+.show {
+    display: block;
+}
+
+.loading {
+    width: 250px;
+    height: 100px;
+}
+
+.loading-page {
+    flex-direction: column;
+    height: 80vh;
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+}
+
+.detail-loading {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-loading {
+    font-size:48px;
+    color:#e42c00;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+}
+
+.loading {
+
+    height: 100%;
+    width: 100%;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0, 0.5); 
+    overflow-x: hidden; 
+}
+
+.customer-phone {
+    white-space: nowrap;
+}
+
+.change-phone-button {
+    cursor: pointer;
+
+    &:hover {
+        color:#e42c00;
+    }
+}
+
+@media (min-width: 320px) AND (max-width: 576px) {
+    .header-profile {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        font-size: 15px;
+    
+        &__membershiptype {
+            width: 40%;
+        }
+    
+        &__edit-membership {
+            width: 60%;
+        }
+    }
+
+    .welcome {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    
+        &__staff-avatar {
+            width: 20px;
+            height: 20px;  
+        }
+    
+        &__title {
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+            color: inherit;
+        }
+    }
+
+    .button-group-loading {
+
+        &__done-button {
+            cursor: pointer;
+            font-size: 15px;
+            line-height: 1.2;
+            border-radius: 0.3rem;
+            background-color: #e42c00;
+            width: 50px;
+    
+            &:hover {
+                background-color: #ff4518;
+            }
+        }
+    
+        &__retry-button {
+            cursor: pointer;
+            font-size: 15px;
+            line-height: 1.2;
+            border-radius: 0.3rem;
+            width: 50px;
+        }
+    }
+
+    .customer-info {
+
+        &__avatar {
+            width: 65px;
+            height: 65px;
+        }
+    
+        &__customer-name {
+            font-size: 15px;
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    
+        &__phone {
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+            color: inherit;
+
+            &--big {
+                font-size: 18px;
+            }
+        }
+    
+        &__customer-code {
+            font-size: 15px;
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    
+        &__resend-sign-up {
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        &__reset-password {
+            font-size: 15px;
+            cursor: pointer;
+        }
+    
+        &__total-transaction {
+            font-size: 15px;
+            margin-right: 10px;
+            float: none;
+        }
+
+        &__email {
+            font-size: 15px;
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    
+        &__birthday {
+            font-size: 15px;
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    
+        &__last-used {
+            font-size: 15px;
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+    }
+
+    .customer-phone {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 577px) AND (max-width: 768px) {
+    .header-profile {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        font-size: 20px;
+    
+        &__membershiptype {
+            width: 60%;
+        }
+    
+        &__edit-membership {
+            width: 40%;
+        }
+    }
+
+    .welcome {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    
+        &__staff-avatar {
+            width: 30px;
+            height: 30px;  
+        }
+    
+        &__title {
+            font-size: 20px;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+            color: inherit;
+        }
+    }
+
+    .button-group-loading {
+
+        &__done-button {
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1.2;
+            border-radius: 0.3rem;
+            background-color: #e42c00;
+            width: 70px;
+    
+            &:hover {
+                background-color: #ff4518;
+            }
+        }
+    
+        &__retry-button {
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1.2;
+            border-radius: 0.3rem;
+            width: 70px;
+        }
+    }
+    
+}
+

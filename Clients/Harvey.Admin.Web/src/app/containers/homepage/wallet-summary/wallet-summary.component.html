@@ -1,0 +1,427 @@
+<div class="card">
+  <div class="card-body">
+      <ul class="a">
+          <li>{{'APP.HOMEPAGE_COMPONENT.TOTAL_TOPUP' | translate}}
+              <span *ngIf="isLoadingCreditWalletTransaction" class="mt-2 mb-1"><i class="icon-loading fa fa-spinner fa-spin ml-2"></i></span>
+              <span *ngIf="!isLoadingCreditWalletTransaction">
+                  <strong>${{totalCreditWalletTrans}}</strong>
+              </span>
+              <p>
+                  <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapsedCreditWalletTrans = !isCollapsedCreditWalletTrans"
+                      [attr.aria-expanded]="!isCollapsedCreditWalletTrans" aria-controls="collapsedCreditWalletTrans">
+                      {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                  </button>
+              </p>
+              <div id="collapsedCreditWalletTrans" [ngbCollapse]="!isCollapsedCreditWalletTrans" class="transaction-collapse">
+                  <div class="card">
+                      <div class="card-body transaction-grid">
+                          <ngx-datatable class="material" [rows]="creditWalletTransactionList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                              [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemCreditWalletTransaction" [offset]="pageNumberCreditWallet"
+                              [limit]="pageSize" [loadingIndicator]="loadingIndicatorCreditWalletTransaction" (page)='setCreditValueWalletTransactionPage($event)'
+                              *ngIf="isCollapsedCreditWalletTrans">
+
+                              <ngx-datatable-column name="{{'APP.COMMON.DATETIME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.createdDate}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="customer-name" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.customerName}}</a>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="phone" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.phoneCustomer}}</a>
+                                      <div *ngIf="!row.customerId" class="phone">
+                                          {{row.phoneCustomer}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.CREDIT' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.credit}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.BALANCE' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.balanceTotal}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.DONE_BY' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.staffName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.OUTLET' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.outletName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.IP_ADDRESS' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <div class="phone">
+                                          {{row.ipAddress}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.VOIDED' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <i *ngIf="row.voided" class="fas fa-check"></i>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.VOIDED_BY' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.voidedBy}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                          </ngx-datatable>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li>{{'APP.HOMEPAGE_COMPONENT.TOTAL_SPEND' | translate}}
+              <span *ngIf="isLoadingDebitWalletTransaction" class="mt-2 mb-1"><i class="icon-loading fa fa-spinner fa-spin ml-2"></i></span>
+              <span *ngIf="!isLoadingDebitWalletTransaction">
+                  <strong>${{totalDebitWalletTrans}}</strong>
+              </span>
+              <p>
+                  <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapsedDebitWalletTrans = !isCollapsedDebitWalletTrans"
+                      [attr.aria-expanded]="!isCollapsedDebitWalletTrans" aria-controls="collapsedDebitWalletTrans">
+                      {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                  </button>
+              </p>
+              <div id="collapsedDebitWalletTrans" [ngbCollapse]="!isCollapsedDebitWalletTrans" class="transaction-collapse">
+                  <div class="card">
+                      <div class="card-body transaction-grid">
+                          <ngx-datatable class="material" [rows]="debitWalletTransactionList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                              [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemDebitWalletTransaction" [offset]="pageNumberDebitWallet"
+                              [limit]="pageSize" [loadingIndicator]="loadingIndicatorDebitWalletTransaction" (page)='setDebitValueWalletTransactionPage($event)'
+                              *ngIf="isCollapsedDebitWalletTrans">
+
+                              <ngx-datatable-column name="{{'APP.COMMON.DATETIME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.createdDate}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="customer-name" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.customerName}}</a>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="phone" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.phoneCustomer}}</a>
+                                      <div *ngIf="!row.customerId" class="phone">
+                                          {{row.phoneCustomer}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.DEBIT' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.debit}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.BALANCE' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.balanceTotal}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.DONE_BY' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.staffName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.OUTLET' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.outletName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.IP_ADDRESS' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <div class="phone">
+                                          {{row.ipAddress}}
+                                      </div>
+
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.VOIDED' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <i *ngIf="row.voided" class="fas fa-check"></i>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.VOIDED_BY' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.voidedBy}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                          </ngx-datatable>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li>{{'APP.HOMEPAGE_COMPONENT.TOTAL_VOID_OF_TOPUP' | translate}}
+              <span *ngIf="isLoadingVoidOfCreditWalletTransaction" class="mt-2 mb-1"><i class="icon-loading fa fa-spinner fa-spin ml-2"></i></span>
+              <span *ngIf="!isLoadingVoidOfCreditWalletTransaction">
+                  <strong>${{totalVoidOfCreditWalletTrans}}</strong>
+              </span>
+              <p>
+                  <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapsedVoidOfCreditWalletTrans = !isCollapsedVoidOfCreditWalletTrans"
+                      [attr.aria-expanded]="!isCollapsedVoidOfCreditWalletTrans" aria-controls="collapsedVoidOfCreditWalletTrans">
+                      {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                  </button>
+              </p>
+              <div id="collapsedVoidOfCreditWalletTrans" [ngbCollapse]="!isCollapsedVoidOfCreditWalletTrans" class="transaction-collapse">
+                  <div class="card">
+                      <div class="card-body transaction-grid">
+                          <ngx-datatable class="material" [rows]="voidOfCreditWalletTransactionList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                              [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemVoidOfCreditWalletTransaction"
+                              [offset]="pageNumberVoidOfCreditWallet" [limit]="pageSize" [loadingIndicator]="loadingIndicatorVoidOfCreditWalletTransaction"
+                              (page)='setVoidOfCreditValueWalletTransactionPage($event)' *ngIf="isCollapsedVoidOfCreditWalletTrans">
+
+                              <ngx-datatable-column name="{{'APP.COMMON.DATETIME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.createdDate}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="customer-name" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.customerName}}</a>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="phone" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.phoneCustomer}}</a>
+                                      <div *ngIf="!row.customerId" class="phone">
+                                          {{row.phoneCustomer}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.DEBIT' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.debit}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.BALANCE' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.balanceTotal}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.DONE_BY' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.staffName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.OUTLET' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.outletName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.IP_ADDRESS' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <div class="phone">
+                                          {{row.ipAddress}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.VOIDED' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <i *ngIf="row.voided" class="fas fa-check"></i>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                          </ngx-datatable>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li>{{'APP.HOMEPAGE_COMPONENT.TOTAL_VOID_OF_SPEND' | translate}}
+              <span *ngIf="isLoadingVoidOfDebitWalletTransaction" class="mt-2 mb-1"><i class="icon-loading fa fa-spinner fa-spin ml-2"></i></span>
+              <span *ngIf="!isLoadingVoidOfDebitWalletTransaction">
+                  <strong>${{totalVoidOfDebitWalletTrans}}</strong>
+              </span>
+              <p>
+                  <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapsedVoidOfDebitWalletTrans = !isCollapsedVoidOfDebitWalletTrans"
+                      [attr.aria-expanded]="!isCollapsedVoidOfDebitWalletTrans" aria-controls="collapsedVoidOfDebitWalletTrans">
+                      {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                  </button>
+              </p>
+              <div id="collapsedVoidOfDebitWalletTrans" [ngbCollapse]="!isCollapsedVoidOfDebitWalletTrans" class="transaction-collapse">
+                  <div class="card">
+                      <div class="card-body transaction-grid">
+                          <ngx-datatable class="material" [rows]="voidOfDebitWalletTransactionList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                              [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemVoidOfDebitWalletTransaction"
+                              [offset]="pageNumberVoidOfDebitWallet" [limit]="pageSize" [loadingIndicator]="loadingIndicatorVoidOfDebitWalletTransaction"
+                              (page)='setVoidOfDebitValueWalletTransactionPage($event)' *ngIf="isCollapsedVoidOfDebitWalletTrans">
+
+                              <ngx-datatable-column name="{{'APP.COMMON.DATETIME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.createdDate}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="customer-name" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.customerName}}</a>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <a *ngIf="row.customerId" class="phone" [routerLink]="['/customer-detail', row.customerId,row.customerCode]">{{row.phoneCustomer}}</a>
+                                      <div *ngIf="!row.customerId" class="phone">
+                                          {{row.phoneCustomer}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.CREDIT' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.credit}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.BALANCE' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      ${{row.balanceTotal}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.DONE_BY' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.staffName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.OUTLET' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      {{row.outletName}}
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.COMMON.IP_ADDRESS' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <div class="phone">
+                                          {{row.ipAddress}}
+                                      </div>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                              <ngx-datatable-column name="{{'APP.CUSTOMER_DETAIL_COMPONENT.VOIDED' | translate}}">
+                                  <ng-template let-column="column" ngx-datatable-header-template>
+                                      {{column.name}}
+                                  </ng-template>
+                                  <ng-template let-row="row" ngx-datatable-cell-template>
+                                      <i *ngIf="row.voided" class="fas fa-check"></i>
+                                  </ng-template>
+                              </ngx-datatable-column>
+                          </ngx-datatable>
+                      </div>
+                  </div>
+              </div>
+          </li>
+      </ul>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+UPDATE public."AspNetUsers" SET "IsActive"=true;

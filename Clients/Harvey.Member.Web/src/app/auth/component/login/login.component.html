@@ -1,0 +1,85 @@
+<div class="container login-page">
+  <img class="tog-logo" src="{{mainLogo}}">
+  <div class="card">
+    <div class="card-header">
+      {{'LOGIN.header'|translate}}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="enterPhoneForm" *ngIf="isEnterPhoneView && !isEnterPassView">
+        <fieldset>
+          <div class="form-group form-group--custom">
+            <label class="form-group--title">{{'LOGIN.phoneNumber'|translate}}</label>
+            <div class="row">
+              <div class="col-md-2 col-5">
+                <select class="form-control"
+                        formControlName="countryCode">
+                  <option
+                    *ngFor="let phone of listPhoneValidator"
+                    value="{{phone.countryCode}}">+{{phone.countryCode}} ({{phone.name}})
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-10 col-7">
+                <input class="form-control"
+                       type="tel"
+                       placeholder="{{'LOGIN.inputPhoneNumber'|translate}}"
+                       formControlName="phoneNum"
+                       [ngClass]="{'is-invalid':(enterPhoneForm.get('phoneNum').touched ||
+                                         enterPhoneForm.get('phoneNum').dirty)&&
+                                         !enterPhoneForm.get('phoneNum').valid}">
+                <span class="error invalid-feedback" *ngIf="(enterPhoneForm.get('phoneNum').touched ||
+                                                   enterPhoneForm.get('phoneNum').dirty) &&
+                                                    enterPhoneForm.get('phoneNum').errors">
+              <span *ngIf="enterPhoneForm.get('phoneNum').errors.required">
+                {{'ERROR.emptyPhoneNumber'|translate}}
+              </span>
+            </span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="group-action group-action--login">
+          <button (click)="verifyPhoneNumber()"
+                  type="button"
+                  class="btn btn--orange"
+                  [disabled]="!enterPhoneForm.get('phoneNum').valid || isVerifyNumber">{{'BUTTON.next'|translate}}
+          </button>
+        </div>
+      </form>
+
+      <form [formGroup]="enterPasswordForm" *ngIf="!isEnterPhoneView && isEnterPassView">
+        <fieldset>
+          <h5 class="welcome-back" *ngIf="phoneVerifyResponse">{{'LOGIN.welcome-back'|translate}}
+            {{phoneVerifyResponse.fullName}}</h5>
+          <div class="form-group">
+            <label class="form-group--title">{{'LOGIN.password'|translate}}</label>
+            <input class="form-control"
+                   placeholder="{{'LOGIN.inputPassword'|translate}}"
+                   formControlName="password"
+                   type="password"
+                   [ngClass]="{'is-invalid':(enterPasswordForm.get('password').touched ||
+                                             enterPasswordForm.get('password').dirty)&&
+                                             !enterPasswordForm.get('password').valid}">
+            <a (click)="forgotPassword()" class="btn--forgot-password">{{'BUTTON.forgot-password'|translate}}</a>
+            <span class="error invalid-feedback" *ngIf="(enterPasswordForm.get('password').touched ||
+                                                         enterPasswordForm.get('password').dirty) &&
+                                                         enterPasswordForm.get('password').errors">
+              <span *ngIf="enterPasswordForm.get('password').errors.required">
+                {{'ERROR.emptyPassword'|translate}}
+              </span>
+            </span>
+          </div>
+        </fieldset>
+        <div class="group-action">
+          <a (click)="enterPhoneNumber()">{{'BUTTON.edit-number'|translate}}</a>
+          <button (click)="signIn()"
+                  type="button"
+                  class="btn btn--orange"
+                  [disabled]="!enterPasswordForm.get('password').valid || isLogin">{{'BUTTON.sign-in'|translate}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

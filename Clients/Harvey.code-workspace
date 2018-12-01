@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "Harvey.Store.Web"
+		},
+		{
+			"path": "Harvey.Member.Web"
+		},
+		{
+			"path": "Harvey.Admin.Web"
+		}
+	],
+	"settings": {}
+}

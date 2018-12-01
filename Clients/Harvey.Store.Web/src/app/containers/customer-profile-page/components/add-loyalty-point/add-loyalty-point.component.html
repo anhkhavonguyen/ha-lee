@@ -1,0 +1,151 @@
+<div class="modal-header">
+    <p class="modal-title h4">{{'ADD_LOYALTY_POINT.title'|translate}}</p>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="onDismiss('Cross click')">
+        <i class="close-icon fas fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="modal-body__header row mb-3">
+        <div class="col-6">
+            <b>{{rewardsPointsTitle}}</b>
+        </div>
+        <div class="col-6 text-align-right">
+            {{rewardPoint}} {{'ADD_LOYALTY_POINT.points-earned'|translate}}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="modal-body__header row mb-3 text-align-center"
+         *ngIf="!isConfirm">
+        <div class="col-12">
+            {{'ADD_LOYALTY_POINT.question-customer'|translate}}
+        </div>
+        <div class=" col-12">
+            <h4>$ {{pointValue}}</h4>
+        </div>
+    </div>
+
+    <div class="row text-align-center"
+         *ngIf="isConfirm">
+        <div class="modal-body__info col-12 mb-3 d-flex flex-column">
+            <h4>$ {{pointValue}}</h4>
+            <i class="arrow-convert fas fa-angle-double-down"></i>
+            <h4>{{totalPointAdd}} {{'ADD_LOYALTY_POINT.points'|translate}}</h4>
+        </div>
+        <div class="col-12 mb-3">
+            <a class="edit-amount"
+               (click)="editAmount()">{{'ADD_LOYALTY_POINT.edit-amount'|translate}}</a>
+        </div>
+        <div class="col-12 mt-3">
+            <div class="new-balance border d-flex align-items-center">
+                <p class="text-center w-100">{{'ADD_LOYALTY_POINT.new-balance'|translate}} <b>{{newBalance}} {{'ADD_LOYALTY_POINT.points'|translate}}</b></p>
+            </div>
+            <div class="total-add border border-top-0  border-bottom-0 d-flex align-items-center">
+                <p class="text-center w-100"> <b>{{pointValueAdd}} {{'ADD_LOYALTY_POINT.points'|translate}}</b><span *ngIf="isShowPointBirthdayBonus()"><b> x {{birthdayBonusExchangeRate}} {{'ADD_LOYALTY_POINT.birthday-bonus'|translate}}
+                </b></span> {{'ADD_LOYALTY_POINT.will-added'|translate}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isConfirm">
+        <div class="virtual-keyboard w-100">
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(1)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">1</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(2)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">2</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(3)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(4)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">4</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(5)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">5</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(6)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">6</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(7)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">7</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(8)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">8</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(9)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">9</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row --non-border-bottom">
+                <div class="virtual-keyboard__row-button"
+                     (click)="clearValue()">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">C</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(0)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">0</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="subNumber()">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">
+                            <i class="fas fa-backspace"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="save-button btn w-100"
+            *ngIf="!isConfirm"
+            type="button"
+            [ngClass]="{'pointer-event-none': !pointValue || pointValue==0}"
+            (click)="onClickNextButton()">{{'BUTTON.next'|translate}}</button>
+    <button class="save-button btn w-100"
+            *ngIf="isConfirm"
+            type="button"
+            (click)="onClickConfirmButton()"> {{'BUTTON.confirm'|translate}}</button>
+</div>

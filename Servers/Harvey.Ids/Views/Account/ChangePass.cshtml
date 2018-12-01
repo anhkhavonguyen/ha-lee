@@ -1,0 +1,43 @@
+﻿@using Harvey.Ids.ViewModels.Accounts
+@model ChangePasswordViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="change-password-page">
+    <div class="change-password-panel panel-default">
+        <div class="panel-body">
+            <h3 class="text-center">Change password</h3>
+            <hr>
+            @Html.Partial("_ValidationSummary")
+
+            <form id="forgot_password" asp-controller="Account" asp-action="ChangePass" method="POST">
+                @Html.Hidden("ReturnUrl", (string)ViewBag.ReturnUrl)
+                <div class="input-group">
+                    <div class="form-line">
+                        <label>Old Password</label>
+                        <input type="password" class="login-input" placeholder="" asp-for="CurrentPassword" required>
+                    </div>
+                    <p class="notification_password">@ViewBag.Error</p>
+                    <div class="form-line">
+                        <label>New Password</label>
+                        <input type="password" class="login-input" placeholder="" asp-for="NewPassword" required>
+                    </div>
+                    <div class="form-line">
+                        <label>Confirm Password</label>
+                        <input type="password" class="login-input" placeholder="" asp-for="ConfirmPassword" required>
+                    </div>
+                    <p class="notification_password">@ViewBag.Comment</p>
+                </div>
+
+                <button class="btn btn-block btn-lg bg-color waves-effect fp-button-submit" type="submit">SAVE</button>
+
+                <div class="row m-t-20 m-b--5 align-center">
+                    <a asp-controller="Home" asp-action="Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

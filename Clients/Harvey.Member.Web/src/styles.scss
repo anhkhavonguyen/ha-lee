@@ -1,0 +1,97 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  background: #fff url("assets/img/background/bg-music.png") repeat scroll;
+}
+
+.member-app {
+  &--loading{
+    opacity: 0.1;
+  }
+  .wrapper {
+    height: 100vh;
+    overflow: hidden;
+    &__header {
+      height: 60px;
+    }
+    &__main {
+      height: calc(100% - 60px);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    &__footer{
+      height: 70px;
+    }
+  }
+  .loading-page{
+    display: flex;
+    z-index: 1;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.88);
+  }
+  a {
+    text-decoration: none;
+    color: #e42c00;
+    cursor: pointer;
+  }
+  a:hover {
+    color: #ff4518;
+  }
+  a:not([href]):not([tabindex]) {
+    color: #e42c00;
+  }
+  .btn {
+    &--orange {
+      margin-right: 10px;
+      background-color: #ff4518;
+      border-color: #ff4518;
+      color: #fff;
+    }
+    &--orange:hover {
+      background-color: #e42c00;
+    }
+    &--orange:not(:disabled):not(.disabled).active {
+      background-color: #e42c00;
+      border-color: #e42c00;
+    }
+    &--gender {
+      width: 100%;
+      background-color: white;
+      border-color: #ff4518;
+    }
+    &--gender:hover {
+      background-color: #e42c00;
+      color: white;
+    }
+    &--gender:not(:disabled):not(.disabled).active {
+      background-color: #e42c00;
+      border-color: #e42c00;
+      color: white;
+    }
+  }
+  .icon {
+    width: 30px;
+    margin-right: 5px;
+  }
+  .group-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &--login{
+      justify-content: flex-end;
+    }
+    &--change-phone{
+      justify-content: flex-end;
+    }
+  }
+}

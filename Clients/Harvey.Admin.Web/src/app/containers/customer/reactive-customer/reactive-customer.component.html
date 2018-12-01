@@ -1,0 +1,52 @@
+<div *ngIf="isLoading" class="loading-reactive-customer">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+<div class="modal-header">
+  <h5 class="modal-title">{{'APP.REACTIVE_CUSTOMER.REACTIVE' | translate}}</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onDismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>{{'APP.REACTIVE_CUSTOMER.EXISTS_CUSTOMER' | translate}}</p>
+  <form [formGroup]="reactiveCustomerForm">
+    <fieldset>
+      <div class="form-group">
+        <label>{{'APP.COMMON.PHONE' | translate}}</label>
+        <div class="phone-group row">
+          <div class="col-md-3">
+            <select class="custom-select" id="inputGroupSelect01" formControlName="phoneCountryCode" [(ngModel)]="countryCode">
+              <option *ngFor="let phone of validatePhones" class="option" value="{{phone.countryCode}}">{{phone.name}}(+{{phone.countryCode}})</option>
+            </select>
+          </div>
+          <input formControlName="phoneNumber" class="col-md-9 form-control phone-number" placeholder="{{'APP.EDIT_OUTLET_COMPONENT.PHONE_NUMBER' | translate}}"
+            type="tel" [(ngModel)]="phoneNumber" [ngClass]="{'is-invalid':(reactiveCustomerForm.get('phoneNumber')?.touched ||
+              reactiveCustomerForm.get('phoneNumber')?.dirty)
+                        && (!reactiveCustomerForm.get('phoneNumber')?.valid || !reactiveCustomerForm.valid)}">
+
+          <span class="error invalid-feedback" *ngIf="(reactiveCustomerForm.get('phoneNumber')?.dirty)
+                        && (reactiveCustomerForm.get('phoneNumber')?.errors || reactiveCustomerForm?.errors)">
+            <span class="row error-message" *ngIf="reactiveCustomerForm.get('phoneNumber')?.errors?.required || reactiveCustomerForm.get('phoneNumber')?.errors?.nospace">
+              {{'APP.ERROR.PHONE_REQUIRED' | translate}}
+            </span>
+            <span class="row error-message" *ngIf="reactiveCustomerForm.get('phoneNumber')?.errors?.pattern
+                            || reactiveCustomerForm.get('phoneCountryCode')?.errors?.pattern">
+              {{'APP.ERROR.INPUT_NUMBER' | translate}}
+            </span>
+            <span class="row error-message" *ngIf="!reactiveCustomerForm.get('phoneNumber')?.errors
+                            && reactiveCustomerForm?.errors?.invalidPhone">
+              {{'APP.ERROR.INVALID_PHONE' | translate}}
+            </span>
+          </span>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button [disabled]="!reactiveCustomerForm.valid 
+                        || isLoading 
+                        || !reactiveCustomerForm.get('phoneNumber')?.dirty" class="btn btn-primary" (click)="onClickSaveBtn($event)"
+    type="button">{{'APP.COMMON.SAVE' | translate}}</button>
+</div>

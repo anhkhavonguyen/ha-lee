@@ -1,0 +1,116 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+//@import '@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.filter {
+    padding: 20px 15px 10px 0;
+    justify-content: flex-end;
+}
+
+.dashboard-content {
+    min-height: 500px;
+}
+
+.ng-select.custom {
+    min-width: 200px;
+}
+
+.card {
+    margin-top: 20px;
+}
+.actived-filter {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-group{
+    margin-left: 10px;
+}
+
+.date-filter{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0 0 10px;
+}
+
+.outlets-dropdown {
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.member-filter {
+    padding: 0;
+}
+
+.transactions-detail {
+    padding: 0 5px !important;
+}
+
+.transaction-collapse {
+    margin-bottom: 1rem;
+}
+
+.transaction-grid {
+    background-color: whitesmoke;
+}
+
+.reset {
+    margin-left: 10px;
+}
+
+.phone {
+    white-space: nowrap;
+}
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.filter-date {
+    padding-right: 5px;
+    padding-top: 10px;
+}
+
+.filter-todate {
+    padding-left: 30px;
+}
+
+.group-filter-date {
+    display: flex;
+}
+
+.btn-reset {
+    padding-top: 10px;
+}
+
+.btn-filter {
+    padding-top: 10px;
+}
+
+.tab-title{
+    font-weight: bold;
+}
+
+@media (max-width: 1239px) { 
+    .desktop-hidden {
+        display: initial;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+@media (min-width: 1240px) {
+    .desktop-hidden {
+        display: none;
+      }
+      .mobile-hidden {
+        display: initial;
+      }
+}

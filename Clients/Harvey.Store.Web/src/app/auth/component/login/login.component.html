@@ -1,0 +1,72 @@
+<div class="login-page w-100 h-100">
+  <div *ngIf="isLoading"
+       class="loading">
+    <app-loading></app-loading>
+  </div>
+  <div class="container d-flex flex-column justify-content-center align-items-center w-100">
+    <img src="{{loginLogo}}"
+         alt="Tog Logo"
+         class="logo">
+    <div class="panel panel-default bg-white w-50">
+      <div class="panel-body">
+        <h2 class="text-center">{{'LOGIN.title'|translate}}</h2>
+        <hr>
+        <form [formGroup]="loginForm">
+          <div class="form-group">
+            <label for="exampleInputUsername">{{'LOGIN.user-name'|translate}}</label>
+            <input [(ngModel)]="user.username"
+                   formControlName="usernameControl"
+                   name="username"
+                   type="text"
+                   class="form-control"
+                   id="exampleInputUsername"
+                   aria-describedby="usernameHelp"
+                   placeholder="{{'LOGIN.user-name'|translate}}"
+                   [ngClass]="{'is-invalid':(loginForm.get('usernameControl').touched ||
+            loginForm.get('usernameControl').dirty) && !loginForm.get('usernameControl').valid}"
+                   required>
+            <span class="error invalid"
+                  *ngIf="(loginForm.get('usernameControl').touched || loginForm.get('usernameControl').dirty) && loginForm.get('usernameControl').errors">
+              <span *ngIf="loginForm.get('usernameControl').errors.required">
+                {{'ERROR.empty-username'|translate}}
+              </span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">{{'LOGIN.password'|translate}}</label>
+            <input [(ngModel)]="user.password"
+                   formControlName="passwordControl"
+                   name="password"
+                   type="password"
+                   class="form-control"
+                   id="exampleInputPassword1"
+                   placeholder="{{'LOGIN.password'|translate}}"
+                   [ngClass]="{'is-invalid':(loginForm.get('passwordControl').touched || loginForm.get('passwordControl').dirty) &&
+            !loginForm.get('passwordControl').valid}"
+                   required>
+            <span class="error invalid-feedback"
+                  *ngIf="(loginForm.get('passwordControl').touched ||
+            loginForm.get('passwordControl').dirty) &&
+            loginForm.get('passwordControl').errors">
+              <span *ngIf="loginForm.get('passwordControl').errors.required">
+                {{'ERROR.empty-password'|translate}}
+              </span>
+
+            </span>
+          </div>
+          <div class="invalid mb-1">
+            {{error}}
+            <span *ngIf="!validTimeForLogin">
+              {{'ERROR.system-not-available'|translate}}
+            </span>
+          </div>
+          <button type="submit"
+                  class="sign-in-button btn text-white text-center mt-1"
+                  (click)="onClickLoginButton()">{{'BUTTON.sign-in'|translate}}</button>
+          <div class="form-group text-center">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

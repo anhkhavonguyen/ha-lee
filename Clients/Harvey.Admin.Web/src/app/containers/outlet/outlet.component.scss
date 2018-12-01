@@ -1,0 +1,49 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+.outlet-body {
+    padding: 20px 20px;
+}
+
+.grid {
+    border: solid 1px darkgray;
+    background-color: #fff;
+}
+
+.row-detail {
+    padding: 20px 20px 20px 35px;;
+    background-color: rgb(223, 237, 253);
+    font-size:14px;
+    width: 100;
+}
+
+.toggle-icon{
+  color: #6c757d !important;
+  text-decoration : none;
+}
+
+.phone {
+  white-space: nowrap;
+}
+.icon {
+  height: 65px;
+  width: 65px;
+}
+@media screen and (max-width: 800px) {
+    .desktop-hidden {
+      display: initial;
+    }
+    .mobile-hidden {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    .desktop-hidden {
+      display: none;
+    }
+    .mobile-hidden {
+      display: initial;
+    }
+  }

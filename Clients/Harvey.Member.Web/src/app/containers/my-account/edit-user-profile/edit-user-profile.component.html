@@ -1,0 +1,270 @@
+<app-loading-page *ngIf="isLoading"></app-loading-page>
+<div class="container edit-profile">
+  <div class="card wrapper">
+    <div class="card-header wrapper__header">
+      <label>{{'EDIT-PROFILE.header'|translate}}</label>
+      <i (click)="back()" class="fas fa-chevron-left icon--back"></i>
+    </div>
+    <div class="card-body wrapper__main user-profile">
+        <div class="blank-page" [hidden]="checkExistMember || isLoading">
+            <p class="message h3">{{'MY-ACCOUNT.member-is-deactive'|translate}}</p>
+        </div>
+      <div [hidden]="!checkExistMember">
+          <section class="container user-profile__avatar">
+              <div class="avatar-container">
+                <img src="{{displayPicture}}" alt="Avatar" class="avatar-container--img">
+                <div class="avatar-container--faded">
+                  <div>
+                    <i class="fas fa-edit"></i>
+                    <input type="file" (change)="handleFileSelect($event)" accept="image/*">
+                  </div>
+                </div>
+              </div>
+              <i *ngIf="displayPicture != defaultPicture" class="btn--clear-avatar  fas fa-user-times" (click)="removeProfilePicture()"></i>
+            </section>
+      
+            <section class="container user-profile__personal-info">
+              <div class="personal-info__header">
+                <h5 class="personal-info__header--title">{{'EDIT-PROFILE.personal-info'|translate}}</h5>
+                <hr>
+              </div>
+              <div class="personal-info__profile-form">
+                <form [formGroup]="userProfileForm">
+                  <fieldset>
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                          <label>{{'FORM.firstName'|translate}}</label>
+                          <input class="form-control" placeholder="{{'FORM.firstName'|translate}}" type="text" formControlName="firstName" [ngClass]="{'is-invalid': (userProfileForm.get('firstName').touched ||
+                                                            userProfileForm.get('firstName').dirty) &&
+                                                            !userProfileForm.get('firstName').valid}">
+                          <span class="invalid-feedback" *ngIf="(userProfileForm.get('firstName').touched ||
+                                                                 userProfileForm.get('firstName').dirty) &&
+                                                                 userProfileForm.get('firstName').errors">
+                            <span *ngIf="userProfileForm.get('firstName').errors.required">
+                              {{'ERROR.emptyFirstName'|translate}}
+                            </span>
+                            <span *ngIf="userProfileForm.get('firstName').errors.minlength">
+                              {{'ERROR.firstNameMinLength'|translate}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                          <label>{{'FORM.lastName'|translate}}</label>
+                          <input class="form-control" placeholder="{{'FORM.lastName'|translate}}" type="text" formControlName="lastName" [ngClass]="{'is-invalid': (userProfileForm.get('lastName').touched ||
+                                                            userProfileForm.get('lastName').dirty) &&
+                                                            !userProfileForm.get('lastName').valid}">
+                          <span class="invalid-feedback" *ngIf="(userProfileForm.get('lastName').touched ||
+                                                                 userProfileForm.get('lastName').dirty) &&
+                                                                 userProfileForm.get('lastName').errors">
+                            <span *ngIf="userProfileForm.get('lastName').errors.required">
+                              {{'ERROR.emptyLastName'|translate}}
+                            </span>
+                            <span *ngIf="userProfileForm.get('lastName').errors.maxlength">
+                              {{'ERROR.lastNameMaxLength'|translate}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="row" formGroupName="genderGroup">
+                      <div ngbRadioGroup formControlName="gender" class="personal-info__gender-group">
+                        <div class="col-6 col-md-6 ">
+                          <label ngbButtonLabel class="btn--gender">
+                            <input type="radio" ngbButton value="Male">Male
+                          </label>
+                        </div>
+                        <div class="col-6 col-md-6">
+                          <label ngbButtonLabel class="btn--gender">
+                            <input type="radio" ngbButton value="Female">Female
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="form-group">
+                      <label>{{'FORM.email'|translate}}</label>
+                      <input class="form-control" placeholder="{{'FORM.emailHint'|translate}}" type="email" formControlName="email" [ngClass]="{'is-invalid': (userProfileForm.get('email').touched ||
+                                                            userProfileForm.get('email').dirty) &&
+                                                            !userProfileForm.get('email').valid}">
+                      <span class="invalid-feedback" *ngIf="(userProfileForm.get('email').touched ||
+                                                       userProfileForm.get('email').dirty) &&
+                                                       userProfileForm.get('email').errors">
+                        <span *ngIf="userProfileForm.get('email').errors.required">
+                          {{'ERROR.emptyEmail'|translate}}
+                        </span>
+                        <span *ngIf="userProfileForm.get('email').errors.pattern">
+                          {{'ERROR.invalid-email-format'|translate}}
+                        </span>
+                      </span>
+                    </div>
+      
+                    <div class="form-group">
+                      <label>{{'FORM.birthday'|translate}}</label>
+                      <div class="input-group">
+                        <input class="form-control"
+                            placeholder="{{'FORM.birthday'|translate}}" 
+                            readonly 
+                            name="dp"
+                            ngbDatepicker
+                            [minDate]="{year: 1900, month: 1, day: 1}"
+                            formControlName="dateOfBirth"
+                            #d="ngbDatepicker">
+                        <div [hidden]="!isEditDateOfBirth" class="input-group-append">
+                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                            <i class="fa fa-calendar-alt"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="form-group">
+                      <label>{{'FORM.postal-code'|translate}}</label>
+                      <input class="form-control" placeholder="{{'FORM.postal-code'|translate}}" formControlName="postalCode">
+                    </div>
+                  </fieldset>
+                  <a class="btn--cancel" (click)="cancel()">{{'BUTTON.cancel'|translate}}</a>
+                  <button type="button" class="btn btn--orange" [disabled]="!userProfileForm.valid || isUpdateProfile" (click)="updateProfile()">{{'BUTTON.save'|translate}}
+                  </button>
+                </form>
+              </div>
+            </section>
+      
+            <section class="container user-profile__password">
+              <div class="user-profile__header">
+                <h5 class="user-profile__header--title">{{'EDIT-PROFILE.password'|translate}}</h5>
+                <hr>
+                <form [formGroup]="changePasswordForm">
+                  <fieldset>
+                    <div class="form-group">
+                      <label>{{'FORM.current-password'|translate}}</label>
+                      <input type="password" class="form-control" placeholder="{{'FORM.current-password'|translate}}" formControlName="currentPassword"
+                        [ngClass]="{'is-invalid':changePasswordForm.get('currentPassword').dirty&&
+                                                     !changePasswordForm.get('currentPassword').valid}">
+                      <span class="error invalid-feedback" *ngIf="  changePasswordForm.get('currentPassword').dirty&&
+                                                                    changePasswordForm.get('currentPassword').errors">
+                        <span *ngIf="changePasswordForm.get('currentPassword').errors.required">
+                          {{'ERROR.emptyCurrentPassword'|translate}}
+                        </span>
+                      </span>
+      
+                    </div>
+                    <div formGroupName="newPasswordGroup">
+                      <div class="form-group">
+                        <label>{{'FORM.new-password'|translate}}</label>
+                        <input type="password" class="form-control" placeholder="{{'FORM.new-password'|translate}}" formControlName="newPassword"
+                          [ngClass]="{'is-invalid':changePasswordForm.get('newPasswordGroup.newPassword').dirty &&
+                                                     !changePasswordForm.get('newPasswordGroup.newPassword').valid }">
+                        <span class="error invalid-feedback" *ngIf="  changePasswordForm.get('newPasswordGroup.newPassword').dirty&&
+                                                                    changePasswordForm.get('newPasswordGroup.newPassword').errors">
+                          <span *ngIf="changePasswordForm.get('newPasswordGroup.newPassword').errors.required">
+                            {{'ERROR.emptyNewPassword'|translate}}
+                          </span>
+                        </span>
+      
+                      </div>
+      
+                      <div class="form-group">
+                        <label>{{'FORM.confirm-password'|translate}}</label>
+                        <input type="password" class="form-control" placeholder="{{'FORM.confirm-password'|translate}}" formControlName="confirmPassword"
+                          [ngClass]="{'is-invalid':
+                                                     changePasswordForm.get('newPasswordGroup.confirmPassword').dirty &&
+                                                     (!changePasswordForm.get('newPasswordGroup.confirmPassword').valid ||
+                                                     !changePasswordForm.get('newPasswordGroup').valid) }">
+                        <span class="error invalid-feedback" *ngIf="
+                                                     changePasswordForm.get('newPasswordGroup.confirmPassword').dirty &&
+                                                     (changePasswordForm.get('newPasswordGroup.confirmPassword').errors ||
+                                                      changePasswordForm.get('newPasswordGroup').errors)">
+                          <span *ngIf="changePasswordForm.get('newPasswordGroup.confirmPassword').errors?.required">
+                            {{'ERROR.emptyConfirmPassword'|translate}}
+                          </span>
+                          <span *ngIf="changePasswordForm.get('newPasswordGroup').errors?.notMatch &&
+                              !changePasswordForm.get('newPasswordGroup.confirmPassword').errors">
+                            {{'ERROR.password-not-match'|translate}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <button type="button" class="btn btn--orange" [disabled]="!changePasswordForm.valid || isChangePassword" (click)="changePassword()">{{'BUTTON.update'|translate}}
+                  </button>
+                </form>
+              </div>
+            </section>
+      
+            <section class="container user-profile__pin">
+              <div class="user-profile__header">
+                <h5 class="user-profile__header--title">{{'EDIT-PROFILE.pin'|translate}}</h5>
+                <hr>
+              </div>
+              <form [formGroup]="changePinForm">
+                <fieldset>
+                  <div class="form-group">
+                    <label>{{'FORM.current-pin'|translate}}</label>
+                    <input class="form-control" placeholder="{{'FORM.current-pin'|translate}}" type="password" maxlength="4" formControlName="currentPin"
+                      [ngClass]="{'is-invalid':changePinForm.get('currentPin').dirty&&
+                                                     !changePinForm.get('currentPin').valid}">
+                    <a [hidden]="isSendPin" (click)="senPINToSMS()">{{'BUTTON.send-PIN-to-SMS'|translate}}</a>
+                    <span class="error invalid-feedback" *ngIf="  changePinForm.get('currentPin').dirty&&
+                                                                    changePinForm.get('currentPin').errors">
+                      <span *ngIf="changePinForm.get('currentPin').errors?.required">
+                        {{'ERROR.emptyCurrentPin'|translate}}
+                      </span>
+                      <span *ngIf="changePinForm.get('currentPin').errors.minlength">
+                        {{'ERROR.pin-length'|translate}}
+                      </span>
+                    </span>
+                  </div>
+      
+                  <div formGroupName="newPinGroup">
+                    <div class="form-group">
+                      <label>{{'FORM.new-pin'|translate}}</label>
+                      <input class="form-control" placeholder="{{'FORM.new-pin'|translate}}" type="password" maxlength="4" formControlName="newPin"
+                        [ngClass]="{'is-invalid':changePinForm.get('newPinGroup.newPin').dirty&&
+                                                     !changePinForm.get('newPinGroup.newPin').valid}">
+                      <span class="error invalid-feedback" *ngIf="  changePinForm.get('newPinGroup.newPin').dirty&&
+                                                                    changePinForm.get('newPinGroup.newPin').errors">
+                        <span *ngIf="changePinForm.get('newPinGroup.newPin').errors?.required">
+                          {{'ERROR.emptyNewPin'|translate}}
+                        </span>
+                        <span *ngIf=" changePinForm.get('newPinGroup.newPin').errors.minlength">
+                          {{'ERROR.pin-length'|translate}}
+                        </span>
+                      </span>
+                    </div>
+      
+                    <div class="form-group">
+                      <label>{{'FORM.confirm-pin'|translate}}</label>
+                      <input class="form-control" placeholder="{{'FORM.confirm-pin'|translate}}" type="password" maxlength="4" formControlName="confirmNewPin"
+                        [ngClass]="{'is-invalid':
+                                                     changePinForm.get('newPinGroup.confirmNewPin').dirty &&
+                                                     (!changePinForm.get('newPinGroup.confirmNewPin').valid ||
+                                                     !changePinForm.get('newPinGroup').valid) }">
+                      <span class="error invalid-feedback" *ngIf="
+                                                    changePinForm.get('newPinGroup.confirmNewPin').dirty &&
+                                                    (changePinForm.get('newPinGroup.confirmNewPin').errors ||
+                                                    changePinForm.get('newPinGroup').errors)">
+                        <span *ngIf="changePinForm.get('newPinGroup.confirmNewPin').errors?.required">
+                          {{'ERROR.emptyConfirmPin'|translate}}
+                        </span>
+                        <span *ngIf=" changePinForm.get('newPinGroup').errors?.notMatch">
+                          {{'ERROR.pin-not-match'|translate}}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </fieldset>
+                <button type="button" class="btn btn--orange" [disabled]="!changePinForm.valid" (click)="changePIN()">{{'BUTTON.update'|translate}}
+                </button>
+              </form>
+            </section>
+      </div>
+    </div>
+    <div class="card-footer wrapper__footer">
+      <app-my-account-navigation-button></app-my-account-navigation-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="customer-listing-page">
+  <div class="customer-listing-page__navbar navbar p-3"
+       [ngStyle]="panelColorProperties">
+    <div class="outlet-info d-flex align-items-center w-75">
+      <img class="outlet-info__avatar navbar-brand float-left"
+           src="{{outletAvatar}}">
+      <p class="outlet-info__name h2 float-left">{{currentOutlet.name}}</p>
+    </div>
+    <div ngbDropdown
+         placement="bottom-right">
+      <button class="menu-button border-0 bg-transparent"
+              ngbDropdownToggle>
+        <span class="menu-button__label fas fa-align-justify text-white h2"></span>
+      </button>
+      <div ngbDropdownMenu
+           class="pop-menu border rounded-0">
+        <button class="dropdown-item"
+                (click)="onClickHomePageButton()">{{'MENU.home'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickDashboardButton()">{{'MENU.dashboard'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickServingButton()">{{'MENU.serving'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickTransactionsButton()">{{'MENU.transactions-history'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickChangePasswordButton()"
+                *ngIf="checkPermissionCurrentUser(nameAdminStaffRole)">{{'MENU.change-password'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickLogoutButton()">{{'MENU.logout'|translate}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="body-page w-100 h-100 p-3">
+    <div class="row header">
+      <div class="col-sm-6">
+        <p class="h1">{{'CUSTOMER_LISTING.title'|translate}}</p>
+      </div>
+      <div class="col-sm-6 search">
+        <form class="form-inline my-2 my-lg-0 ">
+          <input class="form-control"
+                 [(ngModel)]="searchText"
+                 #searchInput
+                 name="searchText"
+                 type="search"
+                 placeholder="{{'CUSTOMER_LISTING.search-placeholder'|translate}}"
+                 aria-label="Search">
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <ngx-datatable class="material"
+                     [rows]="customerList"
+                     [columnMode]="'force'"
+                     [headerHeight]="50"
+                     [footerHeight]="50"
+                     [rowHeight]="'auto'"
+                     [externalPaging]="true"
+                     [count]="totalItem"
+                     [offset]="pageNumber"
+                     [limit]="pageSize"
+                     [loadingIndicator]="loadingIndicator"
+                     (page)='setPage($event)'>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.name-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.birthday-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+          <ng-template let-row="row"
+                       ngx-datatable-cell-template>
+            {{row.dateOfBirth}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.email-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+          <ng-template let-row="row"
+                       ngx-datatable-cell-template>
+            {{row.email}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.mobile-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+          <ng-template let-row="row"
+                       ngx-datatable-cell-template>
+            <div class="phone">
+              {{row.phone}}
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.joined-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+          <ng-template let-row="row"
+                       ngx-datatable-cell-template>
+            {{row.joinedDate}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.last-used-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+          <ng-template let-row="row"
+                       ngx-datatable-cell-template>
+            {{row.lastUsed}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="{{'CUSTOMER_LISTING.status-column'|translate}}">
+          <ng-template let-column="column"
+                       ngx-datatable-header-template>
+            {{column.name}}
+          </ng-template>
+          <ng-template let-row="row"
+                       ngx-datatable-cell-template>
+            {{row.status}}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

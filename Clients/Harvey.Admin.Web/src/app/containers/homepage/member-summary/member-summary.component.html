@@ -1,0 +1,754 @@
+<div class="card">
+    <div class="card-body">
+        <ul class="a">
+            <li>{{'APP.HOMEPAGE_COMPONENT.NEW_BASIC_MEMBER' | translate}}
+                <span *ngIf="isLoadingNewBasicCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingNewBasicCustomers">
+                    <strong>{{totalItemNewBasicCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseNewBasicCustomers = !isCollapseNewBasicCustomers"
+                        [attr.aria-expanded]="!isCollapseNewBasicCustomers" aria-controls="collapseNewBasicCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseNewBasicCustomers" [ngbCollapse]="!isCollapseNewBasicCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="newBasicCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemNewBasicCustomers" [offset]="pageNumberNewBasicCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorNewBasicCustomers" (page)='setNewBasicMembersPage($event)'
+                                *ngIf="isCollapseNewBasicCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.JOINED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.joinedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.COMMENT' | translate}}" [minWidth]="180">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center mobile-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT' | translate}}</button>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center desktop-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT_MOBILE' | translate}}</button>
+                                        <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.UPGRADED_MEMBER' | translate}}
+                <span *ngIf="isLoadingUpgradedCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingUpgradedCustomers">
+                    <strong>{{totalItemUpgradedCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseUpgradedCustomers = !isCollapseUpgradedCustomers"
+                        [attr.aria-expanded]="!isCollapseUpgradedCustomers" aria-controls="collapseUpgradedCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseUpgradedCustomers" [ngbCollapse]="!isCollapseUpgradedCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="upgradedCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemUpgradedCustomers" [offset]="pageNumberUpgradedCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorUpgradedCustomers" (page)='setUpgradedMembersPage($event)'
+                                *ngIf="isCollapseUpgradedCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.UPGRADED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.upgradedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.COMMENT' | translate}}" [minWidth]="180">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center mobile-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT' | translate}}</button>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center desktop-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT_MOBILE' | translate}}</button>
+                                        <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.RENEWED_MEMBER' | translate}}
+                <span *ngIf="isLoadingRenewedCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingRenewedCustomers">
+                    <strong>{{totalItemRenewedCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseRenewedCustomers = !isCollapseRenewedCustomers"
+                        [attr.aria-expanded]="!isCollapseRenewedCustomers" aria-controls="collapseRenewedCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseRenewedCustomers" [ngbCollapse]="!isCollapseRenewedCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="renewedCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemRenewedCustomers" [offset]="pageNumberRenewedCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorRenewedCustomers" (page)='setRenewedMembersPage($event)'
+                                *ngIf="isCollapseRenewedCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.RENEWED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.renewedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.COMMENT' | translate}}" [minWidth]="180">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center mobile-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT' | translate}}</button>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center desktop-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT_MOBILE' | translate}}</button>
+                                        <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.EXTENDED_MEMBER' | translate}}
+                <span *ngIf="isLoadingExtendedCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingExtendedCustomers">
+                    <strong>{{totalItemExtendedCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseExtendedCustomers = !isCollapseExtendedCustomers"
+                        [attr.aria-expanded]="!isCollapseExtendedCustomers" aria-controls="collapseExtendedCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseExtendedCustomers" [ngbCollapse]="!isCollapseExtendedCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="extendedCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemExtendedCustomers" [offset]="pageNumberExtendedCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorExtendedCustomers" (page)='setExtendedMembersPage($event)'
+                                *ngIf="isCollapseExtendedCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EXTENDED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.extendedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.COMMENT' | translate}}" [minWidth]="180">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center mobile-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT' | translate}}</button>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center desktop-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT_MOBILE' | translate}}</button>
+                                        <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.EXPIRED_MEMBER' | translate}}
+                <span *ngIf="isLoadingExpiredCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingExpiredCustomers">
+                    <strong>{{totalItemExpiredCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseExpiredCustomers = !isCollapseExpiredCustomers"
+                        [attr.aria-expanded]="!isCollapseExpiredCustomers" aria-controls="collapseExpiredCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseExpiredCustomers" [ngbCollapse]="!isCollapseExpiredCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="expiredCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemExpiredCustomers" [offset]="pageNumberExpiredCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorExpiredCustomers" (page)='setExpiredMembersPage($event)'
+                                *ngIf="isCollapseExpiredCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.JOINED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.joinedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EXPIRED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.expiredDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.COMMENT' | translate}}" [minWidth]="180">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center mobile-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT' | translate}}</button>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center desktop-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT_MOBILE' | translate}}</button>
+                                        <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.VOIDED_MEMBER' | translate}}
+                <span *ngIf="isLoadingDowngradedCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingDowngradedCustomers">
+                    <strong>{{totalItemDowngradedCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseDowngradedCustomers = !isCollapseDowngradedCustomers"
+                        [attr.aria-expanded]="!isCollapseDowngradedCustomers" aria-controls="collapseDowngradedCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseDowngradedCustomers" [ngbCollapse]="!isCollapseDowngradedCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="downgradedCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemDowngradedCustomers" [offset]="pageNumberDowngradedCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorDowngradedCustomers" (page)='setExpiredMembersPage($event)'
+                                *ngIf="isCollapseDowngradedCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.JOINED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.joinedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DOWNGRADED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.voidedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.COMMENT' | translate}}" [minWidth]="180">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center mobile-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT' | translate}}</button>
+                                        <button [hidden]="row.comment == '-'" type="submit" (click)="onClickShowComment(row.comment)" class="btn btn-danger text-center desktop-hidden">{{'APP.HOMEPAGE_COMPONENT.SHOW_COMMENT_MOBILE' | translate}}</button>
+                                        <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.ACTIVATED_MEMBER' | translate}}
+                <span *ngIf="isLoadingActivatedCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingActivatedCustomers">
+                    <strong>{{totalItemActivatedCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseActivatedCustomers = !isCollapseActivatedCustomers"
+                        [attr.aria-expanded]="!isCollapseActivatedCustomers" aria-controls="collapseActivatedCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseActivatedCustomers" [ngbCollapse]="!isCollapseActivatedCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="activatedCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemActivatedCustomers" [offset]="pageNumberActivatedCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorActivatedCustomers" (page)='setActivatedMembersPage($event)'
+                                *ngIf="isCollapseActivatedCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.JOINED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.joinedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.ACTIVATED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.activatedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>{{'APP.HOMEPAGE_COMPONENT.DEACTIVATED_MEMBER' | translate}}
+                <span *ngIf="isLoadingDeactivatedCustomers" class="mt-2 mb-1">
+                    <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+                </span>
+                <span *ngIf="!isLoadingDeactivatedCustomers">
+                    <strong>{{totalItemDeactivatedCustomers}}</strong>
+                </span>
+                <p>
+                    <button type="button" class="btn btn-outline-secondary transactions-detail" (click)="isCollapseDeactivatedCustomers = !isCollapseDeactivatedCustomers"
+                        [attr.aria-expanded]="!isCollapseDeactivatedCustomers" aria-controls="collapseDeactivatedCustomers">
+                        {{'APP.HOMEPAGE_COMPONENT.VIEW_DETAIL' | translate}}
+                    </button>
+                </p>
+                <div id="collapseDeactivatedCustomers" [ngbCollapse]="!isCollapseDeactivatedCustomers" class="transaction-collapse">
+                    <div class="card">
+                        <div class="card-body transaction-grid">
+                            <ngx-datatable class="material" [rows]="deactivatedCustomerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItemDeactivatedCustomers" [offset]="pageNumberDeactivatedCustomers"
+                                [limit]="pageSize" [loadingIndicator]="loadingIndicatorDeactivatedCustomers" (page)='setDeactivatedMembersPage($event)'
+                                *ngIf="isCollapseDeactivatedCustomers">
+                                <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <a class="phone" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.phone}}</a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.dateOfBirth}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.JOINED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.joinedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.lastUsed}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.DEACTIVATED_DATE' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.deactivatedDate}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        {{column.name}}
+                                    </ng-template>
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        {{row.status}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>

@@ -1,0 +1,140 @@
+.edit-profile {
+    height: 100%;
+    .card-header {
+        text-align: center;
+    }
+    .user-profile {
+        &__avatar {
+            width: 85%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            .avatar-container {
+                position: relative;
+                &--img {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                }
+                &--faded {
+                    transition: .5s ease;
+                    opacity: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%)
+                }
+            }
+            .avatar-container input[type=file] {
+                position: absolute;
+                width: 150px;
+                height: 150px;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                outline: none;
+                background: white;
+                cursor: pointer;
+                display: block;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .avatar-container:hover .avatar-container--img {
+                opacity: 0.3;
+            }
+            .avatar-container:hover .avatar-container--faded {
+                opacity: 1;
+            }
+        }
+        &__personal-info {
+            margin-bottom: 50px;
+            width: 85%;
+        }
+        .personal-info {
+            &__header {
+                &--title {}
+            }
+            &__profile-form {}
+            &__gender-group {
+                display: flex;
+                width: 100%;
+            }
+        }
+        &__password {
+            width: 85%;
+            margin-bottom: 50px;
+        }
+        &__pin {
+            width: 85%;
+        }
+    }
+    .btn {
+        min-width: 100px;
+        &--gender-disable {
+            width: 100%;
+            cursor: not-allowed;
+            margin-bottom: 20px;
+        }
+        &--cancel {
+            margin-right: 15px;
+        }
+        &--clear-avatar {
+            margin-left: 10px;
+        }
+    }
+    .icon {
+        &--back {
+            float: left;
+            font-size: 20px;
+            line-height: 24px;
+            cursor: pointer;
+        }
+    }
+    input[type="radio"] {
+        display: none;
+    }
+    .blank-page {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 80vh;
+        background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+    }
+    .message {
+        align-self: center;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .edit-profile {
+        padding: 0;
+        max-width: 100%;
+    }
+    .user-profile {
+        &__avatart,
+        &__personal-info,
+        &__password,
+        &__pin {
+            width: 100%;
+        }
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media screen and (max-width: 991.98px) {
+    .edit-profile {
+        padding: 0;
+        max-width: 100%;
+    }
+    .user-profile {
+        &__avatart,
+        &__personal-info,
+        &__password,
+        &__pin {
+            width: 100%;
+        }
+    }
+}

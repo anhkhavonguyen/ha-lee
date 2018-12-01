@@ -1,0 +1,65 @@
+.login-page {
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+}
+
+.container {
+    height: 100vh;
+}
+
+.panel {
+    border: solid 1px #ced4da;
+    padding: 20px;
+}
+
+.invalid {
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.logo {
+    max-width: 30%;
+    max-height: 30%;
+    padding-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .panel{
+        width: 100%;
+    }
+
+    .logo{
+        max-width: 60%;
+        max-height: 70%;
+    }
+}
+
+.forgot-password {
+    cursor: pointer;
+    color:#e42c00 !important;
+
+    &:hover {
+        color:#ff5932 !important;
+        text-decoration: none;
+    }
+}
+
+.sign-in-button {
+    background-color: #e42c00;
+    
+    &:hover {
+        background-color: #ff4518;
+    }
+}
+
+.loading {
+
+    height: 100%;
+    width: 100%;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0, 0.5); 
+    overflow-x: hidden; 
+}

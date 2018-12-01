@@ -1,0 +1,12 @@
+<div class="outlet-info-card border bg-white p-3">
+    <div class="outlet-info-card__avatar float-left mr-3">
+        <img class="outlet-info-card__image rounded"
+             src="{{ouletInfo.outletImage}}">
+    </div>
+    <div class="d-flex flex-column">
+        <p class="outlet-info-card__name h2">{{ouletInfo.name || 'Unknown outlet name'}}</p>
+        <p class="outlet-info-card__address">{{ouletInfo.address || 'Unknown outlet name'}}</p>
+        <p class="outlet-info-card__email"><i class="fas fa-envelope"></i> {{ouletInfo.email}}</p>
+        <p [hidden]="!ouletInfo.phone" class="outlet-info-card__phone"><i class="fas fa-phone"></i> +{{ouletInfo.phoneCountryCode}} {{ouletInfo.phone}}</p>
+    </div>
+</div>

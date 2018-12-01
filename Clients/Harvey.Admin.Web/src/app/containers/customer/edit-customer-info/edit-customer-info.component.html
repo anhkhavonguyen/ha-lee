@@ -1,0 +1,177 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{'APP.CUSTOMER_DETAIL_COMPONENT.EDIT_CUSTOMER_PROFILE' | translate}}</h5>
+  <button type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="onDismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <form [formGroup]="editCustomerInfoForm">
+    <fieldset>
+
+      <div formGroupName="nameGroup">
+        <div class="form-group">
+          <label>{{'APP.COMMON.NAME' | translate}}</label>
+          <div class="name-group">
+
+            <div class="first-name col-md-6">
+              <input formControlName="firstName"
+                     class="col-md-12 form-control firstName"
+                     placeholder="{{'APP.EDIT_OUTLET_COMPONENT.FIRST_NAME' | translate}}"
+                     type="firstName"
+                     [ngClass]="{'is-invalid':editCustomerInfoForm.get('nameGroup.firstName')?.dirty &&
+                                !editCustomerInfoForm.get('nameGroup.firstName')?.valid }">
+            </div>
+
+            <div class="last-name col-md-6">
+              <input formControlName="lastName"
+                     class="col-md-12 form-control lastName"
+                     placeholder="{{'APP.EDIT_OUTLET_COMPONENT.LAST_NAME' | translate}}"
+                     type="lastName"
+                     [ngClass]="{'is-invalid':editCustomerInfoForm.get('nameGroup.lastName')?.dirty &&
+                          !editCustomerInfoForm.get('nameGroup.lastName')?.valid }">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{'APP.COMMON.BIRTHDAY' | translate}}</label>
+        <div class="input-group">
+          <input class="col-md-12 form-control"
+                 placeholder="-"
+                 name="dp"
+                 formControlName="dateOfBirth"
+                 ngbDatepicker
+                 [minDate]="{year: 1900, month: 1, day: 1}"
+                 readonly
+                 #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    (click)="d.toggle()"
+                    type="button">
+              <i class="fa fa-calendar-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div formGroupName="phoneGroup">
+        <div class="form-group">
+          <label>{{'APP.COMMON.PHONE' | translate}}</label>
+          <div class="phone-group row">
+            <div class="col-md-3">
+              <select class="custom-select"
+                      id="inputGroupSelect01"
+                      formControlName="phoneCountryCode">
+                <option *ngFor="let phone of validatePhones"
+                        class="option"
+                        value="{{phone.countryCode}}">{{phone.name}}(+{{phone.countryCode}})</option>
+              </select>
+            </div>
+            <input formControlName="phoneNumber"
+                   class="col-md-9 form-control phone-number"
+                   placeholder="{{'APP.EDIT_OUTLET_COMPONENT.PHONE_NUMBER' | translate}}"
+                   type="tel"
+                   [ngClass]="{'is-invalid':(editCustomerInfoForm.get('phoneGroup.phoneNumber')?.touched ||
+                          editCustomerInfoForm.get('phoneGroup.phoneNumber')?.dirty)
+                          && !editCustomerInfoForm.get('phoneGroup.phoneNumber')?.valid || editCustomerInfoForm.invalid}">
+
+            <span class="error invalid-feedback"
+                  *ngIf="(editCustomerInfoForm.get('phoneGroup.phoneNumber')?.dirty)
+                          && (editCustomerInfoForm.get('phoneGroup.phoneNumber')?.errors 
+                          || editCustomerInfoForm.get('phoneGroup')?.errors)">
+              <span class="row error-message"
+                    *ngIf="editCustomerInfoForm.get('phoneGroup.phoneNumber')?.errors?.required || editCustomerInfoForm.get('phoneGroup.phoneNumber')?.errors?.nospace">
+                {{'APP.ERROR.PHONE_REQUIRED' | translate}}
+              </span>
+              <span class="row error-message"
+                    *ngIf="editCustomerInfoForm.get('phoneGroup.phoneNumber')?.errors?.pattern
+                              || editCustomerInfoForm.get('phoneGroup.phoneCountryCode')?.errors?.pattern">
+                {{'APP.ERROR.INPUT_NUMBER' | translate}}
+              </span>
+              <span class="row error-message"
+                    *ngIf="!editCustomerInfoForm.get('phoneGroup.phoneNumber')?.errors
+                              && editCustomerInfoForm.get('phoneGroup')?.errors?.invalidPhone">
+                {{'APP.ERROR.INVALID_PHONE' | translate}}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{'APP.COMMON.EMAIL' | translate}}</label>
+        <input formControlName="email"
+               class="col-md-12 form-control email"
+               placeholder="{{'APP.EDIT_OUTLET_COMPONENT.EMAIL' | translate}}"
+               type="email"
+               [ngClass]="{'is-invalid': (editCustomerInfoForm.get('email')?.touched || editCustomerInfoForm.get('email')?.dirty) &&
+                 !editCustomerInfoForm.get('email')?.valid }">
+
+        <span class="error invalid-feedback"
+              *ngIf="( editCustomerInfoForm.get('email')?.touched || editCustomerInfoForm.get('email')?.dirty) &&
+              editCustomerInfoForm.get('email')?.errors">
+          <span *ngIf="editCustomerInfoForm.get('email')?.errors.pattern">
+            {{'APP.ERROR.INVALID-EMAIL-FORMAT' |translate}}
+          </span>
+        </span>
+      </div>
+
+      <div class="form-group d-none">
+        <label>{{'APP.COMMON.POSTAL_CODE' | translate}}</label>
+        <input formControlName="postalCode"
+               class="col-md-12 form-control postalCode"
+               placeholder="{{'APP.EDIT_OUTLET_COMPONENT.POSTAL_CODE' | translate}}">
+      </div>
+
+      <div class="form-group">
+        <label>{{'APP.COMMON.GENDER' | translate}}</label>
+        <div formGroupName="genderGroup">
+          <div ngbRadioGroup
+               formControlName="gender"
+               class="gender-group row">
+            <div class="col-6 col-sm-6 conl-md-6 col-lg-6 col-xl-6">
+              <label ngbButtonLabel
+                     class="btn--gender">
+                <input type="radio"
+                       ngbButton
+                       value="Male">{{'APP.COMMON.MALE'|translate}}
+              </label>
+            </div>
+            <div class="col-6 col-sm-6 conl-md-6 col-lg-6 col-xl-6">
+              <label ngbButtonLabel
+                     class="btn--gender">
+                <input type="radio"
+                       ngbButton
+                       value="Female">{{'APP.COMMON.FEMALE'|translate}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </fieldset>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button [disabled]="!editCustomerInfoForm.valid 
+                      || isUpdating 
+                      || (!editCustomerInfoForm.get('phoneGroup.phoneNumber')?.dirty
+                      && !editCustomerInfoForm.get('email')?.dirty
+                      && !editCustomerInfoForm.get('nameGroup.lastName')?.dirty 
+                      && !editCustomerInfoForm.get('nameGroup.firstName')?.dirty 
+                      && !editCustomerInfoForm.get('dateOfBirth')?.dirty
+                      && !editCustomerInfoForm.get('postalCode')?.dirty
+                      && !editCustomerInfoForm.get('genderGroup.gender')?.dirty)"
+          class="btn btn-primary"
+          (click)="onClickSaveBtn($event)"
+          type="button">{{'APP.COMMON.SAVE' | translate}}</button>
+</div>

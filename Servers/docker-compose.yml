@@ -1,0 +1,181 @@
+version: '3.5'
+
+volumes:
+  harvey-rabbitmq:
+    driver: local
+  harvey-ids-db:
+    driver: local
+  harvey-crmloyalty-db:
+    driver: local
+  harvey-notification-db:
+    driver: local
+  harvey-activity-db:
+    driver: local
+  harvey-job-db:
+    driver: local
+  
+services:
+  harvey-rabbitmq:
+    image: rabbitmq:3.7.6-management
+    volumes:
+      - harvey-rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: Harvey
+      RABBITMQ_DEFAULT_PASS: Aa123456789
+    networks:
+      - harvey_network
+
+  harvey-ids-db:
+    image: postgres
+    volumes:
+      - harvey-ids-db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: Harvey
+      POSTGRES_PASSWORD: Aa123456789
+      POSTGRES_DB: harvey_ids_db
+    networks:
+      - harvey_network
+
+  harvey-ids:
+    image: ${DOCKER_REGISTRY}harveyids
+    build:
+      context: .
+      dockerfile: Harvey.Ids/Dockerfile
+    ports:
+      - "61555:80"
+    depends_on:
+      - harvey-ids-db
+      - harvey-rabbitmq
+    networks:
+      - harvey_network
+
+
+  harvey-crmloyalty-api:
+    image: ${DOCKER_REGISTRY}harveycrmloyaltyapi
+    build:
+      context: .
+      dockerfile: Harvey.CRMLoyalty.Api/Dockerfile
+    ports:
+      - "63132:80"
+    depends_on:
+      - harvey-crmloyalty-db
+      - harvey-rabbitmq
+    networks:
+      - harvey_network
+
+  harvey-crmloyalty-db:
+    image: postgres
+    volumes:
+      - harvey-crmloyalty-db:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: Harvey
+      POSTGRES_PASSWORD: Aa123456789
+      POSTGRES_DB: harvey_crmloyalty_db
+    networks:
+      - harvey_network
+
+
+  harvey-notification-api:
+    image: ${DOCKER_REGISTRY}harveynotificationapi
+    build:
+      context: .
+      dockerfile: Harvey.Notification.Api/Dockerfile
+    ports:
+      - "64278:80"
+    depends_on:
+      - harvey-notification-db
+      - harvey-rabbitmq
+    networks:
+      - harvey_network
+
+  harvey-notification-db:
+    image: postgres
+    volumes:
+      - harvey-notification-db:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: Harvey
+      POSTGRES_PASSWORD: Aa123456789
+      POSTGRES_DB: harvey_notification_db
+    networks:
+      - harvey_network
+
+  harvey-activity-api:
+    image: ${DOCKER_REGISTRY}harveyactivityapi
+    build:
+      context: .
+      dockerfile: Harvey.Activity.Api/Dockerfile
+    ports:
+      - "53076:80"
+    depends_on:
+      - harvey-activity-db
+      - harvey-rabbitmq
+    networks:
+      - harvey_network
+
+  harvey-activity-db:
+    image: postgres
+    volumes:
+      - harvey-activity-db:/var/lib/postgresql/data
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: Harvey
+      POSTGRES_PASSWORD: Aa123456789
+      POSTGRES_DB: harvey_activity_db
+    networks:
+      - harvey_network
+
+  harvey-apigateway:
+    image: ${DOCKER_REGISTRY}harveyapigateway
+    build:
+      context: .
+      dockerfile: Harvey.ApiGateway/Dockerfile
+    ports:
+      - "64801:80"
+    depends_on:
+      - harvey-activity-api
+      - harvey-notification-api
+      - harvey-crmloyalty-api
+      - harvey-ids
+    networks:
+      - harvey_network
+
+  harvey-job:
+    image: ${DOCKER_REGISTRY}harveyjob
+    build:
+      context: .
+      dockerfile: Harvey.Job/Dockerfile
+    depends_on:
+      - harvey-job-db
+    ports:
+      - "53939:80"
+    networks:
+      - harvey_network
+
+  harvey-job-db:
+    image: postgres
+    volumes:
+      - harvey-job-db:/var/lib/postgresql/data
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_USER: Harvey
+      POSTGRES_PASSWORD: Aa123456789
+      POSTGRES_DB: harvey_job
+    networks:
+      - harvey_network
+
+networks:
+  harvey_network:
+
+
+
+

@@ -1,0 +1,10 @@
+.change-phone-form {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  .card-header{
+    text-align: center;
+  }
+}

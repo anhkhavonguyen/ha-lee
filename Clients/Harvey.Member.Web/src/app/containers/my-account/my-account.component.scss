@@ -1,0 +1,262 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+.my-account {
+    height: 100%;
+    width: 100%;
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        text-decoration: none;
+        color: #000000;
+        cursor: pointer;
+    }
+    label {
+        margin-bottom: 0px;
+    }
+    a:hover {
+        color: #000000;
+    }
+    a:not([href]):not([tabindex]) {
+        color: #000000;
+    }
+    .accordion {
+        .card {
+            margin-top: 25px;
+            &:last-of-type {
+                border-radius: 0.25rem !important;
+            }
+            &:first-of-type {
+                border-radius: 0.25rem !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+            }
+        }
+        .card:not(:first-of-type):not(:last-of-type) {
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+        }
+    }
+    .card-header {
+        text-align: center;
+    }
+    .user-info {
+        &__birthday-text {
+            vertical-align: unset;
+        }
+        &__personal {
+            &--nameGroup {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+            &--name {
+                bottom: 0;
+                padding-left: 5px;
+                font-weight: bold;
+                font-size: 18px;
+            }
+            &--phone {}
+            &--membership {
+                width: 180px;
+                text-align: center;
+                border-radius: 10px;
+                color: #fff;
+            }
+            .membership {
+                &--premium {
+                    color: #000000;
+                    background-color: #FFDF00;
+                }
+                &--basic {
+                    color: #fff;
+                    background-color: brown;
+                }
+                &--normal {
+                    background-color: rgba(8, 22, 71, 0.45);
+                }
+            }
+        }
+        &--avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 30px;
+        }
+    }
+    &__profile {
+        &--membership {
+            text-align: left;
+            .icon {
+                padding-left: 3px;
+                font-size: 20px;
+            }
+            label {
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+
+        .user-transaction {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            &__type {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                label {
+                    cursor: pointer;
+                    margin: 0;
+                    font-weight: bold;
+                }
+            }
+            &__balance {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .icon-warning {
+                    color: #c82333;
+                }
+            }
+        }
+    }
+
+    .icon {
+        &--edit-profile {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        &--log-out {
+            float: right;
+            font-size: 20px;
+            line-height: 24px;
+            cursor: pointer;
+        }
+        &--dollar {
+            margin-right: 7px;
+        }
+    }
+    .card {
+        &--profile {
+            margin-bottom: 10px;
+        }
+        &-body {
+            overflow: auto;
+        }
+    }
+
+    .blank-page {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 80vh;
+        background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+    }
+    .message {
+        align-self: center;
+    }
+    .expiring-point {
+        margin: 0px 0px 20px 0px;
+
+        .card {
+            margin-top: 0px;
+        }
+
+        &__total {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            color: #c82333;
+        }
+
+        &__table {
+            border: solid 1px #dadada;
+            margin: 10px 0px;
+            &--row {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 1em;
+            }
+        }
+    }
+}
+
+
+
+// Small devices (landscape phones, 576px and up)
+@media screen and (max-width: 576px) {
+    .my-account {
+        padding: 0;
+        max-width: 100%;
+        .user-info {
+            &--avatar {
+                width: 100px;
+                height: 100px;
+                margin-right: 10px;
+            }
+            &__personal {
+                &--membership {
+                    width: 110px;
+                }
+            }
+        }
+        .btn {
+            &--change-phone {
+                margin-left: 15px;
+            }
+        }
+    }
+    .ngx-datatable.material {
+        .datatable-header {
+            .datatable-header-cell {
+                padding: 10px;
+            }
+        }
+        .datatable-body {
+            .datatable-body-row {
+                .datatable-body-cell {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media screen and (max-width: 991.98px) {
+    .my-account {
+        padding: 0;
+        max-width: 100%;
+        .user-info {
+            &--avatar {
+                width: 100px;
+                height: 100px;
+                margin-right: 10px;
+            }
+            &__personal {
+                &--membership {
+                    width: 110px;
+                }
+            }
+        }
+        .btn {
+            &--change-phone {
+                margin-left: 15px;
+            }
+        }
+    }
+}
+
+.row-details {
+    padding-left: 60px;
+    font-size: 13px;
+}
+
+.ngx-datatable.material .datatable-body .datatable-row-detail {
+    height: fit-content !important;
+}

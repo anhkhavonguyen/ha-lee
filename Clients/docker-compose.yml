@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  harvey.admin.web:
+    image: ${DOCKER_REGISTRY}harveyadminweb
+    build:
+      context: ./Harvey.Admin.Web
+      dockerfile: Dockerfile
+      args:
+        BUILD_MODE: --prod
+        CONFIG_MODE: --configuration=uat
+    ports:
+      - "50221:80"
+
+  harvey.member.web:
+    image: ${DOCKER_REGISTRY}harveymemberweb
+    build:
+      context: ./Harvey.Member.Web
+      dockerfile: Dockerfile
+      args:
+        BUILD_MODE: --prod
+        CONFIG_MODE: --configuration=uat
+    ports:
+      - "50222:80"
+      
+  harvey.store.web:
+    image: ${DOCKER_REGISTRY}harveystoreweb
+    build:
+      context: ./Harvey.Store.Web
+      dockerfile: Dockerfile
+      args:
+        BUILD_MODE: --prod
+        CONFIG_MODE: --configuration=uat
+    ports:
+      - "50223:80"

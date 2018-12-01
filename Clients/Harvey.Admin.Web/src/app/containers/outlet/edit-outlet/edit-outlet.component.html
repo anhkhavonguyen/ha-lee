@@ -1,0 +1,90 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{'APP.OUTLET_COMPONENT.EDIT_OUTLET' | translate}}</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onDismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="editOutletForm">
+        <fieldset>
+            <div class="form-group">
+                <label>{{'APP.COMMON.NAME' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'APP.COMMON.NAME' | translate}}" [(ngModel)]="outlet.name" formControlName="outletName"
+                    [ngClass]="{'is-invalid':editOutletForm.get('outletName')?.dirty&&
+                                                             !editOutletForm.get('outletName')?.valid}">
+                <span class="error invalid-feedback" *ngIf="editOutletForm.get('outletName')?.dirty&&
+                    editOutletForm.get('outletName')?.errors">
+                    <span *ngIf="editOutletForm.get('outletName')?.errors?.required || editOutletForm.get('outletName')?.errors?.nospace">
+                        {{'APP.ERROR.NAME_REQUIRED' | translate}}
+                    </span>
+                </span>
+
+                <label>{{'APP.COMMON.ADDRESS' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'APP.COMMON.ADDRESS' | translate}}" [(ngModel)]="outlet.address" formControlName="outletAddress"
+                    [ngClass]="{'is-invalid':editOutletForm.get('outletAddress')?.dirty&&
+                                                             !editOutletForm.get('outletAddress')?.valid}">
+                <span class="error invalid-feedback" *ngIf="editOutletForm.get('outletAddress')?.dirty&&
+                    editOutletForm.get('outletAddress')?.errors">
+                    <span *ngIf="editOutletForm.get('outletAddress')?.errors?.required || editOutletForm.get('outletAddress')?.errors?.nospace">
+                        {{'APP.ERROR.ADDRESS_REQUIRED' | translate}}
+                    </span>
+                </span>
+            </div>
+            <div formGroupName="phoneGroup" class="form-group">
+                <label>{{'APP.COMMON.PHONE' | translate}}</label>
+                <div class="phone-group row">
+                    <div class="col-md-3">
+                        <input formControlName="phoneCountryCode" [(ngModel)]="outlet.phoneCountryCode"
+                            class="form-control" placeholder="{{'APP.EDIT_OUTLET_COMPONENT.COUNTRY_CODE' | translate}}"
+                            [ngClass]="{'is-invalid':!editOutletForm.get('phoneGroup.phoneCountryCode')?.valid}">
+                    </div>
+                    <input formControlName="phoneNumber" class="col-md-9 form-control phone-number" placeholder="{{'APP.EDIT_OUTLET_COMPONENT.PHONE_NUMBER' | translate}}"
+                        type="tel" [(ngModel)]="outlet.phone"
+                        [ngClass]="{'is-invalid':(editOutletForm.get('phoneGroup.phoneNumber')?.touched ||
+                        editOutletForm.get('phoneGroup.phoneNumber')?.dirty)
+                        && (!editOutletForm.get('phoneGroup.phoneNumber')?.valid || !editOutletForm.get('phoneGroup')?.valid)}">
+
+                    <span class="error invalid-feedback" *ngIf="(editOutletForm.get('phoneGroup.phoneNumber')?.dirty)
+                        && (editOutletForm.get('phoneGroup.phoneNumber')?.errors || editOutletForm.get('phoneGroup')?.errors)">
+                        <span class="row error-message" *ngIf="editOutletForm.get('phoneGroup.phoneNumber')?.errors?.required || editOutletForm.get('phoneGroup.phoneNumber')?.errors?.nospace">
+                            {{'APP.ERROR.PHONE_REQUIRED' | translate}}
+                        </span>
+                        <span class="row error-message" *ngIf="editOutletForm.get('phoneGroup.phoneNumber')?.errors?.pattern
+                            || editOutletForm.get('phoneGroup.phoneCountryCode')?.errors?.pattern">
+                            {{'APP.ERROR.INVALID_PHONE' | translate}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex flex-column">
+                <label>{{'APP.COMMON.OUTLET_LOGO'| translate}}</label>
+                <div class="d-flex flex-row align-items-center">
+                    <img src="{{displayIcon}}"
+                        class="icon">
+                    <input type="file"
+                        class="custom-file-input"
+                        id="inputGroupFile"
+                        (change)="uploadIcon($event)"
+                        accept="image/*">
+                    <label class="btn btn-light border"
+                        for="inputGroupFile">{{'APP.SETTINGS.CHOOSE_FILE'| translate}}</label>
+                </div>
+                <p><em>{{'APP.SETTINGS.MAXIMUM_FILE'| translate}}</em></p>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button [disabled]="!editOutletForm.valid 
+                        || isUpdating 
+                        || (!editOutletForm.get('outletName')?.dirty
+                            && !editOutletForm.get('outletAddress')?.dirty
+                            && !editOutletForm.get('phoneGroup.phoneCountryCode')?.dirty
+                            && !editOutletForm.get('phoneGroup.phoneNumber')?.dirty)
+                            && !isIconUpdating"
+    class="btn btn-primary" (click)="onClickUpdateBtn($event)" type="button">{{'APP.COMMON.SUBMIT' | translate}}</button>
+</div>

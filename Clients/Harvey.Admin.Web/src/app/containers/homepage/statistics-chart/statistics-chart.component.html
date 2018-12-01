@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body">
+    <div class="chart">
+      <div class="chart__visitors">
+        <h3>{{'APP.HOMEPAGE_COMPONENT.VISITORS_CHART' | translate}}</h3>
+        <div *ngIf="!isLoadVisitorLineChart">
+          <app-visitor-chart [getVisitorsStatisticsResponse]="getVisitorsStatisticsResponse"></app-visitor-chart>
+        </div>
+        <div class="loading"
+             *ngIf="isLoadVisitorLineChart">
+          <i class="icon-loading fa fa-spinner fa-spin"></i>
+        </div>
+      </div>
+      <div class="chart__points">
+        <h3>{{'APP.HOMEPAGE_COMPONENT.POINTS_CHART' | translate}}</h3>
+        <div *ngIf="!isLoadPointsLineChart">
+          <app-point-chart [getPointsStatisticsResponse]="getPointsStatisticsResponse"></app-point-chart>
+        </div>
+        <div class="loading"
+             *ngIf="isLoadPointsLineChart">
+          <i class="icon-loading fa fa-spinner fa-spin"></i>
+        </div>
+      </div>
+      <div class="chart__wallet">
+        <h3>{{'APP.HOMEPAGE_COMPONENT.WALLET_CHART' | translate}}</h3>
+        <div *ngIf="!isLoadWalletLineChart">
+          <app-wallet-chart [getWalletStatisticsResponse]="getWalletStatisticsResponse"></app-wallet-chart>
+        </div>
+        <div class="loading"
+             *ngIf="isLoadWalletLineChart">
+          <i class="icon-loading fa fa-spinner fa-spin"></i>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,4 @@
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (19, now(), now(), null, null, 'UpdateOutlet', null);
+	

@@ -1,0 +1,80 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+.app-settings {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  &__header {
+    margin: 20px 0;
+
+    .search {
+      float: right;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+  &__container {
+    .icon {
+      width: 65px;
+      height: 65px;
+    }
+    .datatable-body{
+      .datatable-footer{
+        .datatable-pager{
+          padding-right: 70px;
+        }
+      }
+    }
+    .float-button{
+      position:fixed;
+      width:60px;
+      height:60px;
+      bottom:20px;
+      right:20px;
+      background-color:#6c757d;
+      color:#FFF;
+      border-radius:50px;
+      text-align:center;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 1;
+      margin-right: unset;
+
+      .icon-float-button{
+        margin-top:2px;
+      }
+    }
+  }
+}
+.btn-action {
+  background:none;
+  border:none;
+  margin-right:6px;
+  cursor: pointer;
+  outline: none !important;
+}
+
+.loading-indicator {
+  height: 100%;
+  width: 100%;
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0, 0.5); 
+  overflow-x: hidden; 
+}
+
+.button-background-color {
+  width: 33px;
+  cursor: unset;
+}
+
+.button-text-color {
+  width: 33px;
+  cursor: unset;
+}

@@ -1,0 +1,132 @@
+<div>
+  <div class="col-sm-6">
+    <p class="h1">{{'APP.COMMON.OUTLETS' | translate}}</p>
+  </div>
+  <div class="outlet-body">
+    <ngx-datatable #myTable class='material expandable datatable-body' [loadingIndicator]="loadingIndicator" [columnMode]="'force'"
+      [headerHeight]="40" [footerHeight]="40" [rowHeight]="'auto'" [rows]='rows' [reorderable]="reorderable" [externalPaging]="true"
+      [count]="totalItemOutlet" [offset]="pageNumberOutlet" [limit]="pageSizeOutlet" (page)='setPage($event)'>
+
+      <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle()">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+          <div class="row-detail">
+            <div class="desktop-hidden"> {{'APP.COMMON.PHONE' | translate}}:
+              <strong> <span *ngIf="checkCountryCode(row.phoneCountryCode)">+</span>{{row.phoneCountryCode}} {{row.phone}}</strong>
+            </div>
+            <div class="desktop-hidden"> {{'APP.COMMON.ADDRESS' | translate}}:
+              <strong> {{row.address}}</strong>
+            </div>
+            <h6>Staffs</h6>
+
+            <ngx-datatable class="material" [rows]="staffs" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+              [externalPaging]="true" [count]="totalItemStaff" [offset]="pageNumberStaff" [limit]="pageSizeStaff" (page)='setStaffsPage($event)'>
+              <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  {{column.name}}
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.name}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="{{'APP.COMMON.BIRTHDAY' | translate}}">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  {{column.name}}
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.dateOfBirth}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  {{column.name}}
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.email}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  {{column.name}}
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div class="phone">
+                      <span *ngIf="checkCountryCode(row.phoneCountryCode)">+</span>{{row.phoneCountryCode}} {{row.phone}}
+                  </div>    
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                  {{column.name}}
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.lastUsed}}
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+
+      <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+          <a href="javascript:void(0)" class="toggle-icon" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+            title="Expand/Collapse Row" (click)="toggleExpandRow(row)">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}" [width]="300">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <strong>{{value}}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.COMMON.ACCOUNT' | translate}}" [flexGrow]="3" [minWidth]="200" [width]="300">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <strong>{{value}}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.COMMON.OUTLET_LOGO' | translate}}" [flexGrow]="3" [minWidth]="110" [width]="110">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <img src="data:image/png;base64,{{row.outletImage}}" alt="Icon" class="icon mobile-hidden">
+          </ng-template>
+        </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.COMMON.PHONE' | translate}}" [flexGrow]="1" [width]="200">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span class="mobile-hidden">{{column.name}}</span>
+        </ng-template>
+
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <span class="mobile-hidden">
+            <div class="phone">
+                <strong><span *ngIf="checkCountryCode(row.phoneCountryCode)">+</span>{{row.phoneCountryCode}} {{row.phone}}</strong>
+            </div>    
+          </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.COMMON.ADDRESS' | translate}}" [flexGrow]="1" [width]="300">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span class="mobile-hidden">{{column.name}}</span>
+        </ng-template>
+
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <span class="mobile-hidden">
+            <strong>{{value}}</strong>
+          </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.SETTINGS.ACTION' | translate}}">
+          <ng-template let-column="column" ngx-datatable-header-template>
+              {{column.name}}
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button type="submit" (click)="onClickEditOutlet(row)" class="btn btn-danger text-center">{{'APP.SETTINGS.Edit' | translate}}</button>
+              
+          </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

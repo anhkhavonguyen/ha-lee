@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Harvey.PIM.API</name>
+    </assembly>
+    <members>
+        <member name="M:Harvey.PIM.API.Controllers.FieldsController.AddFieldTemplate(Harvey.PIM.Application.Infrastructure.Models.FieldTemplateModel)">
+            <summary>
+            Add field template
+            </summary>
+            <param name="fieldTemplateModel">field template model</param>
+            <returns>Field template</returns>
+            <response code="201">OK</response>
+            <response code="400">Model is required</response>
+            <response code="400">Name is required</response>
+            <response code="400">Field template should contain at least one section</response>
+            <response code="500">Template with variant requires variant field(s)</response>
+        </member>
+        <member name="M:Harvey.PIM.API.Controllers.FieldsController.GetFieldTemplate(System.Guid)">
+            <summary>
+            Get field template by id
+            </summary>
+            <param name="id">Field template id</param>
+            <returns>Field template</returns>
+            <response code="200">OK</response>
+            <response code="400">Id is required</response>
+        </member>
+        <member name="M:Harvey.PIM.API.Controllers.FieldsController.UpdateFieldTemplate(System.Guid,Harvey.PIM.Application.Infrastructure.Models.FieldTemplateModel)">
+            <summary>
+            Update field template
+            </summary>
+            <param name="id">field template id</param>
+            <param name="fieldTemplateModel">field template model</param>
+            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">Id is required</response>
+            <response code="400">Model is required</response>
+            <response code="400">Name is required</response>
+            <response code="500">Template with variant requires variant field(s)</response>
+        </member>
+        <member name="M:Harvey.PIM.API.Controllers.FieldsController.GetAllAsync(Harvey.Domain.PagingFilterCriteria)">
+            <summary>
+            get all field templates
+            </summary>
+            <returns>List of field template</returns>
+            <response code="200">Returns field templates</response>
+        </member>
+        <member name="M:Harvey.PIM.API.Controllers.FieldsController.GetFileTemplateTypes">
+            <summary>
+            get all field template types
+            </summary>
+            <returns>list of field template types</returns>
+            <response code="200">Returns field template types</response>
+        </member>
+    </members>
+</doc>

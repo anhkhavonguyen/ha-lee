@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <p class="modal-title h4"><span *ngIf="!isEditComment">{{'EDIT_MEMBERSHIP.title-edit-membership'|translate}}</span> <span
+    *ngIf="isEditComment">{{'EDIT_MEMBERSHIP.title-edit-comment'|translate}}</span></p>
+  <button type="button"
+          class="close"
+          aria-label="Close"
+          (click)="onDismiss('Cross click')">
+    <i class="close-icon fas fa-times"></i>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="chooseEditAction d-flex flex-column"
+       *ngIf="isShowChooseEditAction">
+    <button class="btn btn-option mb-3"
+            type="button"
+            (click)="onClickEditMembershipButton()">{{'EDIT_MEMBERSHIP.option-edit-membership'|translate}}</button>
+    <button class="btn btn-option"
+            type="button"
+            (click)="onClickEditCommentButton()">{{'EDIT_MEMBERSHIP.option-edit-comment'|translate}}</button>
+  </div>
+
+  <div class="edit-form"
+       *ngIf="!isShowChooseEditAction">
+    <p class="customer-phone-number">{{fullPhoneNumber}}</p>
+    <hr>
+    <div class="d-flex flex-row align-items-center">
+      <p class="h5">{{'EDIT_MEMBERSHIP.membership-tier'|translate}}:</p>
+      <div class="membership" [ngStyle]="membershipButtonColorProperties">
+        <b>{{currentMembership.typeName}}</b></div>
+    </div>
+    <div class="row input-date">
+      <p class="col-sm-4 h5 input-date__title">{{'EDIT_MEMBERSHIP.expiry-date'|translate}}:</p>
+      <div class="col-sm-8 input-group input-date__datepicker">
+        <input class="form-control"
+               placeholder="{{expiredDatePlaceHolder || 'No expiry'}}"
+               name="dp"
+               ngbDatepicker
+               readonly
+               #datepicker="ngbDatepicker"
+               [(ngModel)]="chooseExpiredDate">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary"
+                  (click)="onClickDatepicker()"
+                  type="button"
+                  *ngIf="isEditMembership && checkRoleAdmin(userRoles)"
+                  [disabled]="isCheck">
+            <i class="fa fa-calendar-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown-options-expired-date"
+         *ngIf="isEditMembership">
+      <select class="custom-select"
+              [(ngModel)]="chooseOptionExpiredDate"
+              [disabled]="isCheck">
+        <option *ngFor="let opt of listOptionsExpiredDate"
+                [value]="opt">{{opt.periodTime}} {{'EDIT_MEMBERSHIP.year'|translate}} ( +${{opt.topupValue}} {{walletTitle}})</option>
+      </select>
+    </div>
+    <div class="btn-group-toggle"
+         *ngIf="isEditMembership">
+      <button class="btn button-option-expired-membership"
+              [ngClass]="{'pointer-event-none': isCheck}"
+              (click)="onCheckBoxOptionClick()">
+        <span *ngIf="statusCurrentMembership == 2"><b><em>{{'EDIT_MEMBERSHIP.upgrade'|translate}} </em></b></span>
+        <span *ngIf="statusCurrentMembership == 4"><b><em>{{'EDIT_MEMBERSHIP.extend'|translate}} </em></b></span>
+        <span *ngIf="statusCurrentMembership == 3"><b><em>{{'EDIT_MEMBERSHIP.renew'|translate}} </em></b></span>
+      </button>
+    </div>
+    <p class="h5">{{'EDIT_MEMBERSHIP.comment'|translate}}:</p>
+    <textarea class="comment w-100"
+              [(ngModel)]="comment">{{comment}}</textarea>
+  </div>
+
+</div>
+
+<div class="modal-footer">
+  <button class="save-button btn w-100"
+          type="button"
+          (click)="onClickSaveButton()"
+          *ngIf="!isShowChooseEditAction"
+          [ngClass]="{'pointer-event-none': isWait}">
+    <span *ngIf="!isWait">{{'BUTTON.save'|translate}}</span>
+    <span *ngIf="isWait">
+      <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+    </span>
+  </button>
+</div>

@@ -1,0 +1,446 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{header}}</h5>
+</div>
+<div class="info-body modal-body"
+     [ngClass]="{'modal-body-history': isViewHistory}">
+  <textarea readonly
+            class="content border-top-0 border-bottom-0 border-left-0 w-100 h-100"
+            *ngIf="!isViewHistory">{{content}}</textarea>
+  <div class="card-body"
+       *ngIf="typeHistory == typePointHistory">
+    <ngx-datatable class="material"
+                   #tableTransactionPoint
+                   [rows]="pointTransactionList"
+                   [columnMode]="'force'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="totalItemPointTransaction"
+                   [offset]="pageNumberPoint"
+                   [limit]="pageSize"
+                   [loadingIndicator]="loadingIndicatorPointTransaction"
+                   (page)='getTransactionPointHistory($event)'>
+
+      <ngx-datatable-row-detail #myDetailRow>
+        <ng-template let-row="row"
+                     let-expanded="expanded"
+                     ngx-datatable-row-detail-template>
+          <div class="row-details">
+            <p>
+              <b>{{'INFO_DIALOG.created-date'|translate}}: </b>{{row.createdDate}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.add'|translate}}: </b>{{row.credit}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.redeem'|translate}}: </b>{{row.debit}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.balance'|translate}}: </b>{{row.balanceTotal}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.expired-date'|translate}}: </b>{{row.expiredDate}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.voided'|translate}}: </b>
+              <i *ngIf="row.voided"
+                 class="fas fa-check"></i>
+            </p>
+            <p>
+              <b>{{'INFO_DIALOG.voided-by'|translate}}: </b>{{row.voidedBy}}</p>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+
+      <ngx-datatable-column [width]="50"
+                            [resizeable]="false"
+                            [sortable]="false"
+                            [draggable]="false"
+                            [canAutoResize]="false"
+                            *ngIf="isSmallDevices">
+        <ng-template let-row="row"
+                     let-expanded="expanded"
+                     ngx-datatable-cell-template>
+          <a [class.datatable-icon-right]="!expanded"
+             [class.datatable-icon-down]="expanded"
+             title="Expand/Collapse Row"
+             (click)="toggleExpandRowPoint(row)">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.created-date'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.createdDate}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.add'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.credit}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.redeem'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.debit}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.balance'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.balanceTotal}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.expired-date'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.expiredDate}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.voided'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          <i *ngIf="row.voided"
+             class="fas fa-check"></i>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.voided-by'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.voidedBy}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-footer *ngIf="isSmallDevices">
+        <ng-template let-rowCount="rowCount"
+                     let-pageSize="pageSize"
+                     let-selectedCount="selectedCount"
+                     let-curPage="curPage"
+                     let-offset="offset"
+                     ngx-datatable-footer-template>
+          <app-custom-paginator-ngx-datatable [page]="curPage"
+                                              [visiblePagesCount]="currentVisible"
+                                              [size]="pageSize"
+                                              [count]="rowCount"
+                                              [hidden]="false"
+                                              (change)="tableTransactionPoint.onFooterPage($event)"
+                                              class="w-100 h-100"
+                                              [totalItem]="totalItemPointTransaction">
+          </app-custom-paginator-ngx-datatable>
+        </ng-template>
+      </ngx-datatable-footer>
+    </ngx-datatable>
+  </div>
+  <div class="card-body"
+       *ngIf="typeHistory == typeWalletHistory">
+    <ngx-datatable class="material"
+                   #tableTransactionWallet
+                   [rows]="walletTransactionList"
+                   [columnMode]="'force'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="totalWalletTransaction"
+                   [offset]="pageNumberWallet"
+                   [limit]="pageSize"
+                   [loadingIndicator]="loadingIndicatorWalletTransaction"
+                   (page)='getTransactionWalletHistory($event)'>
+
+      <ngx-datatable-row-detail #myDetailRow>
+        <ng-template let-row="row"
+                     let-column="column"
+                     let-expanded="expanded"
+                     ngx-datatable-row-detail-template>
+          <div class="row-details">
+            <p>
+              <b>{{'INFO_DIALOG.created-date'|translate}}: </b>{{row.createdDate}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.topup'|translate}}: </b>{{row.credit}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.spend'|translate}}: </b>{{row.debit}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.balance'|translate}}: </b>{{row.balanceTotal}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.voided'|translate}}: </b>
+              <i *ngIf="row.voided"
+                 class="fas fa-check"></i>
+            </p>
+            <p>
+              <b>{{'INFO_DIALOG.voided-by'|translate}}: </b>{{row.voidedBy}}</p>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+
+      <ngx-datatable-column [width]="50"
+                            [resizeable]="false"
+                            [sortable]="false"
+                            [draggable]="false"
+                            [canAutoResize]="false"
+                            *ngIf="isSmallDevices">
+        <ng-template let-row="row"
+                     let-expanded="expanded"
+                     ngx-datatable-cell-template>
+          <a [class.datatable-icon-right]="!expanded"
+             [class.datatable-icon-down]="expanded"
+             title="Expand/Collapse Row"
+             (click)="toggleExpandRowWallet(row)">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.created-date'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.createdDate}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.topup'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.credit}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.spend'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.debit}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.balance'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.balanceTotal}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.voided'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          <i *ngIf="row.voided"
+             class="fas fa-check"></i>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.voided-by'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.voidedBy}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-footer *ngIf="isSmallDevices">
+        <ng-template let-rowCount="rowCount"
+                     let-pageSize="pageSize"
+                     let-selectedCount="selectedCount"
+                     let-curPage="curPage"
+                     let-offset="offset"
+                     ngx-datatable-footer-template>
+          <app-custom-paginator-ngx-datatable [page]="curPage"
+                                              [visiblePagesCount]="currentVisible"
+                                              [size]="pageSize"
+                                              [count]="rowCount"
+                                              [hidden]="false"
+                                              (change)="tableTransactionWallet.onFooterPage($event)"
+                                              class="w-100 h-100"
+                                              [totalItem]="totalWalletTransaction">
+          </app-custom-paginator-ngx-datatable>
+        </ng-template>
+      </ngx-datatable-footer>
+    </ngx-datatable>
+  </div>
+  <div class="card-body"
+       *ngIf="typeHistory == typeMembershipHistory">
+    <ngx-datatable class="material expandable datatable-body"
+                   #tableTransactionMembership
+                   [rows]="membershipTransactionList"
+                   [columnMode]="'force'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="totalMembershipTransaction"
+                   [offset]="pageNumberMembership"
+                   [limit]="pageSize"
+                   [loadingIndicator]="loadingIndicatorMembershipTransaction"
+                   (page)='getTransactionMembershipHistory($event)'>
+
+      <ngx-datatable-row-detail #myDetailRow>
+        <ng-template let-row="row"
+                     let-expanded="expanded"
+                     ngx-datatable-row-detail-template>
+          <div class="row-details">
+            <p>
+              <b>{{'INFO_DIALOG.created-date'|translate}}: </b>{{row.createdDate}}</p>
+            <p>
+              <b>{{'INFO_DIALOG.voided-by'|translate}}: </b>{{row.voidedBy}}</p>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+
+      <ngx-datatable-column [width]="50"
+                            [resizeable]="false"
+                            [sortable]="false"
+                            [draggable]="false"
+                            [canAutoResize]="false"
+                            *ngIf="isSmallDevices">
+        <ng-template let-row="row"
+                     let-expanded="expanded"
+                     ngx-datatable-cell-template>
+          <a [class.datatable-icon-right]="!expanded"
+             [class.datatable-icon-down]="expanded"
+             title="Expand/Collapse Row"
+             (click)="toggleExpandRowMembership(row)">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.created-date'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.createdDate}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.membership'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.membershipType}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.expired-date'|translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.expiredDate}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'INFO_DIALOG.voided' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          <i [hidden]="!row.voided"
+             class="fas fa-check"></i>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngIf="!isSmallDevices"
+                            name="{{'INFO_DIALOG.voided-by' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.voidedBy}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-footer *ngIf="isSmallDevices">
+        <ng-template let-rowCount="rowCount"
+                     let-pageSize="pageSize"
+                     let-selectedCount="selectedCount"
+                     let-curPage="curPage"
+                     let-offset="offset"
+                     ngx-datatable-footer-template>
+          <app-custom-paginator-ngx-datatable [page]="curPage"
+                                              [visiblePagesCount]="currentVisible"
+                                              [size]="pageSize"
+                                              [count]="rowCount"
+                                              [hidden]="false"
+                                              (change)="tableTransactionMembership.onFooterPage($event)"
+                                              class="w-100 h-100"
+                                              [totalItem]="totalMembershipTransaction">
+          </app-custom-paginator-ngx-datatable>
+        </ng-template>
+      </ngx-datatable-footer>
+    </ngx-datatable>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="close-button btn"
+          type="button"
+          (click)="onDismiss('Cross click')">{{'BUTTON.close'|translate}}</button>
+</div>

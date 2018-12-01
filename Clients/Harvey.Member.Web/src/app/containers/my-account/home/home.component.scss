@@ -1,0 +1,105 @@
+.home-container {
+  height: 100%;
+  .card-header {
+    text-align: center;
+  }
+  .icon {
+    margin-right: 20px;
+    color: gray;
+    font-size: 18px;
+    line-height: unset;
+  }
+  .benefit-container {
+    display: flex;
+    flex-direction: column;
+    .follow-step {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 10px;
+      &--label {
+        margin-right: 20px;
+        margin-bottom: 0;
+        background-color: #6cd0b6;
+        color: white;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center
+      }
+      &--content {
+        margin: 0;
+      }
+    }
+  }
+  .contact-info {
+    &--wrapper {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 15px;
+
+      .email, .phone-num {
+        color: #05af7c;
+        word-break: break-word;
+      }
+    }
+  }
+  .store-info {
+    &--wrapper {
+    }
+    &__header {
+      display: flex;
+      flex-direction: column;
+    }
+    .store-header {
+      &--name {
+        font-size: 16px;
+        font-weight: bold;
+        color: black;
+        text-decoration: unset;
+      }
+      &--address {
+        color: #34b49a;
+        text-decoration: unset;
+      }
+    }
+    .store-contact {
+      &--wrapper {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
+        label{
+          word-break: break-all;
+        }
+      }
+    }
+  }
+  
+  .how-it-works {
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .home-container {
+    padding: 0;
+    max-width: 100%;
+    .benefit-container {
+      .follow-step {
+        display: block;
+      }
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media screen and (max-width: 991.98px) {
+  .home-container {
+    padding: 0;
+    max-width: 100%;
+    //.benefit-container {
+    //  .follow-step {
+    //    display: block;
+    //  }
+    //}
+  }
+}

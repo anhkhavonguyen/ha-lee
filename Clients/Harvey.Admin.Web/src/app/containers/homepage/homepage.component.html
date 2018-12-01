@@ -1,0 +1,125 @@
+<div class="dashboard-content">
+    <div class="row header">
+        <div class="col-sm-6">
+            <p class="h1">{{'APP.COMMON.DASHBOARD' | translate}}</p>
+        </div>
+        <div class="col-sm-6">
+        </div>
+    </div>
+    <div class="row filter">
+        <div class="date-filter">
+            <span class="filter-date filter-fromdate">{{'APP.COMMON.FROM' | translate}}</span>
+            <input class="form-control"
+                   placeholder="{{'APP.COMMON.FILTERED_DATE' | translate}}"
+                   name="dp"
+                   ngbDatepicker
+                   readonly
+                   #d1="ngbDatepicker"
+                   [(ngModel)]="filteredFromDate">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary"
+                        (click)="d1.toggle()"
+                        type="button">
+                    <i class="fa fa-calendar-alt"></i>
+                </button>
+            </div>
+
+            <span class="filter-date filter-todate">{{'APP.COMMON.TO' | translate}}</span>
+            <input class="form-control"
+                   placeholder="{{'APP.COMMON.FILTERED_DATE' | translate}}"
+                   name="dp"
+                   ngbDatepicker
+                   readonly
+                   #d2="ngbDatepicker"
+                   [(ngModel)]="filteredToDate">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary"
+                        (click)="d2.toggle()"
+                        type="button">
+                    <i class="fa fa-calendar-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="outlets-dropdown">
+            <ng-select [items]="outlets"
+                       bindValue="id"
+                       bindLabel="name"
+                       placeholder="{{'APP.HOMEPAGE_COMPONENT.SELECT_OUTLET' | translate}}"
+                       [(ngModel)]="selectedOutlet"
+                       class="custom"
+                       [clearable]=false>
+            </ng-select>
+
+        </div>
+        <div class="btn-reset">
+            <button type="button"
+                    class="btn btn-outline-secondary reset"
+                    (click)="onClickFilter()">{{'APP.COMMON.FILTER' | translate}}</button>
+        </div>
+
+        <div class="btn-filter">
+            <button type="button"
+                    class="btn btn-outline-secondary reset"
+                    (click)="onClickReset()">{{'APP.COMMON.RESET' | translate}}
+            </button>
+        </div>
+    </div>
+    <ngb-tabset (tabChange)="onTabChange($event)">
+        <ngb-tab id="{{statisticsTab}}">
+            <ng-template ngbTabTitle
+                         placement="bottom"
+                         ngbTooltip="{{'APP.HOMEPAGE_COMPONENT.STATISTICS' | translate}}">
+                <span class="tab-title"><i class="fas fa-chart-line"></i> {{appSummaryLabelTitle}} {{'APP.HOMEPAGE_COMPONENT.STATISTICS'
+                    | translate}}</span></ng-template>
+            <ng-template ngbTabContent>
+                <app-statistics-chart [fromDateRequest]="fromDateRequest"
+                                      [toDateRequest]="toDateRequest"
+                                      [outletRequest]="outletRequest"
+                                      [eventUpdateStatisticsData]="eventUpdateStatisticsData">
+                </app-statistics-chart>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="{{memberTab}}">
+            <ng-template ngbTabTitle
+                         placement="bottom"
+                         ngbTooltip="{{'APP.HOMEPAGE_COMPONENT.MEMBER_SUMMARY' | translate}}">
+                <span class="tab-title"><i class="fas fa-gift"></i> {{appSummaryLabelTitle}} {{'APP.HOMEPAGE_COMPONENT.MEMBER_SUMMARY'
+                    | translate}}</span></ng-template>
+            <ng-template ngbTabContent>
+                <app-member-summary [fromDateRequest]="fromDateRequest"
+                                    [toDateRequest]="toDateRequest"
+                                    [outletRequest]="outletRequest"
+                                    [appSummaryLabelTitle]="appSummaryLabelTitle"
+                                    [eventUpdateMemberData]="eventUpdateMemberData"></app-member-summary>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="{{pointTab}}">
+            <ng-template ngbTabTitle
+                         placement="bottom"
+                         ngbTooltip="{{'APP.HOMEPAGE_COMPONENT.MEMBER_SUMMARY' | translate}}">
+                <span class="tab-title"><i class="fas fa-gift"></i> {{appSummaryLabelTitle}} {{'APP.HOMEPAGE_COMPONENT.REWARDS_POINTS_SUMMARY'
+                    | translate}}</span></ng-template>
+            <ng-template ngbTabContent>
+                <app-point-summary [fromDateRequest]="fromDateRequest"
+                                   [toDateRequest]="toDateRequest"
+                                   [outletRequest]="outletRequest"
+                                   [appSummaryLabelTitle]="appSummaryLabelTitle"
+                                   [eventUpdatePointData]="eventUpdatePointData"></app-point-summary>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="{{walletTab}}">
+            <ng-template ngbTabTitle
+                         placement="bottom"
+                         ngbTooltip="{{'APP.HOMEPAGE_COMPONENT.MEMBER_SUMMARY' | translate}}">
+                <span class="tab-title"><i class="fas fa-gift"></i> {{appSummaryLabelTitle}} {{'APP.HOMEPAGE_COMPONENT.WALLET_SUMMARY'
+                    | translate}}</span></ng-template>
+            <ng-template ngbTabContent>
+                <app-wallet-summary [fromDateRequest]="fromDateRequest"
+                                    [toDateRequest]="toDateRequest"
+                                    [outletRequest]="outletRequest"
+                                    [appSummaryLabelTitle]="appSummaryLabelTitle"
+                                    [eventUpdateWalletData]="eventUpdateWalletData"></app-wallet-summary>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

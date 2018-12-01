@@ -1,0 +1,81 @@
+<div *ngIf="isLoading" class="loading loading-indicator">
+  <app-loading-indicator></app-loading-indicator>
+</div>
+<div class="row header">
+  <div class="col-sm-6">
+    <p class="h1">{{'APP.COMMON.CUSTOMERS' | translate}}</p>
+  </div>
+  <div class="col-sm-6 search">
+    <form class="form-inline my-2 my-lg-0 ">
+      <input class="form-control" [(ngModel)]="searchText" #searchInput name="searchText" type="search" placeholder="Search" aria-label="Search">
+    </form>
+  </div>
+</div>
+<div class="customer-btn">
+  <button (click)="onClickUploadFile()" type="button" class="btn btn-outline-secondary upload-file">{{'APP.COMMON.UPLOAD_FILE' | translate}}</button>
+  <button (click)="onClickExportCSV()" type="button" class="btn btn-outline-secondary export-CSV">{{'APP.COMMON.EXPORT_CSV' | translate}}</button>
+</div>
+<div>
+  <ngx-datatable class="material" [rows]="customerList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+    [externalPaging]="true" [count]="totalItem" [offset]="pageNumber" [limit]="pageSize" [loadingIndicator]="loadingIndicator"
+    (page)='setPage($event)'>
+    <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <a class="customer-name" [routerLink]="['/customer-detail', row.id,row.customerCode]">{{row.name}}</a>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.DATE_OF_BIRTH' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.dateOfBirth}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.email}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div class="phone">
+          {{row.phone}}
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.JOINED' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.joinedDate}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.lastUsed}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.status}}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

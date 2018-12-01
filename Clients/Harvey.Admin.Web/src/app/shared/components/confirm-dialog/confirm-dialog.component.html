@@ -1,0 +1,16 @@
+<div *ngIf="isLoading" class="loading">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+<div class="modal-header">
+    <p class="modal-title">{{title}}</p>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <h5>{{content}}</h5>
+</div>
+<div class="modal-footer">
+    <button type="button" [ngClass]="{disabled: isVoided}" class="btn btn-outline-dark" (click)="onConfirm()">Yes</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cancel click')">No</button>
+</div>

@@ -1,0 +1,190 @@
+<div class="redeem-dailog modal-header">
+    <p class="modal-title h4">{{'REDEEM_POINT.title'|translate}}</p>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="onDismiss('Cross click')">
+        <i class="close-icon fas fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="modal-body__header row mb-3">
+        <div class="col 6">
+            <b>{{rewardsPointsTitle}}</b>
+        </div>
+        <div class="col 6 text-align-right">
+            {{rewardPoint}} {{'REDEEM_POINT.points-earned'|translate}}
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="modal-body__header"
+             *ngIf="!isSelectedOption">
+            <p class="title-choose-option mb-2">{{'REDEEM_POINT.select-redemption-option'|translate}}: </p>
+            <div class="list-group"
+                 *ngFor="let option of options">
+                <div class="input-group mb-3"
+                     [ngClass]="{'disabled': option.disabled}">
+                    <div class="input-group-prepend">
+                        <button class="btn button-option-redeem"
+                                type="button">{{option.lable}}</button>
+                        <a class="list-group-item list-group-item-action form-control"
+                           (click)="onRedeemOptionClicked(option)">$ {{option.value}} {{'REDEEM_POINT.discount'|translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group mb-3 pointer-event-none modal-body__header"
+             *ngIf="isSelectedOption && !isConfirm">
+            <div class="input-group-prepend">
+                <button class="btn button-option-redeem"
+                        type="button">{{selectedOptionValue.lable}}</button>
+                <a class="list-group-item list-group-item-action form-control">$ {{selectedOptionValue.value}} {{'REDEEM_POINT.discount'|translate}}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3 text-align-center"
+         *ngIf="isNext && !isConfirm">
+        <div class="col-12 mb-3">
+            <input readonly
+                   class="input-PIN border-0 text-center h3"
+                   placeholder="{{'REDEEM_POINT.enter-pin'|translate}}"
+                   value="{{charPINvalue}}">
+        </div>
+        <div class="col-12 mb-3">
+            <a class="resend-pin"
+               (click)="resendPIN()"
+               *ngIf="!isResend"
+               [ngClass]="{'pointer-event-none': isWaitResend}">{{'REDEEM_POINT.resend-pin'|translate}}</a>
+        </div>
+    </div>
+
+    <div class="row mb-3 text-align-center"
+         *ngIf="isConfirm">
+        <div class="modal-body__info col-12 mb-3 d-flex flex-column">
+            <h4>{{selectedOptionValue.lable}} {{'REDEEM_POINT.points'|translate}}</h4>
+            <i class="arrow-convert fas fa-angle-double-down"></i>
+            <h4>$ {{selectedOptionValue.value}}</h4>
+        </div>
+        <div class="col-12 mb-3">
+            <a class="edit-amount"
+               (click)="editAmount()">{{'REDEEM_POINT.edit-amount'|translate}}</a>
+        </div>
+        <div class="col-12 mt-3">
+            <div class="new-balance border d-flex align-items-center">
+                <p class="text-center w-100">{{'REDEEM_POINT.new-balance'|translate}}
+                    <b>{{newBalance}} {{'REDEEM_POINT.points'|translate}}</b>
+                </p>
+            </div>
+            <div class="total-redeem border border-top-0  border-bottom-0 d-flex align-items-center">
+                <p class="text-center w-100">
+                    <b>{{selectedOptionValue.lable}} {{'REDEEM_POINT.points'|translate}}</b> {{'REDEEM_POINT.will-redeem'|translate}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isConfirm && isNext">
+        <div class="virtual-keyboard w-100">
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(1)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">1</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(2)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">2</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(3)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(4)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">4</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(5)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">5</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(6)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">6</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(7)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">7</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(8)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">8</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(9)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">9</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row --non-border-bottom">
+                <div class="virtual-keyboard__row-button"
+                     (click)="clearValue()">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">C</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(0)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">0</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="subNumber()">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">
+                            <i class="fas fa-backspace"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="save-button btn w-100"
+            *ngIf="isNext && !isConfirm"
+            [ngClass]="{'pointer-event-none': isVaildInputPIN()}"
+            type="button"
+            (click)="onClickNextInputPINButton()">
+        <span *ngIf="!isWait">{{'BUTTON.next'|translate}}</span>
+        <span *ngIf="isWait">
+            <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+        </span>
+    </button>
+    <button class="save-button btn w-100"
+            *ngIf="isConfirm"
+            type="button"
+            (click)="onClickConfirmButton()">{{'BUTTON.confirm'|translate}}</button>
+</div>

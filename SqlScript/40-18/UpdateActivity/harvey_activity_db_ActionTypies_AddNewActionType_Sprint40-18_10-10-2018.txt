@@ -1,0 +1,52 @@
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (6, now(), now(), null, null, 'UpdateAppSetting', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (7, now(), now(), null, null, 'InitCustomer', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (8, now(), now(), null, null, 'LogInStoreApp', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (9, now(), now(), null, null, 'LogInAdminApp', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (10, now(), now(), null, null, 'LogInMemberApp', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (11, now(), now(), null, null, 'ActiveCustomer', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (12, now(), now(), null, null, 'DeActiveCustomer', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (13, now(), now(), null, null, 'LoginServingCustomer', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (14, now(), now(), null, null, 'UpdateCustomerInfomation', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (15, now(), now(), null, null, 'UpdateCustomerProfile', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (16, now(), now(), null, null, 'ChangeMobilePhoneNumber', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (17, now(), now(), null, null, 'DeleteAppSetting', null);
+	
+	INSERT INTO public."ActionTypies"(
+	"Id", "CreatedDate", "UpdatedDate", "CreatedBy", "UpdatedBy", "Name", "ActionActivityId")
+	VALUES (18, now(), now(), null, null, 'AddAppSetting', null);
+	

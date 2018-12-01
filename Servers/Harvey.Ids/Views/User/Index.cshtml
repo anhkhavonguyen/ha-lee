@@ -1,0 +1,107 @@
+﻿@using X.PagedList;
+@using Microsoft.AspNetCore.Identity
+@using Harvey.Ids.Domains
+
+@inject UserManager<ApplicationUser> UserManager
+
+@model PagedList<Harvey.Ids.ViewModels.UserViewModel>
+@{
+    ViewBag.Title = "Users Management";
+    var CurrentUser = await UserManager.GetUserAsync(User);
+}
+
+<div class="col-md-12 m-b-40">
+    <!-- DATA TABLE -->
+    <h3 class="title-5 m-b-20">@ViewBag.Title</h3>
+    <div class="table-data__tool">
+        <div class="table-data__tool-left">
+            <p>@ViewBag.Comment</p>
+        </div>
+        <div class="table-data__tool-right">
+            <form>
+                <button class="au-btn au-btn-icon au-btn--green au-btn--small" asp-controller="User" asp-action="Create">
+                    <i class="zmdi zmdi-plus"></i>add user
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive table-responsive-data2">
+        <table id="myTable" class="table table-data2">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>dateofbirth</th>
+                    <th>phone</th>
+                    <th>status</th>
+                    <th>gender</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="tr-shadow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            <span class="block-email">@Html.DisplayFor(modelItem => item.Email)</span>
+                        </td>
+                        <td class="desc">@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="status--process">Active</span>
+                            }
+                            else
+                            {
+                                <span class="status--denied">Inactive</span>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                        <td>
+                            <div class="table-data-feature">
+
+                                <button class="item" data-placement="top" title="Edit"
+                                        onclick="location.href='@Url.Action("Edit")?Id=@(item.Id)'">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </button>
+
+                                @if (!item.IsActive && item.Id != CurrentUser.Id)
+                                {
+                                    <button class="item anchorDetail" data-toggle="tooltip" data-placement="top" title="Delete"
+                                            data-id="@item.Id">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="spacer"></tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    <div style="float: right">
+        <input type="button" value="Previous" onclick="location.href='@Url.Action("Index")?page=' + @(Model.PageNumber  - 1)"
+               @{ if ((Model.PageNumber - 1) <= 0) { @: disabled="disabled"
+               } } />
+        <input type="button" value="Next" onclick="location.href='@Url.Action("Index")?page=' + @(Model.PageNumber  + 1)"
+               @{ if ((Model.PageNumber + 1) > Model.PageCount) { @: disabled="disabled"
+               } } />
+    </div>
+    <div id='myModal' class='modal confirm-dialog'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
+    </div>
+</div>

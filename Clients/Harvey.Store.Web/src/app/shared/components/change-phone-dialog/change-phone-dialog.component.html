@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{'CHANGE_PHONE_DIALOG.title'|translate}}</h5>
+  <button type="button"
+          class="close"
+          aria-label="Close"
+          (click)="onDismiss('Cross click')">
+    <i class="close-icon fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="changeMobilePhoneNumberForm">
+    <fieldset>
+      <div formGroupName="phoneGroup">
+        <div class="form-group">
+          <label>{{'CHANGE_PHONE_DIALOG.phone' | translate}}</label>
+          <div class="phone-group row">
+            <div class="col-md-3 phone-group__country-code">
+              <select class="custom-select"
+                      id="inputGroupSelect01"
+                      formControlName="phoneCountryCode">
+                <option *ngFor="let phone of validatePhones"
+                        class="option"
+                        value="{{phone.countryCode}}">{{phone.name}}(+{{phone.countryCode}})</option>
+              </select>
+            </div>
+            <input formControlName="phoneNumber"
+                   class="col-md-9 form-control phone-number"
+                   placeholder="{{'CHANGE_PHONE_DIALOG.phone-number' | translate}}"
+                   type="tel"
+                   [ngClass]="{'is-invalid':(changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.touched ||
+                   changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.dirty)
+                   && !changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.valid || changeMobilePhoneNumberForm.invalid}">
+
+            <span class="error invalid-feedback"
+                  *ngIf="(changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.dirty)
+            && (changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.errors 
+            || changeMobilePhoneNumberForm.get('phoneGroup')?.errors)">
+              <span class="row error-message"
+                    *ngIf="changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.errors?.required || changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.errors?.nospace">
+                {{'ERROR.phone_required' | translate}}
+              </span>
+              <span class="row error-message"
+                    *ngIf="changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.errors?.pattern
+              || changeMobilePhoneNumberForm.get('phoneGroup.phoneCountryCode')?.errors?.pattern">
+                {{'ERROR.input_number' | translate}}
+              </span>
+              <span class="row error-message"
+                    *ngIf="!changeMobilePhoneNumberForm.get('phoneGroup.phoneNumber')?.errors
+              && changeMobilePhoneNumberForm.get('phoneGroup')?.errors?.invalidPhone">
+                {{'ERROR.invalid_phone' | translate}}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="close-button btn"
+          type="button"
+          (click)="onClickSaveButton()"
+          [disabled]="changeMobilePhoneNumberForm.invalid">{{'BUTTON.save'|translate}}</button>
+</div>

@@ -1,0 +1,182 @@
+{
+  "LOGIN": {
+    "header": "Sign In",
+    "forgot-password": "Forgot Password",
+    "phoneNumber": "Phone Number",
+    "inputPhoneNumber": "Enter your phone number.",
+    "password": "Password",
+    "inputPassword": "Enter your password.",
+    "welcome-back": "Welcome Back"
+  },
+  "ERROR": {
+    "emptyPhoneNumber": "Please enter your phone number.",
+    "emptyNewPhone": "New phone number required",
+    "emptyPassword": "Please enter your password.",
+    "emptyFirstName": "Please enter your first name.",
+    "emptyLastName": "Please enter your last name.",
+    "emptyEmail": "Please enter your email.",
+    "emptyCurrentPassword": "Enter current password.",
+    "emptyNewPassword": "New password required",
+    "emptyConfirmPassword": "Please confirm your password",
+    "emptyCurrentPin": "Enter current PIN",
+    "emptyNewPin": "New PIN required",
+    "emptyConfirmPin": "Please confirm your PIN",
+    "pin-length": "PIN code must be 4 characters",
+    "passwordMinLength": "The password must be longer than 6 characters.",
+    "firstNameMinLength": "The first name must be longer than 2 characters.",
+    "lastNameMaxLength": "The last name must be less than 50 characters.",
+    "password-not-match": "Those passwords didn't match. Please try again.",
+    "pin-not-match": "Those PIN didn't match. Please try again.",
+    "invalid-email-format": "Please enter a valid email. E.g : example@domain.com",
+    "try-again": "Something went wrong. Please try again",
+    "current-number-wrong": "The current number is wrong !!!!!",
+    "input-wrong-pin-code": "Your PIN code is wrong, please check it again!!",
+    "same-phone-number": "Oops!!! Those phone look likes the same.",
+    "wrong-password": "Oops!!! Please check your password again.",
+    "phone-regex": "Oops!!! Your phone is invalid format, please check it again",
+    "LIMIT_FILE_SIZE": "Maximum upload file size: 2MB.",
+    "ALLOWED_FILE_TYPE": "File must be image."
+  },
+  "FORM": {
+    "header": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "emailHint": "example@domain.com",
+    "birthday": "Birthday",
+    "password": "Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-password": "Confirm Password",
+    "current-pin": "Current PIN",
+    "new-pin": "New PIN",
+    "confirm-pin": "Confirm PIN",
+    "postal-code": "Postal Code",
+    "gender": "Gender"
+  },
+  "PASSWORD": {
+    "header-reset-password": "Reset Password",
+    "enter-new-password": "Enter your new password",
+    "confirm-password": "Confirm your password"
+  },
+  "BUTTON": {
+    "next": "Next",
+    "back": "Back",
+    "sign-in": "Sign In",
+    "sign-up": "Sign Up",
+    "update": "Update",
+    "forgot-password": "Forgot Password ?",
+    "edit-number": "Edit Number",
+    "reset-password": "Reset Password",
+    "confirm": "Confirm",
+    "back-to-user-profile": "Back to user profile",
+    "update-avatar": "Update avatar image",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back-to-login": "Back to Sign In",
+    "home": "Home",
+    "account": "Account",
+    "profile": "Profile",
+    "qrCode": "QR Code",
+    "send-PIN-to-SMS": "Forgot? Send PIN to my phone",
+    "change": "Change",
+    "my-account": "My Account",
+    "show-comment": "Show comment"
+  },
+  "MY-ACCOUNT": {
+    "header": "My Account",
+    "legacy-point": "Legacy Point",
+    "reward-point": "Reward Point",
+    "wallet": "Wallet",
+    "created-date": "Created",
+    "add": "Add",
+    "redeem": "Redeem",
+    "balance": "Balance",
+    "voided": "Voided",
+    "voided-by": "Voided by",
+    "expired-date": "Expired date",
+    "topup": "Topup",
+    "spend": "Spend",
+    "membership": "Membership",
+    "birthmonth": "It's birthday month",
+    "membership-program": "Membership Program",
+    "expiry": "Expiry",
+    "member-is-deactive": "Member is deactive!",
+    "expiring-points": "Expiring points"
+  },
+  "EDIT-PROFILE": {
+    "header": "Edit Profile",
+    "personal-info": "Personal Info",
+    "password": "Password",
+    "pin": "PIN"
+  },
+  "MESSAGE": {
+    "new-user-registration": "Welcome to TOG. Please visit the TOG store near you to update your profile",
+    "user-not-complete-profile": "Welcome back to TOG. Look like you're not complete your profile. Please come to the nearest TOG store to complete your profile",
+    "reset-password": "You recently requested to reset your password. Please check info we've sent to your email to re-new your password",
+    "reset-password-success": "You password changed successfully !",
+    "migrate-user-renew-password": "Welcome back to TOG. We've updated our system so because of security, please check your email to change your password",
+    "update-password-success": "Your password change successfully !",
+    "update-pin-success": "Your PIN change successfully !",
+    "update-profile-success": "Your profile update successfully !",
+    "sign-up-success": "Congrats. Your profile updated. Now back to login to sign in",
+    "send-PIN-to-Phone": "We've sent a PIN code to your phone. Please check it",
+    "change-phone-confirm": "For change phone number, your need to use your PIN code to confirm your change phone number request",
+    "change-phone-success": "You have successfully changed your phone number. Please login again with new number",
+    "user-already-complete-profile": "Welcome back to TOG. You completed your profile. Please sign in!"
+  },
+  "CHANGE-PHONE": {
+    "title": "Change Phone Number",
+    "current-number": "Current Phone Number",
+    "new-number": "New Phone Number",
+    "PIN": "PIN code",
+    "PIN-hint": "Enter your PIN code"
+  },
+  "HOME-CONTENT": {
+    "how-it-works": {
+      "title": "How it works?",
+      "content": "Become TOG Premium+ Member for S$20 for a 1-year membership that offers you:",
+      "wallet-content": "A reward of S$10 in TOG Wallet which can be used for next purchase.",
+      "price-content": "Enjoy special price for selected products in store.",
+      "point-content": "Earn Reward Points for every dollar spent in store (2 x Reward Points on your birthday month)."
+    },
+    "benefit": {
+      "title": "How to Enjoy these Benefits",
+      "step1": {
+        "name": "Step 1",
+        "content": "Head down to the Toy Or Game"
+      },
+      "step2": {
+        "name": "Step 2",
+        "content": "Approach their friendly staff about claiming your offer."
+      },
+      "step3": {
+        "name": "Step 3",
+        "content": "Enter your mobile number when asked."
+      },
+      "step4": {
+        "name": "Step 4",
+        "content": "Enjoy your reward."
+      }
+    },
+    "available": {
+      "title": "Available at"
+    },
+    "contact": {
+      "title": "Contact Info",
+      "time": "Monday to Sunday:<br> 11:00AM - 9:30PM",
+      "email": "ecommerce@toyorgame.com.sg",
+      "phone": "+65 6634 0240"
+    },
+    "term": {
+      "title": "Terms of Use"
+    },
+    "privacy": {
+      "title": "Privacy Policy"
+    }
+  },
+  "QR-CODE":{
+    "title": "My QR",
+    "member-code":"Member QR Code"
+  }
+}

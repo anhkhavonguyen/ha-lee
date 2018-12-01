@@ -1,0 +1,24 @@
+.navigate-button{
+  display:  flex;
+  flex-direction: row;
+  justify-content: space-around;
+  &__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  .navigate-icon{
+    right: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+  }
+  .icon{
+    &--navigate{
+      cursor: pointer;
+    }
+    &--name{
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,101 @@
+<div class="row header">
+  <div class="col-sm-6">
+    <p class="h1">{{'APP.COMMON.ACTIVITY' | translate}}</p>
+  </div>
+  <div class="col-sm-6 search">
+    <form class="form-inline my-2 my-lg-0 ">
+      <input class="form-control" [(ngModel)]="searchText" #searchInput name="searchText" type="search" placeholder="Search" aria-label="Search">
+    </form>
+  </div>
+</div>
+
+<!-- <div class="filter">
+  <form class="form-inline my-2 my-lg-0 sms-datepicker">
+    <input class="form-control" [(ngModel)]="searchText" #searchInput name="searchText" type="search" placeholder="Search" aria-label="Search">
+  </form>
+  <form class="form-inline my-2 my-lg-0 sms-datepicker">
+    <div class="input-group">
+      <input class="form-control" placeholder="{{'APP.COMMON.FILTERED_DATE' | translate}}" name="dp" ngbDatepicker readonly #d="ngbDatepicker"
+        [(ngModel)]="filter_date" (ngModelChange)="updateFilterDate()">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+          <i class="fa fa-calendar-alt"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="sms-report-btn">
+    <button type="button" class="btn btn-outline-secondary reset" (click)="onClickReset()">{{'APP.COMMON.RESET' | translate}}</button>
+  </div>
+</div> -->
+
+<div>
+  <ngx-datatable class="material" [rows]="dataList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+    [externalPaging]="true" [count]="totalItem" [offset]="pageNumber" [limit]="pageSize" [loadingIndicator]="loadingIndicator"
+    (page)='setPage($event)'>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.ACTIONTYPE' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.actionType}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.ACTIONAREA' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.actionArea}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.DESCRIPTION' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.description}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.COMMENT' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.comment}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.CREATEDBY' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.createdBy}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.CREATEDBYNAME' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.createdByName}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="{{'APP.ACTIVITY.CREATEDDATE' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.createdDate}}
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+</div>

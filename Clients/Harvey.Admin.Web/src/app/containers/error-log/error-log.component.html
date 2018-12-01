@@ -1,0 +1,47 @@
+<div class="row header">
+  <div class="col-sm-6">
+    <p class="h1">{{'APP.COMMON.ERRORS_LOG' | translate}}</p>
+  </div>
+  <div class="col-sm-6">
+  </div>
+</div>
+<div>
+  <ngx-datatable class="material" [rows]="listError" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+    [externalPaging]="true" [count]="totalItem" [offset]="pageNumber" [limit]="pageSize" [loadingIndicator]="loadingIndicator"
+    (page)='setPage($event)'>
+    <ngx-datatable-column name="{{'APP.ERROR_LOG_COMPONENT.CAPTION' | translate}}" [maxWidth]="250" [width]="150">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.caption}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.ERROR_LOG_COMPONENT.DETAIL' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.detail}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.ERROR_LOG_COMPONENT.CREATE_DATE' | translate}}" [maxWidth]="200" [width]="120">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div class="phone">
+          {{row.createdDate}}
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.ERROR_LOG_COMPONENT.ERROR_LOG_SOURCE' | translate}}" [maxWidth]="200" [width]="120">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.errorLogSource}}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

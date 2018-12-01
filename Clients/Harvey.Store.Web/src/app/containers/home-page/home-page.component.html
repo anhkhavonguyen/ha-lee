@@ -1,0 +1,17 @@
+<div class="home-page d-flex flex-column w-100 p-3">
+  <div *ngIf="isLoading"
+       class="loading">
+    <app-loading></app-loading>
+  </div>
+  <h1 class="text-center w-100">{{titleApp}}</h1>
+  <p class="text-center w-100">{{'HOME.welcome'|translate}}, {{currentUser.lastName}} {{currentUser.firstName}}</p>
+  <div class="outlet-info align-self-center w-75 mb-3"
+       *ngFor="let outlet of listOutlet ">
+    <app-outlet-info-card [ouletInfo]="outlet" [outletImageDefault]= "outletImage"
+                          (click)="onClickInfoCard(outlet)"></app-outlet-info-card>
+  </div>
+  <a class="back-to-login text-center w-100"
+     routerLink="/login"
+     routerLinkActive="active"
+     (click)="onClickBackToLogin()">{{'HOME.back-to-login'|translate}}</a>
+</div>

@@ -1,0 +1,5 @@
+<app-header [userName]="userName" *ngIf="isAuthenticated"></app-header>
+<app-sidebar [userName]="userName" *ngIf="isAuthenticated"></app-sidebar>
+<section [ngClass]="[isAuthenticated ? 'main-container' : 'main-container-unauthenticated']">
+    <router-outlet></router-outlet>
+</section>

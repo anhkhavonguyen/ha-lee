@@ -1,0 +1,109 @@
+<app-loading-page *ngIf="isLoading"></app-loading-page>
+<div class="container change-phone-form">
+  <div class="card">
+    <div class="card-header">{{'CHANGE-PHONE.title'|translate}}</div>
+    <div class="card-body">
+      <form [formGroup]="changePhoneForm" *ngIf="currentView === displayView.enterPhone">
+        <fieldset>
+          <label>{{'CHANGE-PHONE.current-number'|translate}}</label>
+          <div class="form-group row">
+            <div class="col-md-2 col-5">
+              <select class="form-control"
+                      formControlName="currentCode">
+                <option *ngFor="let phone of listPhoneValidator "
+                        value="{{phone.countryCode}}">+{{phone.countryCode}} ({{phone.name}})
+                </option>
+              </select>
+            </div>
+            <div class="col-md-10 col-7">
+              <input class="form-control"
+                     placeholder="{{'CHANGE-PHONE.current-number'|translate}}"
+                     formControlName="currentNumber"
+                     [ngClass]="{'is-invalid':changePhoneForm.get('currentNumber').dirty&&
+                                         !changePhoneForm.get('currentNumber').valid}"/>
+              <span class="error invalid-feedback" *ngIf="(changePhoneForm.get('currentNumber').touched ||
+                                                   changePhoneForm.get('currentNumber').dirty) &&
+                                                    changePhoneForm.get('currentNumber').errors">
+              <span *ngIf="changePhoneForm.get('currentNumber').errors.required">
+                {{'ERROR.emptyPhoneNumber'|translate}}
+              </span>
+            </span>
+            </div>
+          </div>
+
+          <label>{{'CHANGE-PHONE.new-number'|translate}}</label>
+          <div class="form-group row">
+            <div class="col-md-2 col-5">
+              <select class="form-control"
+                      formControlName="newCode">
+                <option *ngFor="let phone of listPhoneValidator "
+                        value="{{phone.countryCode}}">+{{phone.countryCode}} ({{phone.name}})
+                </option>
+              </select>
+            </div>
+            <div class="col-md-10 col-7">
+              <input class="form-control"
+                     placeholder="{{'CHANGE-PHONE.new-number'|translate}}"
+                     formControlName="newNumber"
+                     [ngClass]="{'is-invalid':changePhoneForm.get('newNumber').dirty&&
+                                         !changePhoneForm.get('newNumber').valid}"/>
+              <span class="error invalid-feedback" *ngIf="(changePhoneForm.get('newNumber').touched ||
+                                                   changePhoneForm.get('newNumber').dirty) &&
+                                                    changePhoneForm.get('newNumber').errors">
+              <span *ngIf="changePhoneForm.get('newNumber').errors.required">
+                {{'ERROR.emptyNewPhone'|translate}}
+              </span>
+              </span>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+
+      <form [formGroup]="confirmPINForm" *ngIf="currentView === displayView.confirm">
+        <fieldset>
+          <p>{{'MESSAGE.change-phone-confirm'|translate}}</p>
+          <div class="form-group">
+            <label>{{'CHANGE-PHONE.PIN'|translate}}</label>
+            <input class="form-control"
+                   type="password"
+                   maxlength="4"
+                   formControlName="inputPIN"
+                   placeholder="{{'CHANGE-PHONE.PIN-hint'|translate}}"
+                   [ngClass]="{'is-invalid':confirmPINForm.get('inputPIN').dirty&&
+                                               !confirmPINForm.get('inputPIN').valid}"/>
+            <span class="error invalid-feedback" *ngIf="  confirmPINForm.get('inputPIN').dirty&&
+                                                              confirmPINForm.get('inputPIN').errors">
+                  <span *ngIf="confirmPINForm.get('inputPIN').errors?.required">
+                    {{'ERROR.emptyCurrentPin'|translate}}
+                  </span>
+                  <span
+                    *ngIf="confirmPINForm.get('inputPIN').errors.minlength">
+                    {{'ERROR.pin-length'|translate}}
+                  </span>
+            </span>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="card-footer">
+      <div *ngIf="currentView === displayView.enterPhone" class="group-action">
+        <a (click)="backToAccount()">{{'BUTTON.my-account'|translate}}</a>
+        <button type="button"
+                class="btn btn--orange"
+                (click)="enterPIN()"
+                [disabled]="!changePhoneForm.valid">{{'BUTTON.change'|translate}}
+        </button>
+      </div>
+
+      <div *ngIf="currentView === displayView.confirm" class="group-action">
+        <a (click)="backToChangePhoneView()">{{'BUTTON.back'|translate}}</a>
+        <button type="button"
+                class="btn btn--orange"
+                (click)="UpdatePhone()"
+                [disabled]="!confirmPINForm.valid || isUpdatePhone">{{'BUTTON.confirm'|translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,555 @@
+<div class="customer-listing-page">
+  <div class="customer-listing-page__navbar navbar p-3"
+       [ngStyle]="panelColorProperties">
+    <div class="outlet-info d-flex align-items-center w-75">
+      <img class="outlet-info__avatar navbar-brand float-left"
+           src="{{outletAvatar}}">
+      <p class="outlet-info__name h2 float-left">{{currentOutlet.name}}</p>
+    </div>
+    <div ngbDropdown
+         placement="bottom-right">
+      <button class="menu-button border-0 bg-transparent"
+              ngbDropdownToggle>
+        <span class="menu-button__label fas fa-align-justify text-white h2"></span>
+      </button>
+      <div ngbDropdownMenu
+           class="pop-menu border rounded-0">
+        <button class="dropdown-item"
+                (click)="onClickHomePageButton()">{{'MENU.home'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickDashboardButton()">{{'MENU.dashboard'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickServingButton()">{{'MENU.serving'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickListCustomerButton()"
+                *ngIf="checkPermissionCurrentUser('AdminStaff')">{{'MENU.list-customers'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickChangePasswordButton()"
+                *ngIf="checkPermissionCurrentUser('AdminStaff')">{{'MENU.change-password'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickLogoutButton()">{{'MENU.logout'|translate}}</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="body-page w-100 h-100 p-3">
+    <div class="customer-detail">
+      <p class="h1">{{'TRANSACTION_HISTORY.title'|translate}}</p>
+      <div class="card bg-light my-4 customer-info">
+        <div class="card-header card-header-info">
+          <div class="row">
+            <div class="col-sm-6 col-sd-6 col-lg-6">
+              <h4>{{'TRANSACTION_HISTORY.outlet-name'|translate}} : {{currentOutlet.name}}</h4>
+            </div>
+            <div class="col-sm-6 col-sd-6 col-lg-6">
+              <h4>{{'TRANSACTION_HISTORY.address'|translate}} : {{currentOutlet.address}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card bg-light my-4 transaction-membership">
+        <div class="card-header">
+          <h4>
+            <i class="far fa-id-card"></i> {{'TRANSACTION_HISTORY.membership-transaction'|translate}}</h4>
+        </div>
+        <div class="card-body">
+          <ngx-datatable class="material expandable datatable-body"
+                         #tableTransactionMembership
+                         [rows]="membershipTransactionList"
+                         [columnMode]="'force'"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="'auto'"
+                         [externalPaging]="true"
+                         [count]="totalMembershipTransaction"
+                         [offset]="pageNumberMembership"
+                         [limit]="pageSize"
+                         [loadingIndicator]="loadingIndicatorMembershipTransaction"
+                         (page)='setPageMembershipTransaction($event)'>
+
+            <ngx-datatable-row-detail #myDetailRow
+                                      (toggle)="onDetailToggle($event)">
+              <ng-template let-row="row"
+                           let-expanded="expanded"
+                           ngx-datatable-row-detail-template>
+                <div class="row-details">
+                  <p><b>{{'TRANSACTION_HISTORY.name'|translate}}: </b>{{row.customerName}}</p>
+                  <p><b>{{'TRANSACTION_HISTORY.customer-code'|translate}}: </b>{{row.customerCode}}</p>
+                  <p><b>{{'TRANSACTION_HISTORY.last-used'|translate}}: </b>{{row.createdDate}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.membership'|translate}}: </b>{{row.membershipType}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.expired-date'|translate}}: </b>{{row.expiredDate}}</p>
+                  <button *ngIf="isSmallDevices"
+                          class="show-comment-button--MobileS btn btn-danger text-center"
+                          (click)="onClickShowComment(row.comment)">{{'BUTTON.show-comment-large'|translate}}</button>
+                </div>
+              </ng-template>
+            </ngx-datatable-row-detail>
+
+            <ngx-datatable-column [width]="50"
+                                  [resizeable]="false"
+                                  [sortable]="false"
+                                  [draggable]="false"
+                                  [canAutoResize]="false"
+                                  *ngIf="!isExtraLargeDevices()">
+              <ng-template let-row="row"
+                           let-expanded="expanded"
+                           ngx-datatable-cell-template>
+                <a [class.datatable-icon-right]="!expanded"
+                   [class.datatable-icon-down]="expanded"
+                   title="Expand/Collapse Row"
+                   (click)="toggleExpandRowMembership(row)"
+                   class="arrow">
+                </a>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.last-used'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.createdDate}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.customer-code'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.customerCode}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.name'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.customerName}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="{{'TRANSACTION_HISTORY.mobile'|translate}}"
+                                  [minWidth]="80">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <div class="phone">
+                  {{row.phoneCustomer}}
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.membership'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.membershipType}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.expired-date'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.expiredDate}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.comment'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <button [hidden]="row.comment == '-'"
+                        type="submit"
+                        (click)="onClickShowComment(row.comment)"
+                        class="show-comment-button btn btn-danger text-center mobile-hidden">{{'BUTTON.show-comment-large'|translate}}</button>
+                <button [hidden]="row.comment == '-'"
+                        type="submit"
+                        (click)="onClickShowComment(row.comment)"
+                        class="show-comment-button btn btn-danger text-center desktop-hidden">{{'BUTTON.show-comment-small'|translate}}</button>
+                <div *ngIf="row.comment == '-'">{{row.comment}}</div>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+      <div class="card bg-light my-4 rewards-point">
+        <div class="card-header">
+          <h4>
+            <i class="fas fa-gift"></i> Reward Point Transactions</h4>
+        </div>
+        <div class="card-body">
+          <ngx-datatable class="material"
+                         #tableTransactionPoint
+                         [rows]="pointTransactionList"
+                         [columnMode]="'force'"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="'auto'"
+                         [externalPaging]="true"
+                         [count]="totalItemPointTransaction"
+                         [offset]="pageNumberPoint"
+                         [limit]="pageSize"
+                         [loadingIndicator]="loadingIndicatorPointTransaction"
+                         (page)='setPagePointTransaction($event)'>
+
+            <ngx-datatable-row-detail #myDetailRow
+                                      (toggle)="onDetailToggle($event)">
+              <ng-template let-row="row"
+                           let-expanded="expanded"
+                           ngx-datatable-row-detail-template>
+                <div class="row-details">
+                  <p><b>{{'TRANSACTION_HISTORY.name'|translate}}: </b>{{row.customerName}}</p>
+                  <p><b>{{'TRANSACTION_HISTORY.customer-code'|translate}}: </b>{{row.customerCode}}</p>
+                  <p><b>{{'TRANSACTION_HISTORY.last-used'|translate}}: </b>{{row.createdDate}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.add'|translate}}: </b>{{row.credit}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.redeem'|translate}}: </b>{{row.debit}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.balance'|translate}}: </b>{{row.balanceTotal}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.expired-date'|translate}}: </b>{{row.expiredDate}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.voided'|translate}}: </b><i *ngIf="row.voided"
+                       class="fas fa-check"></i></p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.voided-by'|translate}}: </b>{{row.voidedBy}}</p>
+                </div>
+              </ng-template>
+            </ngx-datatable-row-detail>
+
+            <ngx-datatable-column [width]="50"
+                                  [resizeable]="false"
+                                  [sortable]="false"
+                                  [draggable]="false"
+                                  [canAutoResize]="false"
+                                  *ngIf="!isExtraLargeDevices()">
+              <ng-template let-row="row"
+                           let-expanded="expanded"
+                           ngx-datatable-cell-template>
+                <a [class.datatable-icon-right]="!expanded"
+                   [class.datatable-icon-down]="expanded"
+                   title="Expand/Collapse Row"
+                   (click)="toggleExpandRowPoint(row)"
+                   class="arrow">
+                </a>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.last-used'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.createdDate}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.customer-code'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.customerCode}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.name'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.customerName}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="{{'TRANSACTION_HISTORY.mobile'|translate}}"
+                                  [minWidth]="100">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <div class="phone">
+                  {{row.phoneCustomer}}
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.add'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.credit}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.redeem'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.debit}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.balance'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.balanceTotal}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.expired-date'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.expiredDate}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.voided'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <i *ngIf="row.voided"
+                   class="fas fa-check"></i>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.voided-by'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.voidedBy}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+      <div class="card bg-light my-4 wallet">
+        <div class="card-header">
+          <h4>
+            <i class="fas fa-gift"></i> {{'TRANSACTION_HISTORY.wallet-transaction'|translate}}</h4>
+        </div>
+        <div class="card-body">
+          <ngx-datatable class="material"
+                         #tableTransactionWallet
+                         [rows]="walletTransactionList"
+                         [columnMode]="'force'"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="'auto'"
+                         [externalPaging]="true"
+                         [count]="totalWalletTransaction"
+                         [offset]="pageNumberWallet"
+                         [limit]="pageSize"
+                         [loadingIndicator]="loadingIndicatorWalletTransaction"
+                         (page)='setPageWalletTransaction($event)'>
+
+            <ngx-datatable-row-detail #myDetailRow
+                                      (toggle)="onDetailToggle($event)">
+              <ng-template let-row="row"
+                           let-column="column"
+                           let-expanded="expanded"
+                           ngx-datatable-row-detail-template>
+                <div class="row-details">
+                  <p><b>{{'TRANSACTION_HISTORY.name'|translate}}: </b>{{row.customerName}}</p>
+                  <p><b>{{'TRANSACTION_HISTORY.customer-code'|translate}}: </b>{{row.customerCode}}</p>
+                  <p><b>{{'TRANSACTION_HISTORY.last-used'|translate}}: </b>{{row.createdDate}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.add'|translate}}: </b>{{row.credit}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.redeem'|translate}}: </b>{{row.debit}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.balance'|translate}}: </b>{{row.balanceTotal}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.expired-date'|translate}}: </b>{{row.expiredDate}}</p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.voided'|translate}}: </b><i *ngIf="row.voided"
+                       class="fas fa-check"></i></p>
+                  <p *ngIf="isSmallDevices"><b>{{'TRANSACTION_HISTORY.voided-by'|translate}}: </b>{{row.voidedBy}}</p>
+                </div>
+              </ng-template>
+            </ngx-datatable-row-detail>
+
+            <ngx-datatable-column [width]="50"
+                                  [resizeable]="false"
+                                  [sortable]="false"
+                                  [draggable]="false"
+                                  [canAutoResize]="false"
+                                  *ngIf="!isExtraLargeDevices()">
+              <ng-template let-row="row"
+                           let-expanded="expanded"
+                           ngx-datatable-cell-template>
+                <a [class.datatable-icon-right]="!expanded"
+                   [class.datatable-icon-down]="expanded"
+                   title="Expand/Collapse Row"
+                   (click)="toggleExpandRowWallet(row)"
+                   class="arrow">
+                </a>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.last-used'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.createdDate}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.customer-code'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.customerCode}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                  name="{{'TRANSACTION_HISTORY.name'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.customerName}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="{{'TRANSACTION_HISTORY.mobile'|translate}}"
+                                  [minWidth]="100">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <div class="phone">
+                  {{row.phoneCustomer}}
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.debit'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.debit}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.credit'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.credit}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.balance'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.balanceTotal}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.voided'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <i *ngIf="row.voided"
+                   class="fas fa-check"></i>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="!isSmallDevices"
+                                  name="{{'TRANSACTION_HISTORY.voided-by'|translate}}">
+              <ng-template let-column="column"
+                           ngx-datatable-header-template>
+                {{column.name}}
+              </ng-template>
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{row.voidedBy}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>

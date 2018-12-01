@@ -1,0 +1,194 @@
+<div class="modal-header">
+  <h5 class="modal-title">Update Setting Value</h5>
+  <button type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="onDismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="updateValueForm">
+    <fieldset>
+      <div class="form-group">
+        <label>{{'APP.SETTINGS.NAME'| translate}}</label>
+        <input class="form-control"
+               formControlName="name"
+               placeholder="{{'APP.SETTINGS.NAME'| translate}}">
+
+      </div>
+      <!-- Display normal value -->
+      <div class="form-group"
+           *ngIf="checkStringValue()">
+        <label>{{'APP.SETTINGS.VALUE'| translate}}</label>
+        <input class="form-control"
+               formControlName="value"
+               placeholder="{{'APP.SETTINGS.VALUE'| translate}}"
+               [ngClass]="{'is-invalid': (updateValueForm.get('value')?.touched ||
+                                                      updateValueForm.get('value')?.dirty) &&
+                                                      !updateValueForm.get('value')?.valid}">
+        <span class="invalid-feedback"
+              *ngIf="(updateValueForm.get('value')?.touched ||
+                                                           updateValueForm.get('value')?.dirty) &&
+                                                           updateValueForm.get('value')?.errors">
+          <span *ngIf="updateValueForm.get('value').errors.required">
+            {{'APP.SETTINGS.REQUIRED-VALUE'| translate}}
+          </span>
+        </span>
+      </div>
+      <!-- Display icon value -->
+      <div class="form-group"
+           *ngIf="isAppSettingIcon">
+        <div class="d-flex flex-column">
+          <label>{{'APP.SETTINGS.VALUE'| translate}}</label>
+          <div class="d-flex flex-row align-items-center">
+            <img src="{{displayIcon}}"
+                 class="icon">
+            <input type="file"
+                   class="custom-file-input"
+                   id="inputGroupFile"
+                   (change)="uploadIcon($event)"
+                   accept="image/*">
+            <label class="btn btn-light border"
+                   for="inputGroupFile">{{'APP.SETTINGS.CHOOSE_FILE'| translate}}</label>
+          </div>
+          <p><em>{{'APP.SETTINGS.MAXIMUM_FILE'| translate}}</em></p>
+        </div>
+      </div>
+      <!-- Display boolean value -->
+      <div class="form-group"
+           *ngIf="isAppSettingBooleanValue">
+        <div class="d-flex flex-column">
+          <label>{{'APP.SETTINGS.VALUE'| translate}}</label>
+          <input type="checkbox"
+                 id="id-name--1"
+                 class="switch-input"
+                 [checked]="booleanValue"
+                 (click)="onSwitchButtonClick()">
+          <label for="id-name--1"
+                 class="switch-label"></label>
+        </div>
+      </div>
+
+      <!-- Display color value -->
+      <app-update-setting-color *ngIf="isAppSettingColor"
+                                [appSettingColorValue]="appSettingColorValue"
+                                (change)="onChangeColor($event)"></app-update-setting-color>
+
+      <div class="form-group"
+           *ngIf="isAppSettingHtmlContent">
+        <label>{{'APP.SETTINGS.TITLE'| translate}}</label>
+        <input class="form-control"
+               formControlName="title"
+               placeholder="{{'APP.SETTINGS.TITLE'| translate}}"
+               [ngClass]="{'is-invalid': (updateValueForm.get('title')?.touched ||
+                                                      updateValueForm.get('title')?.dirty) &&
+                                                      !updateValueForm.get('title')?.valid}">
+        <span class="invalid-feedback"
+              *ngIf="(updateValueForm.get('title')?.touched ||
+                                                           updateValueForm.get('title')?.dirty) &&
+                                                           updateValueForm.get('title')?.errors">
+          <span *ngIf="updateValueForm.get('title').errors.required">
+            {{'APP.SETTINGS.REQUIRED-VALUE'| translate}}
+          </span>
+        </span>
+        <br>
+        <app-ngx-editor [config]="editorConfig"
+                        [spellcheck]="true"
+                        [(ngModel)]="memberHomeHtmlContent"
+                        [ngModelOptions]="{standalone: true}">
+        </app-ngx-editor>
+      </div>
+
+      <!-- Display member home content -->
+      <div class="form-group"
+           *ngIf="isAppSettingMemberContactInfo">
+        <div class="form-group-title">
+          <label>{{'APP.SETTINGS.TITLE'| translate}}</label>
+          <input class="form-control"
+                 formControlName="title"
+                 placeholder="{{'APP.SETTINGS.TITLE'| translate}}"
+                 [ngClass]="{'is-invalid': (updateValueForm.get('title')?.touched ||
+                                                            updateValueForm.get('title')?.dirty) &&
+                                                            !updateValueForm.get('title')?.valid}">
+          <span class="invalid-feedback"
+                *ngIf="(updateValueForm.get('title')?.touched ||
+                                                                 updateValueForm.get('title')?.dirty) &&
+                                                                 updateValueForm.get('title')?.errors">
+            <span *ngIf="updateValueForm.get('title').errors.required">
+              {{'APP.SETTINGS.REQUIRED-VALUE'| translate}}
+            </span>
+          </span>
+        </div>
+        <div class="form-group-open-time">
+          <i class="icon far fa-clock fa-2x"></i>
+          <textarea class="form-control textarea-opentime"
+                    formControlName="openTime"
+                    placeholder="{{'APP.SETTINGS.OPEN-TIME'| translate}}"
+                    [ngClass]="{'is-invalid': (updateValueForm.get('openTime')?.touched ||
+                                                     updateValueForm.get('openTime')?.dirty) &&
+                                                     !updateValueForm.get('openTime')?.valid}"></textarea>
+          <span class="invalid-feedback"
+                *ngIf="(updateValueForm.get('openTime')?.touched ||
+                                                                  updateValueForm.get('openTime')?.dirty) &&
+                                                                  updateValueForm.get('openTime')?.errors">
+            <span *ngIf="updateValueForm.get('openTime').errors.required">
+              {{'APP.SETTINGS.REQUIRED-VALUE'| translate}}
+            </span>
+          </span>
+        </div>
+        <div class="form-group-email">
+          <i class="icon far fa-envelope fa-2x"></i>
+          <input class="form-control"
+                 formControlName="email"
+                 placeholder="{{'APP.COMMON.EMAIL'| translate}}"
+                 [ngClass]="{'is-invalid': (updateValueForm.get('email')?.touched ||
+                                                     updateValueForm.get('email')?.dirty) &&
+                                                     !updateValueForm.get('email')?.valid}">
+          <span class="invalid-feedback"
+                *ngIf="(updateValueForm.get('email')?.touched ||
+                                                                  updateValueForm.get('email')?.dirty) &&
+                                                                  updateValueForm.get('email')?.errors">
+            <span *ngIf="updateValueForm.get('email').errors.required">
+              {{'APP.ERROR.EMAIL_REQUIRED'| translate}}
+            </span>
+          </span>
+        </div>
+        <div class="form-group-phone">
+          <i class="icon fas fa-phone-volume fa-2x"></i>
+          <input class="form-control"
+                 formControlName="phone"
+                 placeholder="{{'APP.COMMON.PHONE'| translate}}"
+                 [ngClass]="{'is-invalid': (updateValueForm.get('phone')?.touched ||
+                                                     updateValueForm.get('phone')?.dirty) &&
+                                                     !updateValueForm.get('phone')?.valid}">
+          <span class="invalid-feedback"
+                *ngIf="(updateValueForm.get('phone')?.touched ||
+                                                                  updateValueForm.get('phone')?.dirty) &&
+                                                                  updateValueForm.get('phone')?.errors">
+            <span *ngIf="updateValueForm.get('phone').errors.required">
+              {{'APP.ERROR.PHONE_REQUIRED'| translate}}
+            </span>
+          </span>
+        </div>
+      </div>
+
+
+      <!-- <div class="form-group">
+        <label>{{'APP.SETTINGS.Comment'| translate}}</label>
+        <input class="form-control"
+               formControlName="comment"
+               placeholder="{{'APP.SETTINGS.Comment'| translate}}">
+      </div> -->
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button [disabled]="!updateValueForm.valid"
+          (click)="updateValue()"
+          class="btn btn-primary"
+          type="button">
+    {{'APP.SETTINGS.Update'| translate}}
+  </button>
+</div>

@@ -1,0 +1,198 @@
+<div class="update-customer-profile-page">
+  <div class="update-customer-profile-page--content">
+    <img class="tog-logo"
+         src="{{togLogo}}">
+    <div class="card-input">
+      <div class="card-input--header">
+        <label class="title">{{'UPDATE_CUSTOMER_PROFILE_PAGE.title'|translate}}</label>
+      </div>
+      <div class="card-input--body">
+        <form [formGroup]="updateProfileForm">
+          <fieldset>
+            <div class="row">
+              <div class="col-12 col-sm-12 conl-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <input class="form-control"
+                         placeholder="{{'UPDATE_CUSTOMER_PROFILE_PAGE.firstName'|translate}}"
+                         formControlName="firstName"
+                         type="text"
+                         [readonly]="isConfirmUpdate"
+                         [ngClass]="{'is-invalid':(updateProfileForm.get('firstName').touched ||
+                                                        updateProfileForm.get('firstName').dirty) &&
+                                                        !updateProfileForm.get('firstName').valid}">
+                  <span class="error invalid-feedback"
+                        *ngIf="(updateProfileForm.get('firstName').touched ||
+                                                                    updateProfileForm.get('firstName').dirty)&&
+                                                                     updateProfileForm.get('firstName').errors">
+                    <span *ngIf="updateProfileForm.get('firstName').errors.required">
+                      {{'ERROR.empty-first-name'|translate}}
+                    </span>
+                    <span *ngIf="updateProfileForm.get('firstName').errors.minlength">
+                      {{'ERROR.first-name-min-length'|translate}}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 conl-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <input class="form-control"
+                         placeholder="{{'UPDATE_CUSTOMER_PROFILE_PAGE.lastName'|translate}}"
+                         formControlName="lastName"
+                         type="text"
+                         [readonly]="isConfirmUpdate"
+                         [ngClass]="{'is-invalid':(updateProfileForm.get('lastName').touched ||
+                                                          updateProfileForm.get('lastName').dirty) &&
+                                                          !updateProfileForm.get('lastName').valid}">
+                  <span class="error invalid-feedback"
+                        *ngIf="(updateProfileForm.get('lastName').touched ||
+                                                                    updateProfileForm.get('lastName').dirty)&&
+                                                                     updateProfileForm.get('lastName').errors">
+                    <span *ngIf="updateProfileForm.get('lastName').errors.required">
+                      {{'ERROR.empty-last-name'|translate}}
+                    </span>
+                    <span *ngIf="updateProfileForm.controls.lastName.errors.maxlength">
+                      {{'ERROR.last-name-max-length'|translate}}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12 conl-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <input class="form-control"
+                         placeholder="{{'UPDATE_CUSTOMER_PROFILE_PAGE.emailHint'|translate}}"
+                         formControlName="email"
+                         type="email"
+                         [readonly]="isConfirmUpdate"
+                         [ngClass]="{'is-invalid':(updateProfileForm.get('email').touched ||
+                                                       updateProfileForm.get('email').dirty) &&
+                                                       !updateProfileForm.get('email').valid}">
+                  <span class="error invalid-feedback"
+                        *ngIf="(updateProfileForm.get('email').touched ||
+                                                                   updateProfileForm.get('email').dirty)&&
+                                                                    updateProfileForm.get('email').errors">
+                    <span *ngIf="updateProfileForm.get('email').errors.required">
+                      {{'ERROR.empty-email'|translate}}
+                    </span>
+
+                    <span *ngIf="updateProfileForm.get('email').errors.pattern">
+                      {{'ERROR.invalid-email-format' |translate}}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 conl-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control datepicker"
+                           placeholder="{{'UPDATE_CUSTOMER_PROFILE_PAGE.birthday'|translate}}"
+                           name="dp"
+                           formControlName="dateOfBirth"
+                           ngbDatepicker
+                           [minDate]="{year: 1900, month: 1, day: 1}"
+                           readonly
+                           #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary datepicker--button"
+                              (click)="d.toggle()"
+                              type="button"
+                              [disabled]="isConfirmUpdate">
+                        <i class="fa fa-calendar-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div formGroupName="genderGroup"
+                 *ngIf="!isConfirmUpdate">
+              <div ngbRadioGroup
+                   formControlName="gender"
+                   class="gender-group row">
+                <div class="col-6 col-sm-6 conl-md-6 col-lg-6 col-xl-6">
+                  <label ngbButtonLabel
+                         class="btn btn--gender">
+                    <input type="radio"
+                           ngbButton
+                           [disabled]="isConfirmUpdate"
+                           value="Male">{{'BUTTON.male'|translate}}
+                  </label>
+                </div>
+                <div class="col-6 col-sm-6 conl-md-6 col-lg-6 col-xl-6">
+                  <label ngbButtonLabel
+                         class="btn btn--gender">
+                    <input type="radio"
+                           ngbButton
+                           [disabled]="isConfirmUpdate"
+                           value="Female">{{'BUTTON.female'|translate}}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row"
+                 *ngIf="isConfirmUpdate">
+              <div class="col-6 col-sm-6 conl-md-6 col-lg-6 col-xl-6">
+                <button class="btn btn btn-secondary btn--gender-disable"
+                        *ngIf="customerProfile.genderGroup.gender"
+                        disabled>
+                  <input type="radio"
+                         readonly>{{customerProfile.genderGroup.gender}}
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group input--password"
+                 *ngIf="!isConfirmUpdate">
+              <input class="form-control"
+                     type="password"
+                     placeholder="{{'UPDATE_CUSTOMER_PROFILE_PAGE.password'|translate}}"
+                     formControlName="password"
+                     [disabled]="isConfirmUpdate"
+                     [ngClass]="{'is-invalid':(updateProfileForm.get('password').touched ||
+                                                          updateProfileForm.get('password').dirty) &&
+                                                          !updateProfileForm.get('password').valid}">
+              <span class="error invalid-feedback"
+                    *ngIf="(updateProfileForm.get('password').touched ||
+                                                               updateProfileForm.get('password').dirty)  &&
+                                                               updateProfileForm.get('password').errors">
+                <span *ngIf="updateProfileForm.get('password').errors.required">
+                  {{'ERROR.empty-password'|translate}}
+                </span>
+                <span *ngIf="updateProfileForm.get('password').errors.minlength">
+                  {{'ERROR.password-min-length'|translate}}
+                </span>
+              </span>
+            </div>
+          </fieldset>
+          <div class="group-action group-button-submit"
+               [ngClass]="{'group-button-submit--isComfirm': isConfirmUpdate}">
+            <p *ngIf="isConfirmUpdate"
+               class="btn btn--back"
+               (click)="onClickBack()">{{'UPDATE_CUSTOMER_PROFILE_PAGE.back'|translate}}</p>
+            <button (click)="onClickNextButton()"
+                    type="button"
+                    class="btn btn--orange"
+                    *ngIf="!isConfirmUpdate"
+                    [disabled]="!updateProfileForm.valid">{{'BUTTON.next'|translate}}
+            </button>
+            <button (click)="onClickConfirmProfileButton()"
+                    type="button"
+                    class="btn btn--success"
+                    *ngIf="isConfirmUpdate">{{'BUTTON.confirm'|translate}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="skip-container">
+      <button class="skip-container--button"
+              (click)="onClickSkipButton()"></button>
+    </div>
+  </div>
+
+</div>

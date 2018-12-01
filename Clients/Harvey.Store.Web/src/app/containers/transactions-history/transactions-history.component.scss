@@ -1,0 +1,120 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+
+.customer-listing-page {
+    height: 100vh;
+}
+
+.outlet-info {
+
+    &__avatar { 
+        height: 80px;
+    }
+}
+
+.menu-button {
+    
+    &__label {
+        cursor: pointer;
+    }
+
+    &::after {
+        content: unset !important;
+    }
+}
+
+.customer-avatar {
+    height: 30px;
+    width: 30px;
+}
+
+.body-page {
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+}
+
+
+.gender {
+    margin-left: 20px;
+}
+
+.last-visited {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.last-visited-text {
+    float: right;
+}
+
+.phone {
+    white-space: nowrap;
+}
+
+.card-header{
+    color: #fff;
+    background-color: #28a745;
+}
+
+.card-header-info{
+    background-color: #000;
+    color: #fff;
+}
+
+.show-comment-button {
+    width: 100%;
+    background-color: #e42c00;
+    &:hover {
+        background-color: #ff4518;
+    }
+
+    &--MobileS {
+        background-color: #e42c00;
+        &:hover {
+            background-color: #ff4518;
+        }
+    }
+}
+
+@media (max-width: 1024px) { 
+    .datatable-body-cell-label {
+        font-size: 13px;
+    }
+    .datatable-header-cell-template-wrap {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .desktop-hidden {
+        display: none;
+    }
+    .mobile-hidden {
+        display: initial;
+    }
+}
+
+@media (max-width: 1023px) {
+    .desktop-hidden {
+        display: initial;
+      }
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+.row-details {
+    padding-left:60px;
+    font-size:13px;
+}
+
+.ngx-datatable.material .datatable-body .datatable-row-detail {
+    height: fit-content !important;
+}
+
+.arrow {
+    font-size: 20px;
+}

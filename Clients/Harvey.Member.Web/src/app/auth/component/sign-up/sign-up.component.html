@@ -1,0 +1,266 @@
+<!-- <app-loading-page *ngIf="isLoading"></app-loading-page> -->
+<div class="user-new-profile__loading"
+     *ngIf="isLoading">
+  <div class="detail-loading">
+    <i class="icon-loading fa fa-spinner fa-spin"></i>
+  </div>
+</div>
+<div class="container user-new-profile"
+     *ngIf="!isLoading">
+  <img class="tog-logo"
+       src="../../../../assets/img/logo/300_dpi_black.png">
+  <div class="card"
+       *ngIf="!isCustomerSignUp()">
+    <div class="card-header">
+      {{'FORM.header'|translate}}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="signUpForm"
+            *ngIf="!isConfirmProfile">
+        <fieldset>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input class="form-control"
+                       placeholder="{{'FORM.firstName'|translate}}"
+                       formControlName="firstName"
+                       type="text"
+                       [ngClass]="{'is-invalid':(signUpForm.get('firstName').touched ||
+                                                  signUpForm.get('firstName').dirty) &&
+                                                  !signUpForm.get('firstName').valid}">
+                <span class="error invalid-feedback"
+                      *ngIf="(signUpForm.get('firstName').touched ||
+                                                              signUpForm.get('firstName').dirty)&&
+                                                               signUpForm.get('firstName').errors">
+                  <span *ngIf="signUpForm.get('firstName').errors.required">
+                    {{'ERROR.emptyFirstName'|translate}}
+                  </span>
+                  <span *ngIf="signUpForm.get('firstName').errors.minlength">
+                    {{'ERROR.firstNameMinLength'|translate}}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input class="form-control"
+                       placeholder="{{'FORM.lastName'|translate}}"
+                       formControlName="lastName"
+                       type="text"
+                       [ngClass]="{'is-invalid':(signUpForm.get('lastName').touched ||
+                                                    signUpForm.get('lastName').dirty) &&
+                                                    !signUpForm.get('lastName').valid}">
+                <span class="error invalid-feedback"
+                      *ngIf="(signUpForm.get('lastName').touched ||
+                                                              signUpForm.get('lastName').dirty)&&
+                                                               signUpForm.get('lastName').errors">
+                  <span *ngIf="signUpForm.get('lastName').errors.required">
+                    {{'ERROR.emptyLastName'|translate}}
+                  </span>
+                  <span *ngIf="signUpForm.controls.lastName.errors.maxlength">
+                    {{'ERROR.lastNameMaxLength'|translate}}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input class="form-control"
+                       placeholder="{{'FORM.emailHint'|translate}}"
+                       formControlName="email"
+                       type="email"
+                       [ngClass]="{'is-invalid':(signUpForm.get('email').touched ||
+                                                 signUpForm.get('email').dirty) &&
+                                                 !signUpForm.get('email').valid}">
+                <span class="error invalid-feedback"
+                      *ngIf="(signUpForm.get('email').touched ||
+                                                             signUpForm.get('email').dirty)&&
+                                                              signUpForm.get('email').errors">
+                  <span *ngIf="signUpForm.get('email').errors.required">
+                    {{'ERROR.emptyEmail'|translate}}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control"
+                         placeholder="{{'FORM.birthday'|translate}}"
+                         name="dp"
+                         formControlName="dateOfBirth"
+                         ngbDatepicker
+                         [minDate]="{year: 1900, month: 1, day: 1}"
+                         readonly
+                         #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary"
+                            (click)="d.toggle()"
+                            type="button">
+                      <i class="fa fa-calendar-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row"
+               formGroupName="genderGroup">
+            <div ngbRadioGroup
+                 formControlName="gender"
+                 class="gender-group">
+              <div class="col-md-6 ">
+                <label ngbButtonLabel
+                       class="btn--gender">
+                  <input type="radio"
+                         ngbButton
+                         value="Male">Male
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label ngbButtonLabel
+                       class="btn--gender">
+                  <input type="radio"
+                         ngbButton
+                         value="Female">Female
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="form-control"
+                   type="password"
+                   placeholder="{{'FORM.password'|translate}}"
+                   formControlName="password"
+                   [ngClass]="{'is-invalid':(signUpForm.get('password').touched ||
+                                                    signUpForm.get('password').dirty) &&
+                                                    !signUpForm.get('password').valid}">
+            <span class="error invalid-feedback"
+                  *ngIf="(signUpForm.get('password').touched ||
+                                                         signUpForm.get('password').dirty)  &&
+                                                         signUpForm.get('password').errors">
+              <span *ngIf="signUpForm.get('password').errors.required">
+                {{'ERROR.emptyPassword'|translate}}
+              </span>
+              <span *ngIf="signUpForm.get('password').errors.minlength">
+                {{'ERROR.passwordMinLength'|translate}}
+              </span>
+            </span>
+          </div>
+        </fieldset>
+        <div class="group-action">
+          <a (click)="backToSignIn()">Sign In</a>
+          <button (click)="nextToConfirmProfile()"
+                  type="button"
+                  class="btn btn--orange"
+                  [disabled]="!signUpForm.valid">Next
+          </button>
+        </div>
+      </form>
+
+      <form [formGroup]="confirmProfileForm"
+            *ngIf="isConfirmProfile">
+        <fieldset>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input class="form-control form-control--disable"
+                       readonly
+                       placeholder="{{'SIGNUP.firstName'|translate}}"
+                       formControlName="firstName">
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input class="form-control form-control--disable"
+                       readonly
+                       placeholder="{{'SIGNUP.lastName'|translate}}"
+                       formControlName="lastName">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <input class="form-control form-control--disable"
+                       readonly
+                       placeholder="{{'SIGNUP.emailHint'|translate}}"
+                       formControlName="email">
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control form-control--disable"
+                         placeholder="{{'SIGNUP.date-format'|translate}}"
+                         name="dp"
+                         formControlName="dateOfBirth"
+                         ngbDatepicker
+                         readonly
+                         #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary"
+                            (click)="d.toggle()"
+                            type="button"
+                            disabled>
+                      <i class="fa fa-calendar-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6 ">
+              <button class="btn btn btn-secondary btn--gender-disable"
+                      disabled
+                      *ngIf="userProfile.genderGroup.gender">
+                <input type="radio"
+                       readonly
+                       formControlName="gender">{{userProfile.genderGroup.gender}}
+              </button>
+            </div>
+          </div>
+
+          <div class="group-action">
+            <a class="btn--back"
+               (click)="backToUserProfile()">{{'BUTTON.back-to-user-profile'|translate}}</a>
+            <button (click)="registerNewAccount()"
+                    type="button"
+                    class="btn btn-success btn-next">{{'BUTTON.confirm'|translate}}
+            </button>
+          </div>
+
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="card"
+       *ngIf="isCustomerSignUp()">
+    <div class="card-body">
+      <div class="page-message__content">
+        <p>{{'MESSAGE.user-already-complete-profile'|translate}}</p>
+      </div>
+      <hr>
+      <div class="page-message__navigation">
+        <a (click)="backToSignIn()">{{'BUTTON.back-to-login'|translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>

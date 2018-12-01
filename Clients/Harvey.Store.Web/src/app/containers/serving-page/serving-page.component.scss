@@ -1,0 +1,78 @@
+.serving-page {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+    overflow: auto;
+}
+
+.menu-button {
+    
+    &__label {
+        cursor: pointer;
+    }
+
+    &::after {
+        content: unset !important;
+    }
+}
+
+.serving-container{
+    &__cover {
+        width: 350px;
+        height: 200px;
+    }
+}
+
+.phone-number {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.staff-avatar {
+    width: 25px;
+    height: 25px;
+}
+
+.outlet-avatar {
+    height: 80px;
+}
+
+.phone-number {
+    font-size: 22px;
+}
+
+.custom-select {
+    border-radius: 0px;
+    border: unset;
+    cursor: pointer;
+}
+
+.login-button {
+    background-color: #e42c00;
+
+    &:hover {
+        background-color: #ff4518;
+    }
+}
+
+.phone-code {
+    width: 33.5%;
+    cursor: pointer;
+}
+
+.phone-number {
+    width: 67%;
+}
+
+.loading {
+
+    height: 100%;
+    width: 100%;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0, 0.5); 
+    overflow-x: hidden; 
+}

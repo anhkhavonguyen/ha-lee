@@ -1,0 +1,138 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+.customer-info {
+    min-height: 150px;
+}
+
+.grid {
+    border: solid 1px darkgray;
+}
+
+.selected {
+    background-color: #e9ecef;
+}
+
+.pagination {
+    float: right;
+}
+
+.customer-avatar {
+    border-radius: 50%;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.customer-name {
+    display: flex;
+    align-items: baseline;
+}
+
+.gender {
+    margin-left: 20px;
+}
+
+.edit-customer-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 20px;
+}
+
+.last-visited {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 15px;
+}
+
+.last-visited-text {
+    float: right;
+}
+
+.phone {
+    white-space: nowrap;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.membership {
+    width: 180px;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.membership-premium {
+    color: #000000;
+    background-color: #FFDF00;
+}
+
+.membership-basic {
+    color: #fff;
+    background-color: brown;
+}
+
+.customer-birthday {
+    display: flex;
+}
+
+.birthday-text {
+    margin-top: 13px;
+}
+
+.birthday-icon {
+    padding-left: 5px;
+}
+
+.icon-edit-profile {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.activeMember {
+    background: rgb(24, 150, 45);
+    color: #fff;
+}
+
+.deactiveMember {
+    background: #4b4c4d;
+    color: #fff;
+}
+
+.status-customer {
+    width: 15px;
+    height: 15px;
+    margin: 10px 5px 0 0;
+    border-radius: 50%;
+}
+
+.customer-name {
+    display: flex;
+}
+
+.status-btn {
+    float: right;
+}
+
+@media (max-width: 1239px) {
+    .desktop-hidden {
+        display: initial;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+@media (min-width: 1240px) {
+    .desktop-hidden {
+        display: none;
+    }
+    .mobile-hidden {
+        display: initial;
+    }
+}

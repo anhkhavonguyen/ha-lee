@@ -1,0 +1,183 @@
+<div class="modal-header">
+    <p class="modal-title h4">{{'TOP_UP_WALLET.title'|translate}}</p>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="onDismiss('Cross click')">
+        <i class="close-icon fas fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="modal-body__header row mb-3">
+        <div class="col-6">
+            <b>{{walletTitle}}</b>
+        </div>
+        <div class="col-6 text-align-right">
+            $ {{walletBalance || '0'}}
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="modal-body__header"
+             *ngIf="!isSelectedOption">
+            <p class="title-choose-option mb-2">{{'TOP_UP_WALLET.select-option'|translate}}: </p>
+            <div class="list-group"
+                 *ngFor="let option of options">
+                <div class="input-group mb-3"
+                     [ngClass]="{'disabled': option.disabled}">
+                    <div class="input-group-prepend w-100">
+                        <button class="btn btn-option"
+                                type="button"
+                                (click)="onTopUpOptionClicked(option)">{{option.lable}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3 text-align-center"
+             *ngIf="isSelectedOption && isOther && isShowWalletInput">
+            <div class="col-12"
+                 *ngIf="!isConfirm">
+                 {{'TOP_UP_WALLET.question-customer'|translate}}
+            </div>
+            <div class=" col-12">
+                <h4>$ {{walletValue}} </h4>
+            </div>
+            <div class="col-12 mb-3"
+                 *ngIf="isEdit">
+                <a class="edit-amount"
+                   (click)="editAmount()">{{'TOP_UP_WALLET.edit-amount'|translate}}</a>
+            </div>
+            <div class="col-12 mt-3"
+                 *ngIf="!isNext">
+                <div class="new-balance border d-flex align-items-center">
+                    <p class="text-center w-100">{{'TOP_UP_WALLET.new-balance'|translate}}
+                        <b>$ {{newBalance}}</b>
+                    </p>
+                </div>
+                <div class="total-add border border-top-0  border-bottom-0 d-flex align-items-center">
+                    <p class="text-center w-100">
+                        <b>$ {{walletValue}}</b> {{'TOP_UP_WALLET.will-added'|translate}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group"
+             *ngIf="isSelectedOption && isConfirm && !isOther && !isShowWalletInput">
+            <div class="input-group-prepend w-100 modal-body__header pointer-event-none">
+                <button class="btn btn-option"
+                        type="button">{{selectedOptionValue.lable}}</button>
+            </div>
+            <div class="modal-body__info col-12 mt-3"
+                 *ngIf="isSelectedOption">
+                <div class="new-balance border d-flex align-items-center">
+                    <p class="text-center w-100">{{'TOP_UP_WALLET.new-balance'|translate}}
+                        <b>$ {{newBalance}}</b>
+                    </p>
+                </div>
+                <div class="total-add border border-top-0  border-bottom-0 d-flex align-items-center">
+                    <p class="text-center w-100">
+                        <b>$ {{walletValue}}</b> {{'TOP_UP_WALLET.will-added'|translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isOther && !isConfirm">
+        <div class="virtual-keyboard w-100">
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(1)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">1</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(2)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">2</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(3)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(4)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">4</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(5)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">5</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(6)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">6</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(7)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">7</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(8)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">8</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="addNumber(9)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">9</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-keyboard__row --non-border-bottom">
+                <div class="virtual-keyboard__row-button"
+                     (click)="addDotValue()">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">.</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button"
+                     (click)="addNumber(0)">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">0</p>
+                    </div>
+                </div>
+                <div class="virtual-keyboard__row-button --non-border-right"
+                     (click)="subNumber()">
+                    <div class="virtual-keyboard__row-button-label">
+                        <p class="number">
+                            <i class="fas fa-backspace"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="button btn w-100"
+            *ngIf="isNext && !isConfirm"
+            [ngClass]="{'pointer-event-none': isValidWalletIput()}"
+            type="button"
+            (click)="onClickNextButton()">{{'BUTTON.next'|translate}}</button>
+    <button class="button btn w-100"
+            *ngIf="isConfirm"
+            type="button"
+            (click)="onClickConfirmButton()">{{'BUTTON.confirm'|translate}}</button>
+</div>

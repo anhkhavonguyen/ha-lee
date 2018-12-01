@@ -1,0 +1,20 @@
+<div class="home-container">
+  <div class="card wrapper">
+    <div class="card-header wrapper__header">
+      <label class="card-subtitle">{{'QR-CODE.title'|translate}}</label>
+    </div>
+    <div class="card-body wrapper__main">
+      <h2>{{'QR-CODE.member-code'|translate}}</h2>
+      <div class="qr-code">
+        <ngx-qrcode [qrc-value]="customerCode" qrc-errorCorrectionLevel="H" qrc-version="7">
+        </ngx-qrcode>
+        <div class="qr-code__img-qr-position">
+            <img class="qr-code__img-qr" src="{{displayPicture}}">
+        </div>
+      </div>
+    </div>
+    <div class="card-footer wrapper__footer">
+      <app-my-account-navigation-button></app-my-account-navigation-button>
+    </div>
+  </div>
+</div>

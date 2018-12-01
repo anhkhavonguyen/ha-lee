@@ -1,0 +1,46 @@
+<div class="card-container">
+  <div class="card-container__title">
+    <img src="{{icon}}"
+         class="icon">
+    <label class="title-content">{{title}} <span class="view-history"
+            (click)="openModalHistory()">View transaction history <i class="fas fa-external-link-alt"></i></span></label>
+  </div>
+  <div class="card-container__content">
+    <div class="content-balance">
+      <div class="balance mr-4">
+        <p *ngIf="isWaitting"
+           class="text-center mt-2 mb-1 h1"><i class="icon-loading fa fa-spinner fa-spin ml-2"></i></p>
+        <p class="h1"
+           *ngIf="!isWaitting"><span *ngIf="type === 'Wallet'">{{'BALANCE_CARD.wallet-currency-unit'|translate}}</span>{{balance||'0'}}</p>
+        <p class="balance-title text-center font-weight-normal mb-3 h4">{{card.titleBalance}}</p>
+      </div>
+      <div class="balance balance--expiring"
+           *ngIf="type === 'Point'"
+           [ngClass]="{'balance-number': type === 'Point'}"
+           (click)="openExpiringPoint()">
+        <p *ngIf="isLoadExpiringPoint"
+           class="text-center mt-2 mb-1 h1"><i class="icon-loading fa fa-spinner fa-spin ml-2"></i></p>
+        <p class="h1"
+           *ngIf="!isLoadExpiringPoint">{{getExpiryPointsResponse.totalExpirypoint || 0}}</p>
+        <p class="balance-title text-center font-weight-normal mb-3 h4">{{'BALANCE_CARD.expiring-point'|translate}}</p>
+      </div>
+    </div>
+    <div class="group-button w-100">
+      <button class="group-button__add-button btn  w-50 h-100 rounded-0 border-right"
+              (mouseover)="setButtonStyles('StoreAppAddButtonHoverColor')"
+              (mouseleave)="setButtonStyles('StoreAppAddButtonColor')"
+              [ngStyle]="addButtonStyles"
+              (click)="onAddClick()">
+        {{card.addButtonLable}}
+      </button>
+      <button class="group-button__spend-button btn w-50 h-100 rounded-0 border-left"
+              (mouseover)="setButtonStyles('StoreAppSpendButtonHoverColor')"
+              (mouseleave)="setButtonStyles('StoreAppSpendButtonColor')"
+              [ngStyle]="spendButtonStyles"
+              [disabled]="isSpendAvailable()"
+              (click)="onSubClick()">
+        {{card.spendButtonLable}}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+.content {
+    padding: 15px;
+}
+
+.modal-header {
+    border-radius: unset;
+    background-color: #221f1f;
+    color: #ffffff;
+}
+
+.info-body {
+    height: 250px;
+    padding: 0;
+}
+
+.modal-body-history {
+    height: fit-content !important;
+}
+
+.modal-footer {
+    background-color: #221f1f;
+    color: #ffffff;
+}
+
+.close-button {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #e42c00;
+    
+    &:hover {
+        background-color: #ff4518;
+    }
+}
+
+@media (max-width: 1024px) { 
+    .datatable-body-cell-label {
+        font-size: 13px;
+    }
+    .datatable-header-cell-template-wrap {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .desktop-hidden {
+        display: none;
+    }
+    .mobile-hidden {
+        display: initial;
+    }
+}
+
+@media (max-width: 1023px) {
+    .desktop-hidden {
+        display: initial;
+      }
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+.row-details {
+    padding-left:60px;
+    font-size:13px;
+}
+
+.ngx-datatable.material .datatable-body .datatable-row-detail {
+    height: fit-content !important;
+}
+
+.arrow {
+    font-size: 20px;
+}

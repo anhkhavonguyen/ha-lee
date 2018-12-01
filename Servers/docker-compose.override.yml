@@ -1,0 +1,101 @@
+version: '3.5'
+
+services:
+  harvey-ids:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=host=harvey-ids-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_ids_db
+      - CertificatePassword=Pssword123
+      - RabbitMqConfig__RabbitMqUrl=rabbitmq://harvey-rabbitmq
+      - RabbitMqConfig__Username=Harvey
+      - RabbitMqConfig__Password=Aa123456789
+      - Authority=http://harvey-ids:80
+      - Serilog__MinimumLevel=Warning
+      - Serilog__WriteTo__Name=PostgreSQL
+      - Serilog__WriteTo__Args__Name=PostgreSQL
+      - Serilog__WriteTo__Args__connectionString=host=harvey-ids-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_ids_db
+      - Serilog__WriteTo__Args__tableName=Logs
+    ports:
+      - "80"
+
+  harvey-crmloyalty-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=host=harvey-crmloyalty-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_crmloyalty_db
+      - RabbitMqConfig__RabbitMqUrl=rabbitmq://harvey-rabbitmq
+      - RabbitMqConfig__Username=Harvey
+      - RabbitMqConfig__Password=Aa123456789
+      - Authority=http://harvey-ids:80
+      - Serilog__MinimumLevel=Warning
+      - Serilog__WriteTo__Name=PostgreSQL
+      - Serilog__WriteTo__Args__Name=PostgreSQL
+      - Serilog__WriteTo__Args__connectionString=host=harvey-crmloyalty-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_crmloyalty_db
+      - Serilog__WriteTo__Args__tableName=Logs
+    ports:
+      - "80"
+
+
+  harvey-notification-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=host=harvey-notification-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_notification_db
+      - RabbitMqConfig__RabbitMqUrl=rabbitmq://harvey-rabbitmq
+      - RabbitMqConfig__Username=Harvey
+      - RabbitMqConfig__Password=Aa123456789
+      - EmailService__SMTPAddress=email-smtp.us-west-2.amazonaws.com
+      - EmailService__SMTPUsername=AKIAJCOROCGW3FWFMMMQ
+      - EmailService__SMTPPassword=Akc89EgCl/l7u5qyHH9xOOfe1oD/ygaSUdrN7wWPtSYU
+      - NoReplyEmail__EmailAddress=noreply@retaildds.com
+      - NoReplyEmail__DisplayName=Retaildds
+      - SMSService__SenderID=RetailDDS
+      - SMSService__AccessKey=AKIAJUC5K4Y3QMTLEHBA
+      - SMSService__SecretKey=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
+      - SMSService__MaxPrice=0.5
+      - SMSService__SMSType=Transactional
+      - Testing__EmailReceivers=thao.truong@orientsoftware.net;phat.tran@orientsoftware.net;kha.vo@orientsoftware.net;khoa.vo@orientsoftware.net;leemay.sze@retaildds.com;dung.nguyen@orientsoftware.net;tuan.trinh@orientsoftware.net;phi.nguyen@orientsoftware.net;thien.nguyen@orientsoftware.net;phung.nguyen@orientsoftware.net
+      - Testing__SMSReceivers=+84869063839
+      - Testing__IsTesting=true
+      - Authority=http://harvey-ids:80
+      - Serilog__MinimumLevel=Warning
+      - Serilog__WriteTo__Name=PostgreSQL
+      - Serilog__WriteTo__Args__Name=PostgreSQL
+      - Serilog__WriteTo__Args__connectionString=host=harvey-notification-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_notification_db
+      - Serilog__WriteTo__Args__tableName=Logs
+    ports:
+      - "80"
+
+
+  harvey-activity-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=host=harvey-activity-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_activity_db
+      - RabbitMqConfig__RabbitMqUrl=rabbitmq://harvey-rabbitmq
+      - RabbitMqConfig__Username=Harvey
+      - RabbitMqConfig__Password=Aa123456789
+      - Authority=http://harvey-ids:80
+      - Serilog__MinimumLevel=Warning
+      - Serilog__WriteTo__Name=PostgreSQL
+      - Serilog__WriteTo__Args__Name=PostgreSQL
+      - Serilog__WriteTo__Args__connectionString=host=harvey-activity-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_activity_db
+      - Serilog__WriteTo__Args__tableName=Logs
+    ports:
+      - "80"
+
+
+  harvey-apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  harvey-job:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=host=harvey-job-db; Port=5432; user id=Harvey; password=Aa123456789; database=harvey_job
+      - RabbitMqConfig__RabbitMqUrl=rabbitmq://harvey-rabbitmq
+      - RabbitMqConfig__Username=Harvey
+      - RabbitMqConfig__Password=Aa123456789
+    ports:
+      - "80"
+

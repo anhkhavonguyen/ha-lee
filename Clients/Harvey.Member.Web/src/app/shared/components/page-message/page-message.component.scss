@@ -1,0 +1,14 @@
+.page-message {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  &__content {
+    display: block;
+  }
+  &__.navigation {
+    display: flex;
+    justify-content: flex-start;
+  }
+}

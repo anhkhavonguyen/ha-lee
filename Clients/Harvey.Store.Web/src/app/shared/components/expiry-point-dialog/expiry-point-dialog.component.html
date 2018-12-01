@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{'EXPIRING_POINT_DIALOG.title'|translate}}</h5>
+  <button type="button"
+          class="close"
+          aria-label="Close"
+          (click)="onDismiss('Cross click')">
+    <i class="close-icon fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="available-point">
+    <p><b>{{'EXPIRING_POINT_DIALOG.available-point'|translate}}</b></p>
+    <p>{{getExpiryPointsResponse.totalAvailablePoint || 0}}</p>
+  </div>
+  <div class="expiring-point">
+    <div class="expiring-point__total">
+      <p><b>{{'EXPIRING_POINT_DIALOG.expiring-point'|translate}}</b></p>
+      <p>{{getExpiryPointsResponse.totalExpirypoint || 0}}</p>
+    </div>
+    <div class="expiring-point__table">
+      <div class="expiring-point__table--row"
+           *ngFor="let item of getExpiryPointsResponse.expiryPoints">
+        <p>{{item.expiry | date:'MMM d, y'}}</p>
+        <p>{{item.pointValue}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="close-button btn"
+          type="button"
+          (click)="onDismiss('Cross click')">{{'BUTTON.close'|translate}}</button>
+</div>

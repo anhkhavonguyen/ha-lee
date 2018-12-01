@@ -1,0 +1,27 @@
+.card {
+    margin-top: -1px;
+
+    .loading {
+        display: flex;
+        justify-content: center;
+
+        .icon-loading {
+            font-size:50px;
+        }
+    }
+
+    .chart {
+
+        &__visitors {
+            margin-bottom: 30px;
+        }
+    
+        &__points {
+            margin-bottom: 30px;
+        }
+
+        &__wallet {
+            margin-bottom: 30px;
+        }
+    }
+}

@@ -1,0 +1,75 @@
+<div class="serving-page">
+  <div class="serving-container container d-flex flex-column justify-content-center align-items-center">
+    <div>
+      <div *ngIf="isLoading"
+           class="loading">
+        <app-loading></app-loading>
+      </div>
+      <div class="serving-container__cover w-100 p-1"
+           [ngStyle]="panelColorProperties">
+        <div class="header-cover align-self-start d-flex flex-row mt-3">
+          <div class="title d-flex flex-row flex-grow-1 ml-2 ">
+            <img class="staff-avatar rounded-circle border border-light"
+                 src="/assets/img/tog_profile_icon.png">
+            <p class="welcome-title ml-1">
+              <b>{{currentUser.lastName}} {{currentUser.firstName}}</b> is serving you</p>
+          </div>
+          <div ngbDropdown
+               placement="auto">
+            <button class="menu-button border-0 bg-transparent"
+                    ngbDropdownToggle>
+              <span class="menu-button__label fas fa-align-justify text-white"></span>
+            </button>
+            <div ngbDropdownMenu
+                 class="pop-menu border rounded-0">
+              <button class="dropdown-item"
+                      (click)="onClickHomeButton()">{{'MENU.home'|translate}}</button>
+              <button class="dropdown-item"
+                      (click)="onClickDashboardButton()">{{'MENU.dashboard'|translate}}</button>
+              <button class="dropdown-item"
+                      (click)="onClickListCustomerButton()"
+                      *ngIf="checkPermissionForButton(roleAdminStaff)">{{'MENU.list-customers'|translate}}</button>
+              <button class="dropdown-item"
+                      (click)="onClickTransactionsButton()">{{'MENU.transactions-history'|translate}}</button>
+              <button class="dropdown-item"
+                      (click)="onClickChangePasswordButton()"
+                      *ngIf="checkPermissionForButton(roleAdminStaff)">{{'MENU.change-password'|translate}}</button>
+              <button class="dropdown-item"
+                      (click)="onClickLogoutButton()">{{'MENU.logout'|translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="outlet-info d-flex flex-column mt-2">
+          <img class="outlet-avatar align-self-center"
+               src="{{outletAvatar}}">
+          <p class="outlet-name align-self-center mt-1">
+            <b>{{currentOutlet.name}}</b>
+          </p>
+        </div>
+      </div>
+      <div class="serving-container__phone-panel w-100">
+        <div class="phone-input d-flex flex-row">
+          <div class="phone-code d-inline-block bg-white border rounded-0">
+            <select class="custom-select"
+                    id="inputGroupSelect01"
+                    [(ngModel)]="countryCode">
+              <option *ngFor="let phone of validatePhones"
+                      class="option"
+                      value="{{phone.countryCode}}">{{phone.name}}(+{{phone.countryCode}})</option>
+            </select>
+          </div>
+          <input class="phone-number text-center text-secondary border border-left-0 bg-white"
+                 (paste)="pasteEvent($event)"
+                 value="{{phoneNumber}}"
+                 placeholder="Your mobile number"
+                 readonly>
+        </div>
+        <app-numeric-virtual-keyboard #numPad
+                                      (phoneNumber)="getPhoneNumber($event)"></app-numeric-virtual-keyboard>
+        <button type="button"
+                class="login-button btn btn-lg btn-block text-white border-0 rounded-0"
+                (click)="onClickLoginButton()">{{'BUTTON.login'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

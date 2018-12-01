@@ -1,0 +1,57 @@
+.dashboard-page {
+    height: 100vh;
+    width: 100%;
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+}
+
+.outlet-info {
+
+    &__avatar { 
+        height: 80px;
+    }
+}
+
+.menu-button {
+    
+    &__label {
+        cursor: pointer;
+    }
+
+    &::after {
+        content: unset !important;
+    }
+}
+
+.loading {
+
+    height: 100%;
+    width: 100%;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0, 0.5); 
+    overflow-x: hidden; 
+}
+
+.dashboard {
+
+    &__title {
+        width: 40%;
+    }
+
+    &__date {
+        width: 60%;
+    }
+}
+
+.pointer-event-none {
+    opacity: 0.7;
+    pointer-events: none;   
+}
+
+@media (min-width: 577px) AND (max-width: 768px) { 
+    .form-control {
+        font-size: 14px;
+    }
+}

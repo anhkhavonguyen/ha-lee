@@ -1,0 +1,114 @@
+<div class="app-settings">
+  <div class="row app-settings__header">
+    <div class="col-sm-6">
+      <h2>App Settings</h2>
+    </div>
+    <div class="col-sm-6 search">
+      <form class="form-inline my-2 my-lg-0 ">
+        <input class="form-control"
+               [(ngModel)]="searchText"
+               #searchInput
+               name="searchText"
+               type="search"
+               placeholder="Search"
+               aria-label="Search">
+      </form>
+    </div>
+  </div>
+  <div class="app-settings__container">
+    <button class="btn-action float-button"
+            (click)="onClickAddNewAppSetting()"><i class="fas fa-plus icon-float-button"></i>
+    </button>
+
+    <ngx-datatable #myTable
+                   class='material expandable datatable-body'
+                   [loadingIndicator]="loadingIndicator"
+                   [columnMode]="'force'"
+                   [headerHeight]="40"
+                   [footerHeight]="40"
+                   [rowHeight]="'auto'"
+                   [rows]='listAppSettings'
+                   [externalPaging]="true"
+                   [count]="totalItem"
+                   [offset]="pageNumber"
+                   [limit]="pageSize"
+                   (page)='setPage($event)'>
+
+      <ngx-datatable-column name="{{'APP.SETTINGS.NAME' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.name}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.SETTINGS.VALUE' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          <p *ngIf="!checkIsAppSettingIcon(row) && !checkIsAppSettingHtmlContent(row) && !checkIsAppSettingMemberContactInfo(row)&& !checkIsAppSettingButtonColor(row)">{{row.value}}</p>
+          <p *ngIf="checkIsAppSettingHtmlContent(row)">{{row.value.split('|||')[0]}}</p>
+          <p *ngIf="checkIsAppSettingMemberContactInfo(row)">{{getTitle(row)}}</p>
+          <p *ngIf="checkIsAppSettingButtonColor(row)">
+            background-color: <input class="button-background-color"
+                   [style.background-color]='getButtonColor(row).backgroundColor'
+                   readonly/>
+            <br /> text-color: <input class="button-text-color"
+                   [style.background-color]='getButtonColor(row).color'
+                   readonly/>
+          </p>
+          <img *ngIf="checkIsAppSettingIcon(row)"
+               src="data:image/png;base64,{{row.value}}"
+               alt="Icon"
+               class="icon">
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.SETTINGS.GROUPNAME' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.groupName}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.SETTINGS.TYPEID' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{row.appSettingType}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="{{'APP.SETTINGS.ACTION' | translate}}">
+        <ng-template let-column="column"
+                     ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          &nbsp;
+          <button (click)="onClickEditValue(row)"
+                  class="btn-action"><i class="fas fa-edit"></i>
+          </button>
+          <button *ngIf="isShowDelete(row)"
+                  class="btn-action"
+                  (click)="onClickDeleteValue(row)"><i class="fas fa-trash-alt"></i>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

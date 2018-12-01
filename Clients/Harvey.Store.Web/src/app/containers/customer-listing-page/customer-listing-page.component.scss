@@ -1,0 +1,79 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+
+.customer-listing-page {
+    height: 100vh;
+}
+
+.outlet-info {
+
+    &__avatar { 
+        height: 80px;
+    }
+}
+
+.menu-button {
+    
+    &__label {
+        cursor: pointer;
+    }
+
+    &::after {
+        content: unset !important;
+    }
+}
+
+// .pop-menu {
+//     border: #e42c00 solid 1px !important;
+// }
+
+.customer-avatar {
+    height: 30px;
+    width: 30px;
+}
+
+.body-page {
+    background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+}
+
+
+
+.header {
+    padding: 20px 0;
+}
+
+.search {
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.grid {
+    font-size: 15px;
+}
+
+.selected {
+    background-color: #e9ecef;
+}
+
+.pagination {
+    float: right;
+}
+
+.upload-file {
+    float: right;
+    margin-right: 10px;
+}
+
+.customer-btn {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 0 10px 0;
+}
+
+.phone {
+    white-space: nowrap;
+}

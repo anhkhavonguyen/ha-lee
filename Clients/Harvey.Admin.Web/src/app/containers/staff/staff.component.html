@@ -1,0 +1,64 @@
+<div class="row header">
+    <div class="col-sm-6">
+      <p class="h1">Staffs</p>
+    </div>
+    <div class="col-sm-6 search">
+      <form class="form-inline my-4 my-lg-0 ">
+        <input class="form-control col-sm-12" [(ngModel)]="searchString" #searchInput  name="searchString" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </div>
+  <ngx-datatable class="material" [rows]="staffs" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+    [externalPaging]="true" [count]="totalItem" [offset]="pageNumber" [limit]="pageSize" [loadingIndicator]="loadingIndicator" (page)='setPage($event)'>
+  
+    <ngx-datatable-column name="{{'APP.COMMON.NAME' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.name}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.BIRTHDAY' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.dateOfBirth}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.EMAIL' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.email}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.MOBILE_NO' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div class="phone">
+            {{row.phone}}
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.LAST_USED' | translate}}">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        {{column.name}}
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.lastUsed}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{'APP.COMMON.SET_PASSWORD' | translate}}">
+        <ng-template let-column="column" ngx-datatable-header-template>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          &nbsp;
+          <button *ngIf="checkPermissionSetPassword(row.typeOfStaff)" type="submit" (click)="onClickSetPassword(row.email)" class="btn btn-danger text-center">{{'APP.COMMON.SET_PASSWORD' | translate}}</button>
+        </ng-template>
+      </ngx-datatable-column>
+  </ngx-datatable>

@@ -1,0 +1,114 @@
+<app-loading-page *ngIf="isLoading"></app-loading-page>
+<div class="container home-container">
+  <div class="card wrapper">
+    <div class="card-header wrapper__header">
+      <label class="card-subtitle">Home</label>
+    </div>
+    <div class="card-body wrapper__main">
+      <ngb-accordion [closeOthers]="true" [activeIds]="openPanel">
+        <ngb-panel id="how-it-works">
+          <ng-template ngbPanelTitle>
+            <label>{{howItWorkTitle|translate}}</label>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div [innerHTML]="howItWorkHtmlContent"></div>
+          </ng-template>
+        </ngb-panel>
+
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <label>{{howGetBenefitTitle|translate}}</label>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div class="benefit-container">
+              <div class="follow-step" *ngFor="let howGetBenefitHtmlContent of howGetBenefitHtmlContents; let index = index">
+                  <label class="follow-step--label">{{'Step'|translate}} {{index + 1}}</label>
+                  <p class="follow-step--content">{{ howGetBenefitHtmlContent|translate}}</p>
+                </div>
+            </div>
+          </ng-template>
+        </ngb-panel>
+
+        <ngb-panel id="available-store">
+          <ng-template ngbPanelTitle>
+            <label>{{'HOME-CONTENT.available.title'|translate}}</label>
+          </ng-template>
+          ngbPanelTitle
+          <ng-template ngbPanelContent>
+
+            <div *ngFor="let outletInfo of outletResponse" class="store-info">
+              <ngb-accordion [closeOthers]="true">
+                <ngb-panel class="store-info--wrapper">
+                  <ng-template ngbPanelTitle>
+                    <div class="store-info__header">
+                      <label class="store-header--name">{{outletInfo.name}}</label>
+                      <label class="store-header--address">
+                        {{outletInfo.address}}{{outletInfo.city}}{{outletInfo.postalCode}}
+                      </label>
+                    </div>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <div class="store-contact">
+                      <div class="store-contact--wrapper">
+                        <i class="icon far fa-envelope"></i>
+                        <label>{{outletInfo.email}}</label>
+                      </div>
+
+                      <div class="store-contact--wrapper">
+                        <i class="icon fas fa-phone-volume"></i>
+                        <label>+{{outletInfo.phoneCountryCode}} {{outletInfo.phone}}</label>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+            </div>
+          </ng-template>
+        </ngb-panel>
+
+        <ngb-panel id="contact-info">
+          <ng-template ngbPanelTitle>
+            <label>{{contactInfoTitle | translate}}</label>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div class="contact-info--wrapper">
+              <i class="icon far fa-clock"></i>
+              <p [innerHTML]="contactInfoOpenTime | translate"></p>
+            </div>
+
+            <div class="contact-info--wrapper">
+              <i class="icon far fa-envelope"></i>
+              <p class="email">{{contactInfoEmail | translate}}</p>
+            </div>
+
+            <div class="contact-info--wrapper">
+              <i class="icon fas fa-phone-volume"></i>
+              <p class="phone-num">{{contactInfoPhone | translate}}</p>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel id="term-of-use">
+          <ng-template ngbPanelTitle>
+            <label>{{termOfUseTitle|translate}}</label>
+          </ng-template>
+          <ng-template ngbPanelContent>
+              <div [innerHTML]="termOfUseContent"></div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel id="privacy-policy">
+          <ng-template ngbPanelTitle>
+            <label>{{privacyPolicyTitle|translate}}</label>
+          </ng-template>
+          <ng-template ngbPanelContent>
+              <div [innerHTML]="privacyPolicyContent"></div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+
+
+    </div>
+    <div class="card-footer wrapper__footer">
+      <app-my-account-navigation-button></app-my-account-navigation-button>
+    </div>
+  </div>
+</div>

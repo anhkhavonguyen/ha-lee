@@ -1,0 +1,153 @@
+<div class="customer-profile-page w-100 h-100">
+
+  <div *ngIf="isLoadingTransparent"
+       class="loading">
+    <app-loading></app-loading>
+  </div>
+  <div class="customer-profile-page-content w-100 h-100">
+
+    <div class="serving-title w-100 p-2 border-bottom">
+      <div class="welcome">
+        <img class="welcome__staff-avatar rounded-circle float-left ml-2"
+             src="/assets/img/tog_profile_icon.png">
+        <p class="welcome__title float-left ml-2">
+          {{currentUser.lastName}} {{currentUser.firstName}} {{'CUSTOMER_PROFILE.is-serving'|translate}}</p>
+      </div>
+      <div class="button-group-loading d-flex flex-row">
+        <button class="button-group-loading__retry-button btn-warning text-white border-0 float-right mr-2"
+                *ngIf="isRetry"
+                (click)="onClickRetryButton()">{{'BUTTON.retry'|translate}}</button>
+        <button class="button-group-loading__done-button text-white border-0 mr-2"
+                (click)="onClickDoneButton()">{{'BUTTON.done'|translate}}</button>
+      </div>
+    </div>
+
+    <div class="loading-page d-flex justify-content-center w-100"
+         *ngIf="isLoading">
+      <div class="detail-loading w-100"
+           *ngIf="!messageLoading">
+        <i class="icon-loading fa fa-spinner fa-spin ml-2"></i>
+      </div>
+      <div class="message"
+           *ngIf="messageLoading">
+        <p class="h3">{{messageLoading}}</p>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <div class="outlet-info d-flex flex-row p-3 border-bottom"
+           [ngStyle]="panelColorProperties">
+        <img class="outlet-avatar"
+             src="{{outletAvatar}}">
+        <p class="outlet-name align-self-center h3 ml-3">{{currentOutlet.name}}</p>
+      </div>
+
+      <div class="main-content p-3">
+
+        <div class="customer-profile border bg-white">
+          <div class="header-profile p-2 pl-4 pr-4 d-flex flex-row align-self-center {{membershipType.typeClass}}"
+               [ngStyle]="membershipButtonColorProperties">
+            <div class="header-profile__membershiptype flex-grow-1">
+              <p class="membershipTypeName"
+                 (click)="viewMembershipHistory()">{{membershipType.displayName}}</p>
+            </div>
+            <div class="header-profile__edit-membership flex-grow-1 d-flex flex-row">
+              <div class="flex-grow-1">
+                <p *ngIf="hasPreminumMembershipTransaction">
+                  <em *ngIf="isShowExpired()">{{'CUSTOMER_PROFILE.expiry'|translate}} : </em>
+                  <em>
+                    <span *ngIf="isExpired()"
+                          class="text-danger">{{'CUSTOMER_PROFILE.expired'|translate}}</span>
+                    <span *ngIf="!isExpired()">{{expiredDate}}</span>
+                  </em>
+                </p>
+              </div>
+              <div class="flex-grow-1">
+                <p class="edit-button float-right mb-0"
+                   (click)="onClickEditButton()">
+                  <u>{{'CUSTOMER_PROFILE.edit'|translate}}</u>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row customer-info d-flex flex-row p-4">
+
+
+            <div class="col-sm-2"
+                 (click)="onClickViewQRCode()">
+              <img class="customer-info__avatar rounded-circle"
+                   src="{{imageCustomer}}">
+            </div>
+            <div class="col-sm-5">
+              <p class="customer-info__customer-name text-dark">{{fullnNameCustomer || 'Unknown name'}}</p>
+              <p class="customer-info__customer-code text-dark mt-2">{{'CUSTOMER_PROFILE.code'|translate}}: {{currentCustomer.customerCode}}</p>
+              <div class="customer-phone text-dark">
+                <p>
+                  <span class="customer-info__phone"> <i class="fas fa-phone"></i>+{{this.currentCustomer.phoneCountryCode}}
+                    <b class="customer-info__phone--big">{{this.currentCustomer.phone}} </b>
+                    <i class="change-phone-button fas fa-pencil-alt"
+                       (click)="onClickChangePhoneButton()"
+                       *ngIf="ChangePhoneFeature"></i></span>
+                </p>
+                <a *ngIf="!isConfirmedSignUp"
+                   class="customer-info__resend-sign-up text-warning ml-3"
+                   (click)="onClickResendSignUpLink()">
+                  <em>{{'CUSTOMER_PROFILE.resend-signup-link'|translate}}</em>
+                </a>
+                <a *ngIf="!isResetPassword"
+                   class="customer-info__reset-password text-warning ml-3"
+                   (click)="onClickResendResetPassword()">
+                  <em>{{'CUSTOMER_PROFILE.resend-reset-password-link'|translate}}</em>
+                </a>
+              </div>
+
+            </div>
+            <div class="col-sm-5">
+              <div class="customer-info__email"
+                   [hidden]="!this.currentCustomer.email">
+                <i class="fas fa-envelope"></i> {{this.currentCustomer.email}}
+              </div>
+              <div class="customer-info__birthday"
+                   [hidden]="!this.currentCustomer.dateOfBirth">
+                <i class="fas fa-birthday-cake"></i> {{this.currentCustomer.dateOfBirth}}
+              </div>
+              <div class="customer-info__birthday-text"
+                   [hidden]='!isBirthmonth'>
+                <img src="../../../assets/img/birthday-icon.ico"
+                     alt=""
+                     placement="bottom"
+                     ngbTooltip="{{'CUSTOMER_PROFILE.birthmonth' | translate}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-row-reverse w-100 p-2">
+            <p class="flex-grow-1 customer-info__total-transaction text-right text-dark">
+              <em>{{'CUSTOMER_PROFILE.total-transactions'|translate}} :</em> {{currentCustomer.totalStranstion || '0'}}</p>
+            <p [hidden]="!this.currentCustomer.lastUsed"
+               class="flex-grow-1 text-dark">
+              <em>{{'CUSTOMER_PROFILE.last-used'|translate}}: </em> {{this.currentCustomer.lastUsed}}</p>
+          </div>
+        </div>
+        <div class="blank-div mt-4 mb-4"></div>
+        <app-balance-card [type]='point'
+                          [balance]='rewardPointBalance'
+                          [currentCustomer]='currentCustomer'
+                          [isWaitting]='isWaittingPoint'
+                          [isBirthmonth]='isBirthmonth'
+                          [isAllowRedeem]='isAllowRedeem()'
+                          [appSettings]='appSettings'
+                          [getExpiryPointsResponse]='getExpiryPointsResponse'
+                          [isLoadExpiringPoint]='isLoadExpiringPoint'
+                          (newBalance)="getEmitNewPointBalance($event)"></app-balance-card>
+        <div class="blank-div mt-5 mb-4"></div>
+        <app-balance-card [type]='wallet'
+                          [balance]='walletBalance'
+                          [currentCustomer]='currentCustomer'
+                          [isWaitting]='isWaittingWallet'
+                          [appSettings]='appSettings'
+                          (newBalance)="getEmitNewWalletBalance($event)"></app-balance-card>
+      </div>
+    </div>
+  </div>

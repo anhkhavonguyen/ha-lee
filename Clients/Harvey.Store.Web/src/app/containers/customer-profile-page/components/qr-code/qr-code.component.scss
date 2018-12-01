@@ -1,0 +1,39 @@
+
+.qr-code{
+    vertical-align: middle;
+    text-align: center;
+    background-color: #ffffff;
+    height: 205px;
+    width: 100%;
+
+    &__title{
+        text-align: center;
+        font-size: 30px;
+        font-weight: 500
+    }
+
+    &__img-qr{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 5px solid #ffffff;
+    }
+
+    &__img-qr-position{
+        transform: translate(-1px, -225%);
+        max-width: 100%;
+    }
+
+    &__btn-close{
+        color:#ffffff;
+        border-radius:28px;
+        border:1px solid;
+        padding:8px 31px;
+        text-decoration:none;
+        background-color: #da3939;
+        outline: none;
+        cursor: pointer;
+        margin: 10px;
+        float: right;
+    }
+}

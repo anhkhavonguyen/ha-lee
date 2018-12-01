@@ -1,0 +1,1 @@
+UPDATE public."Customers" SET "Status"=0;

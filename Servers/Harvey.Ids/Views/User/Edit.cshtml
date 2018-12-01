@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Harvey.Ids.Domains
+
+@inject UserManager<ApplicationUser> UserManager
+@model Harvey.Ids.ViewModels.UserViewModel
+
+@{
+    var CurrentUser = await UserManager.GetUserAsync(User);
+}
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Edit User</h2>
+                </div>
+
+                @Html.Partial("_ValidationSummary")
+
+                <div class="body">
+                    <form id="form_validation" asp-controller="User" asp-action="Edit" method="post">
+                        @Html.Hidden("ReturnUrl", (string)ViewBag.ReturnUrl)
+                        <input asp-for="Id" hidden>
+                        <input asp-for="Password" hidden="hidden" value="***" />
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" asp-for="FirstName" required>
+                                <label class="form-label">First Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" asp-for="LastName" required>
+                                <label class="form-label">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="email" class="form-control" asp-for="Email" required>
+                                <label class="form-label">Email</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" asp-for="PhoneNumber" required>
+                                <label class="form-label">Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="gender" id="male" asp-for="Gender" value="Male">
+                            Male
+                            <input type="radio" name="gender" id="female" asp-for="Gender" value="Female">
+                            Female
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line-date">
+                                <label class="form-date-lable">Birthday</label>
+                                <input type="date" onkeydown="return false" class="form-control" asp-for="DateOfBirth" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-date-lable">Roles</label>
+                            </div>
+                            <input hidden="hidden" id="select-role" value="@Model.JsonUserRoles">
+                            @Html.DropDownListFor(m => m.SelectedRoleIds, (SelectList)ViewBag.RolesSelect,
+                                    new { @id = "edit-user-role-assignment", @class = "user-role-assignment", @multiple = "true" })
+                        </div>
+
+                        @if (Model.Id != CurrentUser.Id)
+                        {
+                            <div class="form-group">
+                                @Html.RadioButtonFor(model => model.IsActive, "true", new { id = "active" })
+                                Active
+
+                                @Html.RadioButtonFor(model => model.IsActive, "false", new { id = "inactive" })
+                                Inactive
+                            </div>
+                        }
+                        else
+                        {
+                            <input hidden="hidden" asp-for="IsActive" />
+                        }
+
+                        <button class="btn btn-primary waves-effect" type="submit">Save</button>
+                        <a class="btn btn-danger waves-effect" asp-controller="user" asp-action="index">Cancel</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

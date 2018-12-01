@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add New AppSetting</h5>
+  <button type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="onDismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="addValueForm">
+        <fieldset>
+          <div class="form-group">
+              <label>{{'APP.SETTINGS.NAME'| translate}}</label>
+              <input 
+                      class="form-control" 
+                      formControlName="name"  
+                      placeholder="{{'APP.SETTINGS.NAME'| translate}}" 
+                      [ngClass]="{'is-invalid': (addValueForm.get('name')?.touched ||
+                                                      addValueForm.get('name')?.dirty) &&
+                                                      !addValueForm.get('name')?.valid}">
+          
+              <label>{{'APP.SETTINGS.VALUE'| translate}}</label>
+              <input 
+                      class="form-control" 
+                      formControlName="value"  
+                      placeholder="{{'APP.SETTINGS.VALUE'| translate}}" 
+                      [ngClass]="{'is-invalid': (addValueForm.get('value')?.touched ||
+                                                      addValueForm.get('value')?.dirty) &&
+                                                      !addValueForm.get('value')?.valid}">
+          
+              <label>{{'APP.SETTINGS.GROUPNAME'| translate}}</label>
+              <select 
+                  class="form-control" 
+                  formControlName="groupName" 
+                  name="GroupName" 
+                  (change)="onChangeGroupName($event.target.value)"
+                  [ngClass]="{'is-invalid': (addValueForm.get('groupName')?.touched ||
+                                                      addValueForm.get('groupName')?.dirty) &&
+                                                      !addValueForm.get('groupName')?.valid}">
+                  <option value="">Select Group Name</option>
+                  <option value="OptionRedeem">OptionRedeem</option>
+                  <option value="ValidatePhone">ValidatePhone</option>
+              </select>
+          
+              <label>{{'APP.SETTINGS.APPSETTINGTYPE'| translate}}</label>
+              <input 
+                  class="form-control"
+                  formControlName="appSettingTypeName"
+                  disabled  placeholder="{{'APP.SETTINGS.APPSETTINGTYPE'| translate}}" 
+                  [ngClass]="{'is-invalid': (addValueForm.get('appSettingType')?.touched ||
+                                                      addValueForm.get('appSettingType')?.dirty) &&
+                                                      !addValueForm.get('appSettingType')?.valid}">
+          </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+  <button
+          [disabled]="!addValueForm.valid"
+          (click)="updateRequetsValue()"
+          class="btn btn-primary"
+          type="button">
+    {{'APP.SETTINGS.ADD'| translate}}
+  </button>
+</div>

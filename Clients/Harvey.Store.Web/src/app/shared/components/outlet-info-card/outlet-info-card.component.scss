@@ -1,0 +1,28 @@
+.outlet-info-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+
+    &__avatar {
+        height: 75px;
+        width: 170px;
+        min-width: 170px;
+    }
+    &__image {
+        height: 75px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &__email {
+        overflow-wrap: break-word;
+    }
+}
+
+@media (max-width: 414px) { 
+    .outlet-info-card  {
+        display: flex;
+        flex-direction: column;
+    }
+}

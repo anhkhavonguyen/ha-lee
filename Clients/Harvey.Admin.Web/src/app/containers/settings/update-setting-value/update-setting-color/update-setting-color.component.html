@@ -1,0 +1,28 @@
+<div class="form-group">
+  <div class="d-flex flex-column">
+    <label>Background color</label>
+    <div class="color-container">
+      <input class="color-container__color-picker"
+             [(colorPicker)]="backgroundColor"
+             [style.background]="backgroundColor"
+             (colorPickerChange)="onChangeBackgroundColor()"
+             (cpInputChange)="onInputChange('background-color', $event)"
+             readonly/> {{backgroundColor}}
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="d-flex flex-column">
+    <label>Color</label>
+    <div class="color-container">
+      <input class="color-container__color-picker"
+             [(colorPicker)]="textColor"
+             [colorPicker]="textColor"
+             [style.background]="textColor"
+             (colorPickerChange)="onChangeTextColor()"
+             (cpInputChange)="onInputChange('text-color', $event)"
+             readonly/> {{textColor}}
+    </div>
+  </div>
+</div>

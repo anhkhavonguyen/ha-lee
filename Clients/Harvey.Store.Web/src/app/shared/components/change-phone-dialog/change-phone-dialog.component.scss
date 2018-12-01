@@ -1,0 +1,45 @@
+.content {
+    padding: 15px;
+}
+
+.modal-header {
+    border-radius: unset;
+    background-color: #221f1f;
+    color: #ffffff;
+
+    .close-icon {
+        color: #ffffff;
+    }
+}
+
+.modal-body {
+    .form-group {
+        padding: 0px;
+    }
+
+    .phone-group {
+        margin: 0px;
+        &__country-code {
+            padding-left: 0px;
+        }
+    }
+
+    .error-message {
+        margin-left: 0px;
+    }
+}
+
+.modal-footer {
+    background-color: #221f1f;
+    color: #ffffff;
+}
+
+.close-button {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #e42c00;
+    
+    &:hover {
+        background-color: #ff4518;
+    }
+}

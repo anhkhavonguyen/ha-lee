@@ -1,0 +1,35 @@
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+.header {
+    padding: 20px 0;
+}
+
+.search {
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.grid {
+    font-size: 15px;
+}
+
+.selected {
+    background-color: #e9ecef;
+}
+
+.pagination {
+    float: right;
+}
+
+.phone {
+    white-space: nowrap;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}

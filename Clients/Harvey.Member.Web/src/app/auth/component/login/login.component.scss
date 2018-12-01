@@ -1,0 +1,43 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  .welcome-back{
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .tog-logo {
+    width: 30%;
+    padding-top: 5%;
+    margin-bottom: 20px;
+    align-self: center;
+  }
+  .card-header {
+    text-align: center;
+    font-size: 18px;
+  }
+  .form-group {
+    &--title {
+      float: left;
+    }
+    &--custom{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .error {
+    text-align: left;
+  }
+  .btn {
+    min-width: 100px;
+    &--back-to-login {
+      float: left;
+    }
+    &--forgot-password {
+      float: right;
+      margin-bottom: 1rem;
+    }
+  }
+}

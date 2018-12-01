@@ -1,0 +1,172 @@
+.modal-header {
+    border-radius: unset;
+    background-color: #221f1f;
+    color: #ffffff;
+}
+
+.modal-footer {
+    border-radius: unset;
+    background-color: #221f1f;
+    color: #ffffff;
+}
+
+.close-icon {
+    color: #ffffff;
+}
+
+.save-button {
+    height: 100px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0px;
+    background-color: #e42c00;
+    
+    &:hover {
+        background-color: #ff4518;
+    }
+}
+
+.pointer-event-none {
+    opacity: 0.5;
+    pointer-events: none;   
+ }
+
+.btn-option {
+    height: 100px;
+    font-size: 35px;
+    font-weight: bold;
+    background-color: #ff4518;
+    color: white;
+    width: 100%;
+    border-radius: 0px !important;
+}
+
+.comment {
+     height: 250px;
+}
+
+.dropdown-options-expired-date {
+    margin-bottom: 0.5rem;
+}
+
+.button-option {
+}
+
+.membership {
+    width: 180px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.custom-control {
+    display: flex;
+    padding-left: 10px;
+    margin-bottom: 0;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    &.fill-checkbox{
+		--color: #26a69a;
+
+		.fill-control-input{
+			display: none;
+			&:checked~.fill-control-indicator{
+				background-color: var(--color);
+				border-color: var(--color);
+				background-size: 80%;
+			}
+		}
+		.fill-control-indicator{
+			border-radius: 3px;
+			display: inline-block;
+			position: initial;
+			width: 40px;
+			height: 30px;
+			border: 2px solid #aaa;
+			transition: .3s;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+        }
+        .fill-control-description {
+            align-self: center;
+            margin-left: 5px;
+        }
+	} 
+}
+
+.button-option-expired-membership {
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+    height: 100px;
+    font-size: 35px;
+    background-color: #26A65B;
+    border-color: #26A65B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+    .save-button {
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .button-option-expired-membership { 
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .btn-option {
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1023.98px) {
+    .input-date {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        &__title {
+            margin-bottom: 0 !important;
+        }
+
+        &__datepicker {
+            width: unset;
+        }
+    }
+}
+
+@media (min-width: 1024px) { 
+    .input-date {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        margin-left: 0;
+        margin-right: 0;
+    
+         &__title {
+            margin-bottom: 0 !important;
+            padding: 0;
+            max-width: unset;
+            width: 22%;
+            flex: unset;
+         }
+    
+         &__datepicker {
+            width: 78%;
+            max-width: 100%;
+            flex: unset;
+            padding: 0;
+         }
+    }
+ }

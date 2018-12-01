@@ -1,0 +1,27 @@
+.card-header{
+    text-align: center;
+}
+.card-body{
+    text-align: center;
+}
+
+
+.qr-code{
+    vertical-align: middle;
+    text-align: center;
+    background-color: #ffffff;
+    height: 205px;
+    width: 100%;
+
+    &__img-qr{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 5px solid #ffffff;
+    }
+
+    &__img-qr-position{
+        transform: translate(-1px, -225%);
+        max-width: 100%;
+    }
+}

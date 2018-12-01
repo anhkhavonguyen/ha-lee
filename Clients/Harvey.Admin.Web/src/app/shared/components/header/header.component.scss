@@ -1,0 +1,24 @@
+$topnav-background-color: #6c757d;
+
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        box-shadow: 1px 1px 4px 1px #4c4c4c;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item {
+            padding-right: 3.5rem;
+        }
+        .nav-item > a {
+            cursor: pointer;
+            color: #f8f9fa;
+            &:hover {
+                color: #fff;
+            }
+        }
+        .dropdown-item{
+            cursor: pointer;
+        }
+    }
+}

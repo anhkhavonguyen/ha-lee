@@ -1,0 +1,227 @@
+<div *ngIf="isLoading"
+     class="loading">
+  <app-loading></app-loading>
+</div>
+<div class="dashboard-page">
+  <div class="dashboard-page__navbar navbar p-3"
+       [ngStyle]="panelColorProperties">
+    <div class="outlet-info d-flex align-items-center w-75">
+      <img class="outlet-info__avatar navbar-brand float-left"
+           src="{{outletAvatar}}">
+      <p class="outlet-info__name h2 float-left">{{currentOutlet.name}}</p>
+    </div>
+    <div ngbDropdown
+         placement="bottom-right">
+      <button class="menu-button border-0 bg-transparent"
+              ngbDropdownToggle>
+        <span class="menu-button__label fas fa-align-justify text-white h2"></span>
+      </button>
+      <div ngbDropdownMenu
+           class="pop-menu border rounded-0">
+        <button class="dropdown-item"
+                (click)="onClickHomePageButton()">{{'MENU.home'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickServingButton()">{{'MENU.serving'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickListCustomerButton()"
+                *ngIf="checkPermissionCurrentUser(nameRoleAdminStaff)">{{'MENU.list-customers'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickTransactionsHistoryButton()">{{'MENU.transactions-history'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickChangePasswordButton()"
+                *ngIf="checkPermissionCurrentUser(nameRoleAdminStaff)">{{'MENU.change-password'|translate}}</button>
+        <button class="dropdown-item"
+                (click)="onClickLogoutButton()">{{'MENU.logout'|translate}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-page__body p-4">
+    <div class="d-flex flex-row align-items-center w-100">
+      <div class="dashboard__title flex-grow-1">
+        <p class="h1">{{'DASHBOARD.title'|translate}}</p>
+      </div>
+      <div class="dashboard__date d-flex flex-row flex-grow-1 align-items-center">
+        <div class="d-flex flex-row flex-grow-1 align-items-center mr-3">
+          <p class="mr-2">{{'DASHBOARD.from'|translate}}: </p>
+          <div class="input-group">
+            <input [(ngModel)]="filteredFromDate"
+                   class="form-control"
+                   placement="bottom-right"
+                   placeholder="{{show_from_date_filter}}"
+                   name="dateFrom"
+                   ngbDatepicker
+                   readonly
+                   #f="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary"
+                      (click)="f.toggle()"
+                      type="button"
+                      [ngClass]="{'pointer-event-none': isLoading}">
+                <i class="fa fa-calendar-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-row flex-grow-1 align-items-center">
+          <p class="mr-2">{{'DASHBOARD.to'|translate}}: </p>
+          <div class="input-group">
+            <input [(ngModel)]="filteredToDate"
+                   class="form-control"
+                   placement="bottom-right"
+                   placeholder="{{show_end_date_filter}}"
+                   name="dateTo"
+                   ngbDatepicker
+                   readonly
+                   #t="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary"
+                      (click)="t.toggle()"
+                      type="button"
+                      [ngClass]="{'pointer-event-none': isLoading}">
+                <i class="fa fa-calendar-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-outline-secondary ml-3"
+                (click)="onClickRefreshButton()"
+                type="button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Membership card -->
+    <div class="card border-0 mt-2">
+      <div class="card-header bg-success">
+        <p class="h4 text-white">
+          <i class="fas fa-address-card"></i> {{'DASHBOARD.members-summary'|translate}}:
+        </p>
+      </div>
+      <div class="card-body border border-top-0">
+        <ul>
+          <li>
+            {{'DASHBOARD.new-basic-members'|translate}}:
+            <span>
+              <b>{{totalNewBasicCustomer}}</b>
+            </span>
+          </li>
+          <li>
+            {{'DASHBOARD.upgraded-members'|translate}}:
+            <span>
+              <b>{{totalUpgradedCustomer}}</b>
+            </span>
+          </li>
+          <li>
+            {{'DASHBOARD.renewed-members'|translate}}:
+            <span>
+              <b>{{totalRenewedCustomer}}</b>
+            </span>
+          </li>
+          <li>
+            {{'DASHBOARD.extended-members'|translate}}:
+            <span>
+              <b>{{totalExtendedCustomer}}</b>
+            </span>
+          </li>
+
+          <li>
+            {{'DASHBOARD.expired-members'|translate}}:
+            <span>
+              <b>{{totalExpiredCustomer}}</b>
+            </span>
+          </li>
+          <li>
+            {{'DASHBOARD.voided-members'|translate}}:
+            <span>
+              <b>{{totalDowngradedCustomer}}</b>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Membership card -->
+    <div class="card border-0 mt-2">
+      <div class="card-header bg-success">
+        <p class="h4 text-white">
+          <i class="fas fa-address-card"></i> {{'DASHBOARD.membership-transaction-summary'|translate}}
+        </p>
+      </div>
+      <div class="card-body border border-top-0">
+        <ul>
+          <li>
+            {{'DASHBOARD.voided-membership-transaction'|translate}}:
+            <span>
+              <b>{{totalVoidMembership}}</b>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Point transactions card -->
+    <div class="card border-0 mt-4">
+      <div class="card-header bg-success">
+        <p class="h4 text-white">
+          <i class="fas fa-coins"></i> {{'DASHBOARD.reward-points-summary'|translate}}:
+          <span class="badge badge-secondary">{{totalBalancePointTrans}} points</span>
+        </p>
+      </div>
+      <div class="card-body border border-top-0">
+        <ul>
+          <li> {{'DASHBOARD.total-add'|translate}}:
+            <span>
+              <b>{{totalAddPoints}} points</b>
+            </span>
+          </li>
+          <li> {{'DASHBOARD.total-redeem'|translate}}:
+            <span>
+              <b>{{totalRedeemPoints}} points</b>
+            </span>
+          </li>
+          <li> {{'DASHBOARD.total-void-add'|translate}}:
+            <span>
+              <b>{{totalVoidOfAddPoints}} points</b>
+            </span>
+          </li>
+          <li> {{'DASHBOARD.total-void-redeem'|translate}}:
+            <span>
+              <b>{{totalVoidOfRedeemPoints}} points</b>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Wallet transactions card -->
+    <div class="card border-0 mt-4">
+      <div class="card-header bg-success">
+        <p class="h4 text-white">
+          <i class="fas fa-wallet"></i> {{'DASHBOARD.wallet-summary'|translate}}:
+          <span class="badge badge-secondary">${{totalWalletTranasctions}}</span>
+        </p>
+      </div>
+      <div class="card-body border border-top-0">
+        <ul>
+          <li> {{'DASHBOARD.total-topup'|translate}}:
+            <span>
+              <b>${{totalTopup}}</b>
+            </span>
+          </li>
+          <li> {{'DASHBOARD.total-spend'|translate}}:
+            <span>
+              <b>${{totalSpend}}</b>
+            </span>
+          </li>
+          <li> {{'DASHBOARD.total-void-topup'|translate}}:
+            <span>
+              <b>${{totalVoidTopup}}</b>
+            </span>
+          </li>
+          <li> {{'DASHBOARD.total-void-spend'|translate}}:
+            <span>
+              <b>${{totalVoidSpend}}</b>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

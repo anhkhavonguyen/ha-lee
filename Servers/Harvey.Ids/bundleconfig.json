@@ -1,0 +1,31 @@
+[
+  {
+    "outputFileName": "wwwroot/site/site.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/css/bootstrap.css",
+      "wwwroot/css/themes/all-themes.css",
+      "wwwroot/css/style.css",
+      "wwwroot/plugins/select2/select2.min.css",
+      "wwwroot/css/theme.css",
+      "wwwroot/vendor/mdi-font/css/material-design-iconic-font.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/site/site.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.min.js",
+      "wwwroot/plugins/select2/select2.min.js",
+      "wwwroot/plugins/node-waves/waves.js",
+      "wwwroot/js/admin.js",
+      "wwwroot/js/pages/index.js",
+      "wwwroot/js/pages/users/index.js",
+      "wwwroot/js/pages/users/create.js",
+      "wwwroot/js/pages/users/edit.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

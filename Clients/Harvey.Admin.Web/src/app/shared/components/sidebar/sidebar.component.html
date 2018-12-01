@@ -1,0 +1,58 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+  <div class="blank"></div>
+  <div class="list-group">
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['homepage']" class="list-group-item">
+      <i class="fas fa-tachometer-alt fa-fw icon"></i>&nbsp;{{'APP.COMMON.HOME_PAGE' | translate}}
+    </a>
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['settings']" class="list-group-item">
+      <i class="fas fa-cogs fa-fw icon"></i>&nbsp;{{'APP.COMMON.SETTINGS' | translate}}
+    </a>
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['staff']" class="list-group-item">
+      <i class="fas fa-user fa-fw icon"></i>&nbsp;{{'APP.COMMON.STAFFS' | translate}}
+    </a>
+
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['customer']" class="list-group-item">
+      <i class="fas fa-users fa-fw icon"></i>&nbsp;{{'APP.COMMON.CUSTOMERS' | translate}}
+    </a>
+
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['outlet']" class="list-group-item">
+      <i class="fas fa-store fa-fw icon"></i>&nbsp;{{'APP.COMMON.OUTLETS' | translate}}
+    </a>
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['sms-report']" class="list-group-item">
+      <i class="fas fa-file-signature fa-fw icon"></i>&nbsp;{{'APP.COMMON.SMS_REPORT' | translate}}
+    </a>
+
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['error-log']" class="list-group-item">
+      <i class="fas fa-exclamation-triangle fa-fw icon"></i>&nbsp;{{'APP.COMMON.ERRORS_LOG' | translate}}
+    </a>
+
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['activity']" class="list-group-item">
+      <i class="fas fa-list fa-fw icon"></i>&nbsp;{{'APP.COMMON.ACTIVITY' | translate}}
+    </a>
+
+    <div class="header-fields">
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('profile')">
+          <span>
+            <i class="fa fa-user fa-fw icon"></i>&nbsp; {{userName}}</span>
+        </a>
+        <li class="nested" [class.expand]="showMenu === 'profile'">
+          <ul class="submenu">
+            <li>
+              <a [routerLink]="['/login']" (click)="onLoggedout()">
+                <span>
+                  <i class="fa fa-fw fa-power-off icon"></i> {{'APP.COMMON.LOGOUT' | translate}}</span>
+              </a>
+
+            </li>
+            <li>
+              <a (click)="onChangePassword()">
+                <span><i class="fas fa-key icon"></i> {{'APP.COMMON.CHANGE_PASSWORD' | translate}}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,55 @@
+obj/
+bin/
+.vs/
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+Clients/Harvey.Member.Web/.idea/
+ocelot.json
+Clients/Harvey.Store.Web/.idea/
+Clients/Harvey.Admin.Web/.idea/
+.vscode/launch.json
+.vscode/tasks.json
+Servers/Harvey.Ids/wwwroot/site/site.min.css
+Servers/Harvey.Ids/wwwroot/site/site.min.js
+clientsrc/package-lock.json

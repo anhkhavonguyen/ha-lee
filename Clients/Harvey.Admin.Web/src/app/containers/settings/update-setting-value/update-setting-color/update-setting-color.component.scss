@@ -1,0 +1,19 @@
+.color-container {
+    display: inline-block;
+
+    input {
+        cursor: pointer;
+    }
+
+    color-picker {
+        display: list-item;
+    }
+
+    &__color-picker {
+        width: 33px;
+    }
+
+    &__color-picker:hover {
+        cursor: pointer;
+    }
+}

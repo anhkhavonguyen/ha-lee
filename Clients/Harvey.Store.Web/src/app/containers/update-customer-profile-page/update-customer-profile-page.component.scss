@@ -1,0 +1,334 @@
+.update-customer-profile-page {
+    height: 100vh;
+
+    &--content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: #fff url(//cdn.shopify.com/s/files/1/0972/9804/t/7/assets/bg-music.png?7226171952935484144) repeat scroll;
+        .tog-logo {
+            height: 200px;
+            margin: 20px 0px;
+            align-self: center;
+        }
+
+        .card-input {
+            display: flex;
+            flex-direction: column;
+            margin: 0px 20px 50px 20px;
+
+            &--header {
+                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+                text-align: center;
+                padding: 0.75rem 1.25rem;
+                background-color: #f7f7f7;
+                font-size: 35px;
+
+                .title {
+                    margin-bottom: 0px;
+                }
+            }
+
+            &--body {
+                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-top: 0;
+                border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+                height: fit-content;
+                padding: 20px;
+
+                .datepicker {
+                    height: 60px;
+                    font-size: 30px;
+
+                    &--button {
+                        height: 60px;
+                        font-size: 30px;
+                    }
+                }
+
+                .gender-group {
+                    margin-bottom: 10px !important;
+                }
+
+                .group-button-submit {
+                    padding-right: 15px;
+                    padding-left: 15px;
+                    margin-bottom: 20px;
+
+                    &--isComfirm {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                }
+                
+                .btn {
+                    min-width: 100px;
+
+                    &--orange {
+                        width: 150px;
+                        height: 60px;
+                        font-size: 30px;
+                        float: right;
+                        background-color: #ff4518;
+                        border-color: #ff4518;
+                        color: #fff;
+
+                        &:hover {
+                            background-color: #e42c00;
+                        }
+                    }
+
+                    &--orange:not(:disabled):not(.disabled).active {
+                        background-color: #e42c00;
+                        border-color: #e42c00;
+                    }
+
+                    &--gender {
+                        height: 60px;
+                        font-size: 30px;
+                        width: 100%;
+                        background-color: white;
+                        border-color: #ff4518;
+
+                        &:hover {
+                            background-color: #e42c00;
+                            color: white;
+                        }
+
+                        &-disable {
+                            height: 60px;
+                            font-size: 30px;
+                            width: 100%;
+                            cursor: not-allowed;
+                            margin-bottom: 20px;
+                        }
+                    }
+
+                    &--gender:not(:disabled):not(.disabled).active {
+                        background-color: #e42c00;
+                        border-color: #e42c00;
+                        color: white;
+                    }
+
+                    &--back {
+                        font-size: 30px;
+                        color: #e42c00;
+                        padding: 0;
+                        min-width: unset !important;
+
+                        &:hover {
+                            color: #ff4518;
+                        }
+                    }
+
+                    &--success {
+                        width: 150px;
+                        color: #fff;
+                        background-color: #28a745;
+                        border-color: #28a745;
+                        height: 60px;
+                        font-size: 30px;
+                    }
+                }
+
+                .input {
+                    &--password {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                input[type="radio"] {
+                    display: none;
+                }
+
+                input[type="email"] {
+                    height: 60px;
+                    font-size: 30px;
+                }
+
+                input[type="text"] {
+                    height: 60px;
+                    font-size: 30px;
+                }
+
+                input[type="password"] {
+                    height: 60px;
+                    font-size: 30px;
+                }
+            }
+
+            .row {
+                margin: 0px;
+            }
+        }
+
+        .skip-container {
+            bottom: 0;
+            width: 100%;
+            position: fixed;
+            &--button {
+                border: 0;
+                cursor: pointer;
+                float: right;
+                height: 100px;
+                width: 200px;
+                background-color: transparent;
+            }
+        }
+    }
+
+    @media (max-width: 575.98px) { 
+        .tog-logo {
+            height: 100px;
+        }
+    }
+
+    @media (max-height: 768px){
+        .tog-logo {
+            height: 150px;
+        }
+
+        .card-input {
+
+            &--header {
+                font-size: 30px;
+
+                .title {
+                    margin-bottom: 0px;
+                }
+            }
+
+            &--body {
+
+                .datepicker {
+                    height: 50px;
+                    font-size: 25px;
+
+                    &--button {
+                        height: 50px;
+                        font-size: 25px;
+                    }
+                }
+                
+                .btn {
+                    min-width: 100px;
+
+                    &--orange {
+                        width: 100px;
+                        height: 50px;
+                        font-size: 25px;
+                    }
+
+
+                    &--gender {
+                        height: 50px;
+                        font-size: 25px;
+
+                        &-disable {
+                            height: 50px;
+                            font-size: 25px;
+                        }
+                    }
+
+                    &--back {
+                        font-size: 25px;
+                    }
+
+                    &--success {
+                        width: 100px;
+                        height: 50px;
+                        font-size: 25px;
+                    }
+                }
+
+                input[type="email"] {
+                    height: 50px;
+                    font-size: 25px;
+                }
+
+                input[type="text"] {
+                    height: 50px;
+                    font-size: 25px;
+                }
+
+                input[type="password"] {
+                    height: 50px;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-height: 812px), screen and (max-width: 375px) {
+
+        .card-input {
+
+            &--header {
+                font-size: 30px;
+            }
+
+            &--body {
+
+                .datepicker {
+                    height: 45px;
+                    font-size: 20px;
+
+                    &--button {
+                        height: 45px;
+                        font-size: 20px;
+                    }
+                }
+                
+                .btn {
+                    min-width: 100px;
+
+                    &--orange {
+                        width: 50px;
+                        height: 45px;
+                        font-size: 20px;
+                    }
+
+
+                    &--gender {
+                        height: 45px;
+                        font-size: 20px;
+
+                        &-disable {
+                            height: 45px;
+                            font-size: 20px;
+                        }
+                    }
+
+                    &--back {
+                        font-size: 20px;
+                    }
+
+                    &--success {
+                        width: 50px;
+                        height: 45px;
+                        font-size: 20px;
+                    }
+                }
+
+                input[type="email"] {
+                    height: 45px;
+                    font-size: 20px;
+                }
+
+                input[type="text"] {
+                    height: 45px;
+                    font-size: 20px;
+                }
+
+                input[type="password"] {
+                    height: 45px;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

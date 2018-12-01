@@ -1,0 +1,74 @@
+<div class="sms-report-content">
+  <div class="row header">
+    <div class="col-sm-6">
+      <p class="h1">{{'APP.COMMON.SMS_REPORT' | translate}}</p>
+    </div>
+    <div class="col-sm-6">
+    </div>
+  </div>
+  <div class="filter">
+      <form class="form-inline my-2 my-lg-0 sms-datepicker">
+          <input class="form-control" [(ngModel)]="searchText" #searchInput  name="searchText" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    <form class="form-inline my-2 my-lg-0 sms-datepicker">
+      <div class="input-group">
+        <input class="form-control" placeholder="{{'APP.COMMON.FILTERED_DATE' | translate}}" name="dp" ngbDatepicker readonly #d="ngbDatepicker"
+          [(ngModel)]="filter_date" (ngModelChange)="updateFilterDate()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <i class="fa fa-calendar-alt"></i>
+            </button>
+        </div>
+      </div>
+    </form>
+    <div class="sms-report-btn">
+      <button type="button" class="btn btn-outline-secondary reset" (click)="onClickReset()">{{'APP.COMMON.RESET' | translate}}</button>
+    </div>
+  </div>
+  <div class="sms-grid">
+    <ngx-datatable class="material" [rows]="smsNotificationList" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+      [rowHeight]="'auto'" [externalPaging]="true" [count]="totalItem" [offset]="pageNumber" [limit]="pageSize" [loadingIndicator]="loadingIndicator"
+      (page)='setPage($event)'>
+      <ngx-datatable-column name="{{'APP.SMS_REPORT_COMPONENT.PHONE_NUMBER' | translate}}" [width]="widthPhoneColumn">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.receivers}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'APP.SMS_REPORT_COMPONENT.CONTENT' | translate}}" [width]="widthContentColumn">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.content}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'APP.SMS_REPORT_COMPONENT.TYPE' | translate}}" [width]="widthTypeColumn">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.action}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'APP.SMS_REPORT_COMPONENT.SENT_AT' | translate}}">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.createdDate}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'APP.COMMON.STATUS' | translate}}">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          {{column.name}}
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.status}}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

@@ -1,0 +1,517 @@
+<app-loading-page *ngIf="isLoading"></app-loading-page>
+<div class="container my-account ">
+  <div class="card wrapper">
+    <div class="card-header wrapper__header">
+      <label>{{'MY-ACCOUNT.header'|translate}}</label>
+      <i (click)="logOut()"
+         class="fas fa-sign-out-alt icon--log-out"></i>
+    </div>
+
+    <div class="card-body wrapper__main">
+      <div class="blank-page"
+           [hidden]="checkExistMember || isLoading">
+        <p class="message h3">{{'MY-ACCOUNT.member-is-deactive'|translate}}</p>
+      </div>
+      <section class="my-account__user-info"
+               [hidden]="!checkExistMember">
+        <div class="row user-info d-flex flex-row p-4 user-info__personal">
+
+          <div class="col-sm-3">
+            <img src="{{displayPicture}}"
+                 alt="Avatar"
+                 class="user-info--avatar">
+          </div>
+
+          <div class="col-sm-4">
+
+            <div class="user-info__personal--nameGroup">
+              <span [hidden]='!isBirthmonth'>
+                <img class="user-info__birthday-text"
+                     src="../../../assets/img/icon/birthday-icon.ico"
+                     alt=""
+                     placement="top"
+                     ngbTooltip="{{'MY-ACCOUNT.birthmonth' | translate}}">
+              </span>
+              <span class="user-info__personal--name">
+                {{userProfile.firstName}} {{userProfile.lastName}}
+                <i title="Edit Profile"
+                   class="icon--edit-profile fas fa-pen-fancy"
+                   (click)="editProfile()"></i>
+              </span>
+
+            </div>
+            <ng-container *ngIf="userMembership === membershipType.basic">
+              <div class="user-info__personal--membership" [ngStyle]="membershipBasicButtonColorProperties">
+                <b>{{userMembership}}</b>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="userMembership === membershipType.premium">
+              <div class="user-info__personal--membership" [ngStyle]="membershipPremiumButtonColorProperties">
+                <b>{{userMembership}}</b>
+              </div>
+            </ng-container>
+              
+            <div [hidden]="!expiredDate"
+                 class="expired-date flex-grow-1">{{'MY-ACCOUNT.expiry'|translate}}:
+              <em class="text-danger"
+                  *ngIf="checkIsExpired(expiredDate,userMembership)">Expired!</em>
+              <em *ngIf="!checkIsExpired(expiredDate,userMembership)">{{expiredDate}}</em>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <p class="user-info__personal--phone">
+              <i class="fas fa-phone"></i> {{userPhone}}
+              <!--<span class="btn&#45;&#45;change-phone"><a (click)="changePhoneNumber()">{{'BUTTON.change'|translate}}</a></span>-->
+            </p>
+            <p class="user-info__email"
+               [hidden]="!userProfile.email">
+              <i class="fas fa-envelope"></i> {{userProfile.email}}
+            </p>
+            <p class="user-info__birthday"
+               [hidden]="!userProfile.dateOfBirth">
+              <i class="fas fa-birthday-cake"></i> {{birthday}}
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="my-account__profile"
+               [hidden]="!checkExistMember">
+        <ngb-accordion>
+          <ngb-panel>
+            <ng-template ngbPanelTitle>
+              <div class="user-transaction"
+                   (click)="toggleExpandMembershipHistory()">
+                <div class="user-transaction__type">
+                  <i class="far fa-id-card icon"></i>
+                  <label>{{'MY-ACCOUNT.membership-program' | translate}}</label>
+                </div>
+                <div class="user-transaction__balance">
+                  <i class="fas fa-angle-down"
+                     *ngIf="!isViewMembershipHistory"></i>
+                  <i class="fas fa-angle-up"
+                     *ngIf="isViewMembershipHistory"></i>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <ngx-datatable class="material expandable datatable-body"
+                             #tableTransactionMembership
+                             [rows]="membershipTransactionList"
+                             [columnMode]="'force'"
+                             [headerHeight]="50"
+                             [footerHeight]="50"
+                             [rowHeight]="'auto'"
+                             [externalPaging]="true"
+                             [count]="totalMembershipTransaction"
+                             [offset]="pageNumberMembership"
+                             [limit]="pageSize"
+                             [loadingIndicator]="loadingIndicatorMembershipTransaction"
+                             (page)='getTransactionMembershipHistory($event)'>
+
+                <ngx-datatable-row-detail #myDetailRow
+                                          (toggle)="onDetailToggle($event)">
+                  <ng-template let-row="row"
+                               let-expanded="expanded"
+                               ngx-datatable-row-detail-template>
+                    <div class="row-details">
+                      <p>
+                        <b>{{'MY-ACCOUNT.created-date'|translate}}: </b>{{row.createdDate}}</p>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-row-detail>
+
+                <ngx-datatable-column [width]="50"
+                                      [resizeable]="false"
+                                      [sortable]="false"
+                                      [draggable]="false"
+                                      [canAutoResize]="false"
+                                      *ngIf="isSmallDevices">
+                  <ng-template let-row="row"
+                               let-expanded="expanded"
+                               ngx-datatable-cell-template>
+                    <a [class.datatable-icon-right]="!expanded"
+                       [class.datatable-icon-down]="expanded"
+                       title="Expand/Collapse Row"
+                       (click)="toggleExpandRowMembership(row)">
+                    </a>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column *ngIf="!isSmallDevices"
+                                      name="{{'MY-ACCOUNT.created-date'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.createdDate}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="{{'MY-ACCOUNT.membership'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.membershipType}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="{{'MY-ACCOUNT.expiry'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.expiredDate}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                  <ng-template let-rowCount="rowCount"
+                               let-pageSize="pageSize"
+                               let-selectedCount="selectedCount"
+                               let-curPage="curPage"
+                               let-offset="offset"
+                               ngx-datatable-footer-template>
+                    <app-custom-paginator-ngx-datatable [page]="curPage"
+                                                        [visiblePagesCount]="currentVisible"
+                                                        [size]="pageSize"
+                                                        [count]="rowCount"
+                                                        [hidden]="false"
+                                                        (change)="tableTransactionMembership.onFooterPage($event)"
+                                                        class="w-100 h-100"
+                                                        [totalItem]="totalMembershipTransaction">
+                    </app-custom-paginator-ngx-datatable>
+                  </ng-template>
+                </ngx-datatable-footer>
+              </ngx-datatable>
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel>
+            <ng-template ngbPanelTitle>
+              <div class="user-transaction"
+                   (click)="toggleExpandPointHistory()">
+                <div class="user-transaction__type">
+                  <img src="{{iconPoint}}"
+                       class="icon">
+                  <label class="profile--type">{{'MY-ACCOUNT.reward-point'|translate}}</label>
+                </div>
+                <div class="user-transaction__balance">
+                  <label class="profile--point mr-2">{{userBalance.pointTransactionBalance}}
+                    <i *ngIf="hasExpiryPoint"
+                       class="icon-warning fas fa-exclamation-circle"></i>
+                  </label>
+                  <i class="fas fa-angle-down"
+                     *ngIf="!isViewPointHistory"></i>
+                  <i class="fas fa-angle-up"
+                     *ngIf="isViewPointHistory"></i>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <!-- Expiring -->
+              <div class="expiring-point">
+                <ngb-accordion activeIds="panel-expiring">
+                  <ngb-panel id="panel-expiring">
+                    <ng-template ngbPanelTitle>
+                      <div class="expiring-point__total">
+                        <p><b>{{'MY-ACCOUNT.expiring-points'|translate}}</b></p>
+                        <p><span *ngIf="isLoadingExpiryPoint"><i class="loading__icon fa fa-spinner fa-spin ml-2"></i></span>
+                          <span *ngIf="!isLoadingExpiryPoint">{{getExpiryPointsResponse.totalExpirypoint || 0}}</span></p>
+                      </div>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                      <div class="expiring-point__table"
+                           *ngIf="!isLoadingExpiryPoint">
+                        <div class="expiring-point__table--row"
+                             *ngFor="let item of getExpiryPointsResponse.expiryPoints">
+                          <p>{{item.expiry | date:'MMM d, y'}}</p>
+                          <p>{{item.pointValue}}</p>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+              </div>
+              <!-- Table -->
+              <ngx-datatable class="material"
+                             #tableTransactionPoint
+                             [rows]="pointTransactionList"
+                             [columnMode]="'force'"
+                             [headerHeight]="50"
+                             [footerHeight]="50"
+                             [rowHeight]="'auto'"
+                             [externalPaging]="true"
+                             [count]="totalItemPointTransaction"
+                             [offset]="pageNumberPoint"
+                             [limit]="pageSize"
+                             [loadingIndicator]="loadingIndicatorPointTransaction"
+                             (page)='getTransactionPointHistory($event)'>
+
+                <ngx-datatable-row-detail #myDetailRow
+                                          (toggle)="onDetailToggle($event)">
+                  <ng-template let-row="row"
+                               let-expanded="expanded"
+                               ngx-datatable-row-detail-template>
+                    <div class="row-details">
+                      <p>
+                        <b>{{'MY-ACCOUNT.balance'|translate}}: </b>{{row.balanceTotal}}</p>
+                      <p>
+                        <b>{{'MY-ACCOUNT.expiry'|translate}}: </b>{{row.expiredDate}}</p>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-row-detail>
+
+                <ngx-datatable-column [width]="50"
+                                      [resizeable]="false"
+                                      [sortable]="false"
+                                      [draggable]="false"
+                                      [canAutoResize]="false"
+                                      *ngIf="!isExtraLargeDevices()">
+                  <ng-template let-row="row"
+                               let-expanded="expanded"
+                               ngx-datatable-cell-template>
+                    <a [class.datatable-icon-right]="!expanded"
+                       [class.datatable-icon-down]="expanded"
+                       title="Expand/Collapse Row"
+                       (click)="toggleExpandRowPoint(row)">
+                    </a>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="130"
+                                      name="{{'MY-ACCOUNT.created-date'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.createdDate}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="80"
+                                      name="{{'MY-ACCOUNT.add'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.credit}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="80"
+                                      name="{{'MY-ACCOUNT.redeem'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.debit}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                      name="{{'MY-ACCOUNT.balance'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.balanceTotal}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                      name="{{'MY-ACCOUNT.expiry'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.expiredDate}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                  <ng-template let-rowCount="rowCount"
+                               let-pageSize="pageSize"
+                               let-selectedCount="selectedCount"
+                               let-curPage="currentPagePoint"
+                               let-offset="offset"
+                               ngx-datatable-footer-template>
+                    <app-custom-paginator-ngx-datatable [page]="currentPagePoint"
+                                                        [visiblePagesCount]="currentVisible"
+                                                        [size]="pageSize"
+                                                        [count]="rowCount"
+                                                        [hidden]="false"
+                                                        (change)="tableTransactionPoint.onFooterPage($event)"
+                                                        class="w-100 h-100"
+                                                        [totalItem]="totalItemPointTransaction">
+                    </app-custom-paginator-ngx-datatable>
+                  </ng-template>
+                </ngx-datatable-footer>
+              </ngx-datatable>
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel>
+            <ng-template ngbPanelTitle>
+              <div class="user-transaction"
+                   (click)="toggleExpandWalletHistory()">
+                <div class="user-transaction__type">
+                  <img src="{{iconWallet}}"
+                       class="icon">
+                  <label>{{'MY-ACCOUNT.wallet'|translate}}</label>
+                </div>
+                <div class="user-transaction__balance">
+                  <i class="icon--dollar fas fa-dollar-sign"></i>
+                  <span class="profile--balance mr-2">{{userBalance.walletTransactionBalance}}</span>
+                  <i class="fas fa-angle-down"
+                     *ngIf="!isViewWalletHistory"></i>
+                  <i class="fas fa-angle-up"
+                     *ngIf="isViewWalletHistory"></i>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <ngx-datatable class="material"
+                             #tableTransactionWallet
+                             [rows]="walletTransactionList"
+                             [columnMode]="'force'"
+                             [headerHeight]="50"
+                             [footerHeight]="50"
+                             [rowHeight]="'auto'"
+                             [externalPaging]="true"
+                             [count]="totalWalletTransaction"
+                             [offset]="pageNumberWallet"
+                             [limit]="pageSize"
+                             [loadingIndicator]="loadingIndicatorWalletTransaction"
+                             (page)='getTransactionWalletHistory($event)'>
+
+                <ngx-datatable-row-detail #myDetailRow
+                                          (toggle)="onDetailToggle($event)">
+                  <ng-template let-row="row"
+                               let-column="column"
+                               let-expanded="expanded"
+                               ngx-datatable-row-detail-template>
+                    <div class="row-details">
+                      <p>
+                        <b>{{'MY-ACCOUNT.balance'|translate}}: </b>{{row.balanceTotal}}</p>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-row-detail>
+
+                <ngx-datatable-column [width]="50"
+                                      [resizeable]="false"
+                                      [sortable]="false"
+                                      [draggable]="false"
+                                      [canAutoResize]="false"
+                                      *ngIf="!isExtraLargeDevices()">
+                  <ng-template let-row="row"
+                               let-expanded="expanded"
+                               ngx-datatable-cell-template>
+                    <a [class.datatable-icon-right]="!expanded"
+                       [class.datatable-icon-down]="expanded"
+                       title="Expand/Collapse Row"
+                       (click)="toggleExpandRowWallet(row)">
+                    </a>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="130"
+                                      name="{{'MY-ACCOUNT.created-date'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.createdDate}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="80"
+                                      name="{{'MY-ACCOUNT.topup'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.credit}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="80"
+                                      name="{{'MY-ACCOUNT.spend'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.debit}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column *ngIf="isExtraLargeDevices()"
+                                      name="{{'MY-ACCOUNT.balance'|translate}}">
+                  <ng-template let-column="column"
+                               ngx-datatable-header-template>
+                    {{column.name}}
+                  </ng-template>
+                  <ng-template let-row="row"
+                               ngx-datatable-cell-template>
+                    {{row.balanceTotal}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                  <ng-template let-rowCount="rowCount"
+                               let-pageSize="pageSize"
+                               let-selectedCount="selectedCount"
+                               let-curPage="currentPageWallet"
+                               let-offset="offset"
+                               ngx-datatable-footer-template>
+                    <app-custom-paginator-ngx-datatable [page]="currentPageWallet"
+                                                        [visiblePagesCount]="currentVisible"
+                                                        [size]="pageSize"
+                                                        [count]="rowCount"
+                                                        [hidden]="false"
+                                                        (change)="tableTransactionWallet.onFooterPage($event)"
+                                                        class="w-100 h-100"
+                                                        [totalItem]="totalWalletTransaction">
+                    </app-custom-paginator-ngx-datatable>
+                  </ng-template>
+                </ngx-datatable-footer>
+              </ngx-datatable>
+
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+
+      </section>
+    </div>
+
+    <div class="card-footer wrapper__footer">
+      <app-my-account-navigation-button></app-my-account-navigation-button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Harvey.Ids.Domains
+@using System.Linq;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{ 
+    IList<string> roles;
+    var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
+    if(user != null)
+    {
+        roles = await UserManager.GetRolesAsync(user);
+    }
+    else
+    {
+        roles = new List<string>();
+    }
+}
+
+<aside id="leftsidebar" class="sidebar">
+    <div class="menu">
+        <ul class="list">
+            @if (roles.Contains("Administrator"))
+            {
+                <li class="active">
+                    <a asp-controller="User" asp-action="Index">
+                        <span>User</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</aside>

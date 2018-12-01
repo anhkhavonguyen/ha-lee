@@ -1,0 +1,117 @@
+﻿using Harvey.CRMLoyalty.Application.Domain.AppSettings.Queries.GetAppSettings;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.AddMembershipCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.AddPointCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.InitCustomerProfileCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.RedeemPointCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.UpdateMemberProfileCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Queries;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Queries.GetCustomer;
+using Harvey.CRMLoyalty.Application.Domain.MembershipTransactions.Queries;
+using Harvey.CRMLoyalty.Application.Domain.MembershipTransactions.Queries.GetMembershipTransactions;
+using Harvey.CRMLoyalty.Application.Domain.MembershipTransactions.Queries.GetCurrentMembership;
+using Harvey.CRMLoyalty.Application.Domain.Outlets.Queries;
+using Harvey.CRMLoyalty.Application.Domain.PointTransactions.Queries;
+using Harvey.CRMLoyalty.Application.Domain.PointTransactions.Queries.GetPointBalance;
+using Harvey.CRMLoyalty.Application.Domain.Staffs.Queries;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Commands.TopUpWalletCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Queries;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Queries.GetWalletTransactionsByOutlet;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Queries.GetWalletTransactionBalance;
+using Microsoft.Extensions.DependencyInjection;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.MigrationDataCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Commands.SpendingWalletCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.PointTransactions.Commands.VoidPointCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Commands.VoidWalletCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.UpdateCustomerCodeCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Queries.GetPremiumCustomers;
+using Harvey.CRMLoyalty.Application.Domain.AppSettings.Commands.UpdateAppSettingCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Outlets.Commands.UpdateOutletCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.MembershipTransactions.Commands.VoidMembershipCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.MembershipTransactions.Queries.GetVoidMembershipTransactions;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.ActiveCustomerCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.UpdateFullCustomerInfomationCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.UpdateCustomerProfileAfterInitCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.ReactiveCustomerWithNewPhoneCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.ChangePhoneNumberCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.PointTransactions.Queries.GetExpiringPoints;
+using Harvey.CRMLoyalty.Application.Domain.AppSettings.Commands.DeleteAppSettingCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Commands.ExpiryPointCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Queries.GetUpgradedCustomers;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Queries.GetRenewedCustomers;
+using Harvey.CRMLoyalty.Application.Domain.Customers.Queries.GetExtendedCutomers;
+using Harvey.CRMLoyalty.Application.Domain.AppSettings.Commands.AddAppSettingsCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.PointTransactions.Queries.GetPointsStatistics;
+using Harvey.CRMLoyalty.Application.Domain.WalletTransactions.Queries.GetWalletStatistics;
+using Harvey.CRMLoyalty.Application.Domain.MembershipTransactions.Commands.ExpiryMembershipNotificationCommandHandler;
+using Harvey.CRMLoyalty.Application.Domain.PointTransactions.Commands.ExpiryRewardPointNotificationCommandHandler;
+
+namespace Harvey.CRMLoyalty.Application.Domain
+{
+    public static class DomainApplicationModule
+    {
+        public static void Registry(IServiceCollection services)
+        {
+            services.AddScoped<IGetStaffsQuery, GetStaffsQuery>();
+            services.AddScoped<IGetOutletsQuery, GetOutletsQuery>();
+            services.AddScoped<IGetCustomersQuery, GetCustomersQuery>();
+            services.AddScoped<IGetCustomerQuery, GetCustomerQuery>();
+            services.AddScoped<IGetPointTransactionsQuery, GetPointTransactionsQuery>();
+            services.AddScoped<IGetWalletTransactionsQuery, GetWalletTransactionsQuery>();
+            services.AddScoped<IGetWalletTransactionsByCustomerQuery, GetWalletTransactionsByCustomerQuery>();
+            services.AddScoped<IExportCSVQuery, ExportCSVQuery>();
+            services.AddScoped<IGetMembershipTransactionsByCustomerQuery, GetMembershipTransactionsByCustomerQuery>();
+            services.AddScoped<IGetPointTransactionsByCustomerQuery, GetPointTransactionsByCustomerQuery>();
+            services.AddScoped<IInitCustomerProfileCommandHandler, InitCustomerProfileCommandHandler>();
+            services.AddScoped<IAddPointCommandHandler, AddPointCommandHandler>();
+            services.AddScoped<IUpdateMemberProfileCommandHandler, UpdateMemberProfileCommandHandler>();
+            services.AddScoped<IAddMembershipCommandHandler, AddMembershipCommandHandler>();
+            services.AddScoped<IRedeemPointCommandHandler, RedeemPointCommandHandler>();
+            services.AddScoped<IGetAppSettingsQuery, GetAppSettingsQuery>();
+            services.AddScoped<IGetWalletTransactionsByOutlet, GetWalletTransactionsByOutlet>();
+            services.AddScoped<IGetMembershipTransactions, GetMembershipTransactions>(); 
+            services.AddScoped<ITopUpWalletCommandHandler, TopUpWalletCommandHandler>();
+            services.AddScoped<ISpendingWalletCommandHandler, SpendingWalletCommandHandler>();
+            services.AddScoped<IGetPointBalance, GetPointBalance>();
+            services.AddScoped<IGetWalletTransactionBalance, GetWalletTransactionBalance>();
+            services.AddScoped<IGetCurrentMembershipQueryHandler, GetCurrentMembershipQueryHandler>();
+            services.AddScoped<IMigrationDataCommandHandler, MigrationDataCommandHandler>();
+            services.AddScoped<IGetNewCustomersQuery, GetNewCustomersQuery>();
+            services.AddScoped<IGetExpiredCustomersQuery, GetExpiredCustomersQuery>();
+            services.AddScoped<IGetVoidedCustomersQuery, GetVoidedCustomersQuery>();
+            services.AddScoped<IGetDebitValuePointTransactionQuery, GetDebitValuePointTransactionQuery>();
+            services.AddScoped<IGetCreditValuePointTransactionQuery, GetCreditValuePointTransactionQuery>();
+            services.AddScoped<IGetTotalBalancePointTransactionQuery, GetTotalBalancePointTransactionQuery>();
+            services.AddScoped<IVoidPointCommandHandler, VoidPointCommandHandler>();
+            services.AddScoped<IGetTotalBalanceWalletTransactionQuery, GetTotalBalanceWalletTransactionQuery>();
+            services.AddScoped<IGetCreditValueWalletTransactionQuery, GetCreditValueWalletTransactionQuery>();
+            services.AddScoped<IGetDebitValueWalletTransactionQuery, GetDebitValueWalletTransactionQuery>();
+            services.AddScoped<IVoidWalletCommandHandler, VoidWalletCommandHandler>();
+            services.AddScoped<IGetPremiumCustomers, GetPremiumCustomers>();
+            services.AddScoped<IGetVoidOfCreditPointTransactionQuery, GetVoidOfCreditPointTransactionQuery>();
+            services.AddScoped<IGetVoidOfDebitPointTransactionQuery, GetVoidOfDebitPointTransactionQuery>();
+            services.AddScoped<IGetVoidOfCreditWalletTransactionQuery, GetVoidOfCreditWalletTransactionQuery>();
+            services.AddScoped<IGetVoidOfDebitWalletTransactionQuery, GetVoidOfDebitWalletTransactionQuery>();
+            services.AddScoped<IUpdateAppSettingCommandHandler, UpdateAppSettingCommandHandler>();
+            services.AddScoped<IUpdateOutletCommandHandler, UpdateOutletCommandHandler>();
+            services.AddScoped<IVoidMembershipCommandHandler, VoidMembershipCommandHandler>();
+            services.AddScoped<IUpdateFullCustomerInfomationCommandHandler, UpdateFullCustomerInfomationCommandHandler>();
+            services.AddScoped<IGetVoidMembershipTransactionsQuery, GetVoidMembershipTransactionsQuery>();
+            services.AddScoped<IActiveCustomerCommandHandler, ActiveCustomerCommandHandler>();
+            services.AddScoped<IUpdateCustomerProfileAfterInitCommandHandler, UpdateCustomerProfileAfterInitCommandHandler>();
+            services.AddScoped<IReactiveCustomerWithNewPhoneCommandHandler, ReactiveCustomerWithNewPhoneCommandHandler>();
+            services.AddScoped<IChangePhoneNumberCommandHandler, ChangePhoneNumberCommandHandler>();
+            services.AddScoped<IDeleteAppSettingCommandHandler, DeleteAppSettingCommandHandler>();
+            services.AddScoped<IExpiryPointCommandHandler, ExpiryPointCommandHandler>();
+            services.AddSingleton<IUpdateCustomerCodeCommandHandler, UpdateCustomerCodeCommandHandler>();
+            services.AddScoped<IGetExpiryPointsQuery, GetExpiryPointsQuery>();
+            services.AddScoped<IGetUpgradedCustomersQuery, GetUpgradedCustomersQuery>();
+            services.AddScoped<IGetExtendedCutomersQuery, GetExtendedCutomersQuery>();
+            services.AddScoped<IGetRenewedCustomersQuery, GetRenewedCustomersQuery>();
+            services.AddScoped<IAddAppSettingsCommandHandler, AddAppSettingsCommandHandler>();
+            services.AddScoped<IGetPointsStatisticsQuery, GetPointsStatisticsQuery>();
+            services.AddScoped<IGetWalletStatisticsQuery, GetWalletStatisticsQuery>();
+            services.AddScoped<IExpiryMembershipNotificationCommand, ExpiryMembershipNotificationCommand>();
+            services.AddScoped<IExpiryRewardPointNotificationCommand, ExpiryRewardPointNotificationCommand>();
+        }
+    }
+}

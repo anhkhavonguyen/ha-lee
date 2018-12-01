@@ -1,0 +1,969 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/membershipTransactions/getvoidmembershiptransactions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/membershipTransactions/getvoidmembershiptransactions",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/membershipTransactions/void",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/membershipTransactions/void",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/outlets/updateOutlet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/outlets/updateOutlet",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsvoidofcredit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsvoidofcredit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsvoidofdebit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsvoidofdebit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getsvoidofcredit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getsvoidofcredit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getsvoidofdebit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getsvoidofdebit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/loggingError/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/loggingError/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/voidwallet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/voidwallet",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsdebitsummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsdebitsummary",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getscreditsummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getscreditsummary",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getstotalbalance",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getstotalbalance",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getstotalbalance",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getstotalbalance",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getscreditsummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getscreditsummary",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getsdebitsummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getsdebitsummary",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getdowngradedcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getdowngradedcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getexpiredcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getexpiredcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getnewcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getnewcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/notifications/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-notification-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/notifications/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/LoggingError/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-notification-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/LoggingError/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/exportcsv",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/exportcsv",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Customers/GetMembershipCurrentUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getmembershipmcurrentuser",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Customers/GetPointsCurrentUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getpointscurrentuser",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings/getsbytype",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings/getsbytype",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings/add",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings/update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings/update",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings/testSMSrepiryPoint",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings/testSMSrepiryPoint",
+      "UpstreamHttpMethod": [ "Post" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/uploadfile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/uploadfile",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/redeempoint",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/redeempoint",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/addpoint",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/addpoint",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/membershipTransactions/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/membershipTransactions/add",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsbyoutlet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsbyoutlet",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsbycustomer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsbycustomer",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getwalletbalance",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getwalletbalance",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsbystaff",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsbystaff",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/spendingwallet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/spendingwallet",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/topupwallet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/topupwallet",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getsbyoutlet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getsbyoutlet",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getsbycustomer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getsbycustomer",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/membershipTransactions/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/membershipTransactions/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/membershipTransactions/getsbyoutlet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/membershipTransactions/getsbyoutlet",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/totaltransac",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/totaltransac",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getcustomerbyphone",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getcustomerbyphone",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getcustomerbyid",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getcustomerbyid",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/staffs/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/staffs/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/staffs/getsByOutlet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/staffs/getsByOutlet",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/outlets/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/outlets/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/outlets/getsbystaff",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/outlets/getsbystaff",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/outlets/getOutletsWithStoreAccount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/outlets/getOutletsWithStoreAccount",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/PointTransactions/getpointbalance",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/PointTransactions/getpointbalance",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/PointTransactions/getsbystaff",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/PointTransactions/getsbystaff",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/PointTransactions/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/PointTransactions/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/loggingError/logError",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/loggingError/logError",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/outlets/getsWithoutPaging",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/outlets/getsWithoutPaging",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/PointTransactions/voidpoint",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/PointTransactions/voidpoint",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/initcustomerprofile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/initcustomerprofile",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getpremiumcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getpremiumcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getupgradedcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getupgradedcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getextendedcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getextendedcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/getrenewedcustomers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/getrenewedcustomers",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/activeCustomer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/activeCustomer",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/customers/reactiveCustomer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customers/reactiveCustomer",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Customers/getcustomercodebyid",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Customers/getcustomercodebyid",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Customers/getcustomersbyCustomerCodes",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Customers/getcustomersbyCustomerCodes",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getsbymember",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getsbymember",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getsbymember",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getsbymember",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getexpirypoints",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getexpirypoints",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/pointTransactions/getPointsStatistics",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pointTransactions/getPointsStatistics",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/walletTransactions/getWalletSatistics",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/walletTransactions/getWalletSatistics",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/AppSettings/getsData",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-crmloyalty-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/AppSettings/getsData",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "harvey-api-gateway"
+  }
+}

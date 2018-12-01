@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Harvey.Domain\Harvey.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Exception\Harvey.Exception.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Logging\Harvey.Logging.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Polly\Harvey.Polly.csproj" />
+  </ItemGroup>
+
+</Project>

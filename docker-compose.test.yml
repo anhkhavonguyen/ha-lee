@@ -1,0 +1,128 @@
+version: '3.5'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    volumes:
+      - es-data:/var/lib/elasticsearch/data
+    networks:
+      - harvey_network
+  
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    depends_on:
+      - elasticsearch
+    volumes:
+      - kibana.yml:/var/lib/kibana/data/kibana.yml
+    networks:
+      - harvey_network
+
+  rabbitmq:
+    image: rabbitmq:3.7.8-management-alpine
+    volumes:
+      - harvey-rabbitmq:/var/lib/rabbitmq
+    networks:
+      - harvey_network
+
+  harvey-ids: #bootstrap for rims, remove when intergration
+    image: ${DOCKER_REGISTRY}harvey-ids
+    build:
+      context: .
+      dockerfile: Servers/Harvey.Ids/Dockerfile-rims
+    depends_on:
+      - harvey-ids-db
+      - rabbitmq
+    networks:
+      - harvey_network
+
+  harvey-logging-api:
+    image: ${DOCKER_REGISTRY}harvey-logging-api
+    build:
+      context: .
+      dockerfile: src/Services/Logging/Harvey.Logging.API/Dockerfile
+    depends_on:
+      - rabbitmq
+      - elasticsearch
+      - kibana
+      - harvey-pim-api
+      - harvey-purchase-control-api
+    networks:
+      - harvey_network
+
+  harvey-pim-api:
+    image: ${DOCKER_REGISTRY}harvey-pim-api
+    build:
+      context: .
+      dockerfile: src/Services/PIM/Harvey.PIM.API/Dockerfile
+    depends_on:
+      - harvey-pim-db
+      - rabbitmq
+      - elasticsearch
+      - kibana
+    networks:
+      - harvey_network
+  
+  harvey-purchase-control-api:
+    image: ${DOCKER_REGISTRY}harvey-purchase-control-api
+    build:
+      context: .
+      dockerfile: src/Services/PurchaseControl/Harvey.PurchaseControl.API/Dockerfile
+    depends_on:
+      - harvey-purchase-control-db
+      - rabbitmq
+      - elasticsearch
+      - kibana
+    networks:
+      - harvey_network
+
+  harvey-ids-db: #bootstrap for rims, remove when intergration
+    image: postgres
+    volumes:
+      - harvey-ids-db:/var/lib/postgresql/data
+    networks:
+      - harvey_network
+
+  harvey-pim-db:
+    image: postgres
+    volumes:
+      - harvey-pim-db:/var/lib/postgresql/data
+    networks:
+      - harvey_network
+
+  harvey-purchase-control-db:
+    image: postgres
+    volumes:
+      - harvey-purchase-control-db:/var/lib/postgresql/data
+    networks:
+      - harvey_network
+
+  harvey-ims-web:
+    image: harvey-ims-web
+    build:
+      context: ./clientsrc
+      dockerfile: Dockerfile-ims
+    networks:
+      - harvey_network
+
+  harvey-retail-web:
+    image: harvey-retail-web
+    build:
+      context: ./clientsrc
+      dockerfile: Dockerfile-retail
+    networks:
+      - harvey_network
+
+
+volumes:
+  harvey-rabbitmq:
+  harvey-ids-db:
+  harvey-pim-db:
+  harvey-purchase-control-db:
+  es-data:
+  kibana.yml:
+
+networks:
+  harvey_network:
+
+
+
+

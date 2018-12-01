@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit.RabbitMQ" Version="5.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Moq" Version="4.10.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Polly" Version="6.1.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+  </ItemGroup>
+
+<ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Harvey.Exception\Harvey.Exception.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Polly\Harvey.Polly.csproj" />
+    <ProjectReference Include="..\Harvey.EventBus\Harvey.EventBus.csproj" />
+  </ItemGroup>
+
+</Project>

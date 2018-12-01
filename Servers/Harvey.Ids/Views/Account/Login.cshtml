@@ -1,0 +1,37 @@
+@model LoginViewModel
+
+@{
+    Layout = "_Layout-not-login";
+}
+
+<div class="login-page">
+    <img src="~/images/login-logo.png" alt="Login Logo" class="login-logo">
+    <div class="login-panel panel-default">
+        <div class="panel-body">
+            <h2 class="text-center">Login</h2>
+            <hr>
+            @Html.Partial("_ValidationSummary")
+
+            <form asp-route="Login">
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <fieldset>
+                    <div class="form-group form-group-login">
+                        <label>Email</label>
+                        <input class="login-input" placeholder="Email" asp-for="Username" value="" autofocus>
+                    </div>
+                    <div class="form-group form-group-login">
+                        <label>Password</label>
+                        @Html.PasswordFor(m => m.Password, new { @id = "", @placeholder = "Password", @class = "login-input", @value = Model.Password })
+                    </div>
+
+                    <a asp-controller="Account" asp-action="ForgotPassword">Forgot Password?</a>
+
+                    <div class="form-group form-group-login btn-signin">
+                        <button class="btn" name="button" value="login">Login</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

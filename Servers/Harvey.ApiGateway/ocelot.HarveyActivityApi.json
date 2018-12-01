@@ -1,0 +1,85 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/Activity/gets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-activity-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Activity/gets",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Activity/getHistoryChangeNumberCustomer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-activity-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Activity/getHistoryChangeNumberCustomer",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Activity/getHistoryCustomerActivities",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-activity-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Activity/getHistoryCustomerActivities",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Activity/getHistoryActivatedCustomerActivities",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-activity-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Activity/getHistoryActivatedCustomerActivities",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Activity/getHistoryDeactivatedCustomerActivities",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-activity-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Activity/getHistoryDeactivatedCustomerActivities",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/Activity/getVisitorsStatistics",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-activity-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Activity/getVisitorsStatistics",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "harvey-api-gateway"
+  }
+}

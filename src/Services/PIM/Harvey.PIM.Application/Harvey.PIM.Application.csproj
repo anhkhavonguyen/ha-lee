@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\Harvey.EventBus\Harvey.EventBus.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Job\Harvey.Job\Harvey.Job.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Persitance\Harvey.Persitance.EF\Harvey.Persitance.EF.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Search\Harvey.Search\Harvey.Search.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\WebHost\WebHost.Customization\WebHost.Customization.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Domain\Harvey.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Exception\Harvey.Exception.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Extensions\Harvey.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Logging\Harvey.Logging.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Polly\Harvey.Polly.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Harvey.Setting\Harvey.Setting.csproj" />
+    <ProjectReference Include="..\Harvey.PIM.MarketingAutomation\Harvey.PIM.MarketingAutomation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\Publishers\" />
+  </ItemGroup>
+
+</Project>

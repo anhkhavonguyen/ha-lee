@@ -1,0 +1,12 @@
+<div *ngIf="!isInEditMode(); else editMode">
+    <span class="field__title">{{displayText}}</span>:
+    <span class="field__tag" *ngIf="(value | json) != '{}'">
+        {{value?.value}}
+    </span>
+    <i class="far fa-edit field__icon-edit" (click)="openModal()"></i>
+</div>
+
+<ng-template #editMode>
+    <button class="field__btn-save" (click)="save()">Save <i class="fas fa-save"></i></button>
+    <button class="field__btn-cancel" (click)="cancel()">Cancel <i class="fas fa-ban"></i></button>
+</ng-template>

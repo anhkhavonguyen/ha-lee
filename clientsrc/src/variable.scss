@@ -1,0 +1,56 @@
+.field{
+
+    &__title{
+        font-weight: 600
+    }
+
+    &__btn-save{
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 5px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 5px 4px 0;
+        cursor: pointer;
+        outline: none;
+        &:hover{
+            background-color: #257ddc;
+        }
+    }
+
+    &__btn-cancel{
+        background-color: #aab4bd;
+        border: none;
+        color: white;
+        padding: 5px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 5px 4px 0;
+        cursor: pointer;
+        outline: none;
+        &:hover{
+            background-color: #858e96;
+        }
+    }
+
+    &__icon-edit{
+        cursor: pointer;
+        margin-left: 8px;
+    }
+
+    &__tag{
+        margin-right: 5px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        padding: 2px 5px 5px 5px;
+        background: #eeeeee;
+        border: 1px #ddd solid;
+        display: inline-block
+    }
+   
+}

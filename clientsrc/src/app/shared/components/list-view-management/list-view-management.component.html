@@ -1,0 +1,19 @@
+
+<app-list-view 
+  [title]="title"
+  [datasource]="datasource"
+  [pageNumber]="pageNumber"
+  [pageSize]="pageSize"
+  [totalItems]="totalItems"
+  [isHiddenSearchBox]="isHiddenSearchBox"
+  [userDefinedColumnSetting]= "userDefinedColumnSetting"
+  (sendSelectedPage)="eventSelectedPage($event)"
+  (searchQuery)="eventSearchQuery($event)"
+  (selectedRow) ="eventSelectedRow($event)">
+</app-list-view>
+
+<div class="group-button">
+  <div class="btn-item" *ngFor="let item of listButton">
+    <button [disabled]="item.disable" type="button" class="btn btn-outline-secondary reset" (click)="onClickBtn(item)">{{item.title}}</button>
+  </div>
+</div>

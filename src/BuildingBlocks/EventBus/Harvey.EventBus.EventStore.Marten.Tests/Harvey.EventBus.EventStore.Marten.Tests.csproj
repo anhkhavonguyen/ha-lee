@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Marten" Version="3.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Moq" Version="4.10.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Harvey.EventBus.EventStore.Marten\Harvey.EventBus.EventStore.Marten.csproj" />
+    <ProjectReference Include="..\Harvey.EventBus.Tests\Harvey.EventBus.Tests.csproj" />
+    <ProjectReference Include="..\Harvey.EventBus\Harvey.EventBus.csproj" />
+  </ItemGroup>
+
+</Project>

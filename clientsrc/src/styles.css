@@ -1,0 +1,28 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import '@swimlane/ngx-datatable/release/index.css';
+@import '@swimlane/ngx-datatable/release/themes/material.css';
+@import '@swimlane/ngx-datatable/release/assets/icons.css';
+
+body {
+  margin: 0;
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active,
+.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group{
+  background-color: #e2e2e2;
+
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group .datatable-body-cell{
+  color: #000;
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active:hover,
+.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group:hover{
+  background-color: #e2e2e2;
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group:hover .datatable-body-cell{
+  color: #000;
+}

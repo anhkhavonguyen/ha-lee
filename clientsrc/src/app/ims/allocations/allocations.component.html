@@ -1,0 +1,118 @@
+<div class="allocation-page">
+  <p class="list-view-title h4">
+    Allocation Management
+  </p>
+
+  <div class="columns-dropdown">
+    <label class="dropdown-title">From: <b>Outside</b></label>
+  </div>
+  <div class="columns-dropdown">
+    <div class="dropdown">
+      <label class="dropdown-title">To:</label>
+      <ng-select class="custom"
+                 [items]="locations"
+                 bindLabel="name"
+                 placeholder="Select location"
+                 [loading]="isLocationsLoading"
+                 [(ngModel)]="selectedLocation"
+                 (ngModelChange)="onSelectedLocationChange($event)"
+                 [clearable]=false>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="group-button">
+    <div class="btn-item">
+      <button [disabled]="isEnableAddButton()"
+              type="button"
+              class="btn btn-outline-secondary reset"
+              (click)="onClickAddButton()">Add</button>
+    </div>
+  </div>
+  <div class="datatable">
+    <div class="content">
+      <table class="fixed">
+        <tr class="header">
+          <th class="header column-name text-center">Products</th>
+          <th class="header column-name text-center">Variants</th>
+          <th class="header column-name text-center">Stock types</th>
+          <th class="header column-name text-center">Quantity</th>
+        </tr>
+        <tr *ngFor="let item of allocationProducts; let i = index">
+          <th class="header column-name text-center">
+            <div class="cell">
+              <ng-select class="custom"
+                         [items]="products"
+                         bindLabel="name"
+                         placeholder="Select product"
+                         [loading]="isProductsLoading"
+                         [(ngModel)]="item.product"
+                         (ngModelChange)="onSelectedProductChange(i)"
+                         [clearable]=false
+                         title="{{item.product ? item.product.name : ''}}">
+              </ng-select>
+            </div>
+          </th>
+          <th class="header column-name text-center">
+            <div class="cell">
+              <ng-select class="custom"
+                         [items]="item.variants"
+                         bindLabel="name"
+                         placeholder="Select variant"
+                         [loading]="item.isVariantsLoading"
+                         [(ngModel)]="item.variant"
+                         (ngModelChange)="onSelectedProductVariantChange(i, $event)"
+                         [clearable]=false
+                         title="{{item.variant ? item.variant.name : ''}}">
+                <ng-template ng-option-tmp
+                             let-item="item">
+                  <div class="item-select">
+                    <div *ngFor="let field of item.fieldValues">
+                      <p>{{field.name}}: <span class="font-weight-normal"
+                              *ngFor="let value of field.value; let i = index">
+                          <span *ngIf="i == 0">{{value}}</span><span *ngIf="i > 0">, {{value}}</span>
+                        </span></p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </th>
+          <th class="header column-name text-center">
+            <div class="cell">
+              <ng-select class="custom"
+                         [items]="stockTypes"
+                         bindLabel="name"
+                         placeholder="Select stock type"
+                         [loading]="isStockTypesLoading"
+                         [(ngModel)]="item.stockType"
+                         [clearable]=false
+                         title="{{item.stockType ? item.stockType.name : ''}}">
+              </ng-select>
+            </div>
+
+          </th>
+          <th class="header column-name text-center">
+            <div class="cell">
+              <input class="number-updown"
+                     type="number"
+                     name="input"
+                     [(ngModel)]="item.quantity"
+                     (ngModelChange)="onCheckNumberQuantityChange(i)"
+                     min="0">
+            </div>
+          </th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="group-button">
+    <div class="btn-item">
+      <button [disabled]="isEnableAllocateButton()"
+              type="button"
+              class="btn btn-outline-secondary reset"
+              (click)="onClickAllocateButton()">Allocate</button>
+    </div>
+  </div>
+
+</div>

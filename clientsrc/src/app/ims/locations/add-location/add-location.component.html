@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Location</h5>
+</div>
+<div class="modal-body">
+  <form [formGroup]="addValueForm">
+    <fieldset>
+      <div class="form-group">
+        <label>Name</label>
+        <input id="name" class="form-control" formControlName="name" placeholder="Name" [ngClass]="{'is-invalid': (addValueForm.get('name')?.touched ||
+                                                  addValueForm.get('name')?.dirty) &&
+                                                  !addValueForm.get('name')?.valid}">
+        <span class="error invalid-feedback" *ngIf="addValueForm.get('name')?.dirty&&
+                                                    addValueForm.get('name')?.errors">
+            <span *ngIf="addValueForm.get('name')?.errors?.required">
+              Name is required!
+            </span>
+        </span>
+
+        <label>Address</label>
+        <input class="form-control" formControlName="address" placeholder="Address" [ngClass]="{'is-invalid': (addValueForm.get('address')?.touched ||
+            addValueForm.get('address')?.dirty) &&
+            !addValueForm.get('address')?.valid}">
+        <span class="error invalid-feedback" *ngIf="addValueForm.get('address')?.dirty&&
+                                                    addValueForm.get('address')?.errors">
+            <span *ngIf="addValueForm.get('address')?.errors?.required">
+                Address is required!
+            </span>
+        </span>
+        <label>type</label>
+        <select class="form-control" formControlName="type">
+          <option value="1" selected>WareHouse</option>
+          <option value="2">Store</option>
+        </select>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary" type="button" [disabled]="addValueForm.invalid" (click)="onSave()">Save</button>
+  <button class="btn btn-secondary" type="button" (click)="onDismiss('Cross click')">Cancel</button>
+</div>

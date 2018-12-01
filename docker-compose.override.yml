@@ -1,0 +1,100 @@
+version: '3.5'
+
+services:
+  elasticsearch:
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    environment:
+      SERVER_NAME: kibana.harvey
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+
+  rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  harvey-ids: #bootstrap for rims, remove when intergration
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=${HARVEY_IDS_DB:-Server=harvey-ids-db;port=5432;Database=harveyids;UserId=postgres;Password=123456}
+      - CertificatePassword=Pssword123
+      - RabbitMqConfig__RabbitMqUrl=rabbitmq://rabbitmq
+      - RabbitMqConfig__Username=Harvey
+      - RabbitMqConfig__Password=Aa123456789
+      - Authority=http://harvey-ids
+      - Serilog__MinimumLevel=Warning
+      - Serilog__WriteTo__Name=PostgreSQL
+      - Serilog__WriteTo__Args__Name=PostgreSQL
+      - Serilog__WriteTo__Args__connectionString=${HARVEY_IDS_DB:-Server=harvey-ids-db;port=5432;Database=harveyids;UserId=postgres;Password=123456}
+      - Serilog__WriteTo__Args__tableName=Logs
+    ports:
+      - "61555:80"
+
+  harvey-logging-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - EventBusConnection=${HARVEY_AZURE_SERVICE_BUS:-rabbitmq://rabbitmq}
+      - Authority=http://harvey-ids
+    ports:
+      - "6001:80"
+
+  harvey-pim-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=${HARVEY_PIM_DB:-Server=harvey-pim-db;port=5432;Database=harveypim;UserId=postgres;Password=123456}
+      - EventBusConnection=${HARVEY_AZURE_SERVICE_BUS:-rabbitmq://rabbitmq}
+      - Authority=http://harvey-ids
+      - Logging__DataLogger__ConnectionString=${HARVEY_PIM_DB:-Server=harvey-pim-db;port=5432;Database=harveypim;UserId=postgres;Password=123456}
+      - Logging__DataLogger__TableName=LogInformation
+      - Logging__DataLogger__LogLevel=Information
+      - Logging__CentralizeLogger__Url=http://elasticsearch:9200
+      - Logging__CentralizeLogger__LogLevel=Trace
+    ports:
+      - "5001:80"
+
+  harvey-purchase-control-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=${HARVEY_PURCHASE_CONTROL_DB:-Server=harvey-purchase-control-db;port=5432;Database=harveypurchasecontrol;UserId=postgres;Password=123456}
+      - EventBusConnection=${HARVEY_AZURE_SERVICE_BUS:-rabbitmq://rabbitmq}
+      - Authority=http://harvey-ids
+      - Logging__DataLogger__ConnectionString=${HARVEY_PIM_DB:-Server=harvey-purchase-control-db;port=5432;Database=harveypurchasecontrol;UserId=postgres;Password=123456}
+      - Logging__DataLogger__TableName=LogInformation
+      - Logging__DataLogger__LogLevel=Information
+      - Logging__CentralizeLogger__Url=http://elasticsearch:9200
+      - Logging__CentralizeLogger__LogLevel=Trace
+    ports:
+      - "5002:80"
+  
+  harvey-ids-db: #bootstrap for rims, remove when intergration
+    ports:
+      - "5433:5432"
+  
+  harvey-pim-db:
+    ports:
+      - "5434:5432"
+
+  harvey-purchase-control-db:
+    ports:
+      - "5435:5432"
+
+  #harvey-ims-web:
+  #  ports:
+  #    - "4100:80"
+
+  #harvey-retail-web:
+  #  ports:
+  #    - "4200:80"

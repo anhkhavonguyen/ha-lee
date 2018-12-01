@@ -52,4 +52,5 @@ Clients/Harvey.Admin.Web/.idea/
 .vscode/tasks.json
 Servers/Harvey.Ids/wwwroot/site/site.min.css
 Servers/Harvey.Ids/wwwroot/site/site.min.js
+Servers/Harvey.Ids/wwwroot
 clientsrc/package-lock.json

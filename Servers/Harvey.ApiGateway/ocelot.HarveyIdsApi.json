@@ -1,0 +1,319 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/account/changepassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/change-password",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/forgotpasswordviaemail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/forgot-password-via-email",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/forgotpasswordviasms",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/forgot-password-via-sms",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/resetpassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/reset-password",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/uploadfile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/uploadfile",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/initaccount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/init",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/getuserprofile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/get-user-profile",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/updateprofile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/update-profile",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/getbasicaccountinfo",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/get-basic-account-info",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/changePIN",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/change-pin",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/signup",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/signup",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/ForgotPIN",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/forgot-pin",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/ResetPIN",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/reset-pin",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/SendPINToNumberPhone",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/send-pin",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/CheckPIN",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/check-pin",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/GetRolesOfCurrentUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/get-roles-current-user",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/UpdateFullCustomerInfomation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/UpdateFullCustomerInfomation",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/GetTime",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/GetTime",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/ReSendSignUpLink",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/ReSendSignUpLink",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/setPasswordForStoreAccount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/setPasswordForStoreAccount",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/UpdateCustomerProfile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/UpdateCustomerProfile",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/CheckSignUpLink",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/CheckSignUpLink",
+      "UpstreamHttpMethod": [ "GET" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/updateGenderValue",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/updateGenderValue",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/ChangePhoneNumber",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "harvey-ids",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/changephonenumber",
+      "UpstreamHttpMethod": [ "POST" ],
+      "ReRouteIsCaseSensitive": false
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "harvey-api-gateway"
+  }
+}
